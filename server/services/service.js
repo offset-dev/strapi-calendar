@@ -41,9 +41,9 @@ module.exports = () => ({
 
     return data.map(x => ({
       id: x.id,
-      title: x[config.body.titleField],
+      title: config.body.titleField ? x[config.body.titleField] : config.body.startField,
       startDate: x[config.body.startField],
-      endDate: x[config.body.endField],
+      endDate: config.body.endField ? x[config.body.endField] : undefined,
     }));
   },
   async getCollections() {
