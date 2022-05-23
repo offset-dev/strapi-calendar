@@ -42,7 +42,7 @@ const Settings = () => {
   }, []);
 
   useEffect(() => {
-    if (settings.collection) {
+    if (settings.collection && collections) {
       const collection = collections.find(x => x.uid === settings.collection);
       const fields = Object.entries(collection.attributes).map(x => ({
         id: x[0],
@@ -50,7 +50,7 @@ const Settings = () => {
       }));
       setFields(fields)
     }
-  }, [settings]);
+  }, [settings, collections]);
 
 
   useEffect(() => {
@@ -121,7 +121,7 @@ const Settings = () => {
               <Grid gap={2}>
                 <GridItem col={4} s={12}>
                   <Select label={'Choose your title field'} onChange={e => setSettings(s => ({...s, titleField: e}))} value={settings.titleField}>
-                    <Option value={null}>[No title field]</Option>
+                    <Option value={''}>[No title field]</Option>
                     {fields.filter(x => x.type === "string").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
@@ -132,7 +132,7 @@ const Settings = () => {
                 </GridItem>
                 <GridItem col={4} s={12}>
                   <Select label={'Choose your end field'} onChange={e => setSettings(s => ({...s, endField: e}))} value={settings.endField}>
-                    <Option value={null}>[No end field]</Option>
+                    <Option value={''}>[No end field]</Option>
                     {fields.filter(x => x.type === "datetime").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
@@ -143,10 +143,10 @@ const Settings = () => {
               <Typography variant={'beta'}>Calendar settings</Typography>
               <Grid gap={2}>
                 <GridItem col={6} s={12}>
-                  <TimePicker label={'Start Hour'} step={30} value={settings.startHour} onChange={e => setSettings(s => ({...s, startHour: e}))}/>
+                  <TimePicker clearLabel={"Clear Time"} label={'Start Hour'} step={30} value={settings.startHour} onChange={e => setSettings(s => ({...s, startHour: e}))}/>
                 </GridItem>
                 <GridItem col={6} s={12}>
-                  <TimePicker label={'End Hour'} step={30} value={settings.endHour} onChange={e => setSettings(s => ({...s, endHour: e}))}/>
+                  <TimePicker clearLabel={"Clear Time"} label={'End Hour'} step={30} value={settings.endHour} onChange={e => setSettings(s => ({...s, endHour: e}))}/>
                 </GridItem>
               </Grid>
 
