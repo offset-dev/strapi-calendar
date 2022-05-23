@@ -1,10 +1,10 @@
 {
   "name": "calendar",
   "version": "0.0.0",
-  "description": "This is the description of the plugin.",
+  "description": "Visual calendar for Strapi",
   "strapi": {
-    "name": "calendar",
-    "description": "Description of calendar plugin",
+    "name": "Calendar",
+    "description": "Visual calendar of events",
     "kind": "plugin"
   },
   "dependencies": {},
