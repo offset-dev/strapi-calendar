@@ -7,7 +7,9 @@
     "description": "Visual calendar of events",
     "kind": "plugin"
   },
-  "dependencies": {},
+  "dependencies": {
+    "moment": "^2.29.3"
+  },
   "author": {
     "name": "A Strapi developer"
   },

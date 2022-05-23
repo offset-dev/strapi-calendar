@@ -1,4 +1,5 @@
 'use strict';
+const moment = require('moment');
 
 function getPluginStore() {
   return strapi.store({
@@ -13,11 +14,33 @@ async function createDefaultConfig() {
   const value = {
     disabled: false,
   };
-  await pluginStore.set({ key: 'settings', value });
-  return pluginStore.get({ key: 'settings' });
+  await pluginStore.set({key: 'settings', value});
+  return pluginStore.get({key: 'settings'});
 }
 
 module.exports = () => ({
+  async getData(date) {
+    const pluginStore = getPluginStore();
+    let config = await pluginStore.get({key: 'settings'});
+    if (!config) return [];
+
+    const filters = {
+      $and: [
+        {
+          [config.body.startField]: {
+            $gte: moment(date ?? moment()).startOf('month').subtract(1, 'month').format(),
+            $lte: moment(date ?? moment()).endOf('month').add(1, 'month').format(),
+          },
+        },
+      ],
+    };
+
+    const data = await strapi.entityService.findMany(config.body.collection, {
+      filters,
+    });
+
+    return data;
+  },
   async getCollections() {
     const types = strapi.contentTypes;
     const typesArray = Object.values(types);
@@ -26,7 +49,7 @@ module.exports = () => ({
   },
   async getSettings() {
     const pluginStore = getPluginStore();
-    let config = await pluginStore.get({ key: 'settings' });
+    let config = await pluginStore.get({key: 'settings'});
     if (!config) {
       config = await createDefaultConfig();
     }
@@ -35,7 +58,7 @@ module.exports = () => ({
   async setSettings(settings) {
     const value = settings;
     const pluginStore = getPluginStore();
-    await pluginStore.set({ key: 'settings', value });
-    return pluginStore.get({ key: 'settings' });
+    await pluginStore.set({key: 'settings', value});
+    return pluginStore.get({key: 'settings'});
   },
 });

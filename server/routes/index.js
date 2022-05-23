@@ -1,6 +1,15 @@
 module.exports = [
   {
     method: 'GET',
+    path: '/',
+    handler: 'controller.getData',
+    config: {
+      policies: [],
+      auth: false,
+    },
+  },
+  {
+    method: 'GET',
     path: '/settings/collections',
     handler: 'controller.getCollections',
     config: {
