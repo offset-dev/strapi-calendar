@@ -16,7 +16,7 @@ export default {
         defaultMessage: name,
       },
       Component: async () => {
-        const component = await import(/* webpackChunkName: "[request]" */ './pages/App');
+        const component = await import(/* webpackChunkName: "[request]" */ './pages/app.js');
 
         return component;
       },
