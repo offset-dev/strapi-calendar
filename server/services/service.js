@@ -39,7 +39,12 @@ module.exports = () => ({
       filters,
     });
 
-    return data;
+    return data.map(x => ({
+      id: x.id,
+      title: x[config.body.titleField],
+      startDate: x[config.body.startField],
+      endDate: x[config.body.endField],
+    }));
   },
   async getCollections() {
     const types = strapi.contentTypes;
