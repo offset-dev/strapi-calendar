@@ -23,6 +23,7 @@ const Settings = () => {
     collection: null,
     startField: null,
     endField: null,
+    titleField: null,
     startHour: "0:00",
     endHour: "0:00",
     monthView: true,
@@ -47,7 +48,7 @@ const Settings = () => {
         id: x[0],
         ...x[1]
       }));
-      setFields(fields.filter(x => x.type === 'datetime'))
+      setFields(fields)
     }
   }, [settings]);
 
@@ -118,15 +119,21 @@ const Settings = () => {
                 {collections.map(x => <Option key={x.uid} value={x.uid}>{x.collectionName}</Option>)}
               </Select>
               <Grid gap={2}>
-                <GridItem col={6} s={12}>
-                  <Select label={'Choose your start field'} onChange={e => setSettings(s => ({...s, startField: e}))} value={settings.startField}>
-                    {fields.map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
+                <GridItem col={4} s={12}>
+                  <Select label={'Choose your title field'} onChange={e => setSettings(s => ({...s, titleField: e}))} value={settings.titleField}>
+                    <Option value={null}>[No title field]</Option>
+                    {fields.filter(x => x.type === "string").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
-                <GridItem col={6} s={12}>
+                <GridItem col={4} s={12}>
+                  <Select label={'Choose your start field'} onChange={e => setSettings(s => ({...s, startField: e}))} value={settings.startField}>
+                    {fields.filter(x => x.type === "datetime").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
+                  </Select>
+                </GridItem>
+                <GridItem col={4} s={12}>
                   <Select label={'Choose your end field'} onChange={e => setSettings(s => ({...s, endField: e}))} value={settings.endField}>
                     <Option value={null}>[No end field]</Option>
-                    {fields.map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
+                    {fields.filter(x => x.type === "datetime").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
               </Grid>
@@ -135,57 +142,52 @@ const Settings = () => {
             <Stack spacing={3} paddingBottom={8}>
               <Typography variant={'beta'}>Calendar settings</Typography>
               <Grid gap={2}>
-                <GridItem col={6} xs={12}>
+                <GridItem col={6} s={12}>
                   <TimePicker label={'Start Hour'} step={30} value={settings.startHour} onChange={e => setSettings(s => ({...s, startHour: e}))}/>
                 </GridItem>
-                <GridItem col={6} xs={12}>
+                <GridItem col={6} s={12}>
                   <TimePicker label={'End Hour'} step={30} value={settings.endHour} onChange={e => setSettings(s => ({...s, endHour: e}))}/>
                 </GridItem>
               </Grid>
-              <Grid gap={2}>
-                <GridItem col={4} s={12}>
-                  <ToggleInput
-                    label={'Month View'}
-                    checked={settings.monthView}
-                    offLabel='Disabled'
-                    onLabel='Enabled'
-                    onChange={e => {
-                      setSettings(s => ({
-                        ...s,
-                        monthView: e.target.checked,
-                      }));
-                    }}
-                  />
-                </GridItem>
-                <GridItem col={4} s={12}>
-                  <ToggleInput
-                    label={'Week View'}
-                    checked={settings.weekView}
-                    offLabel='Disabled'
-                    onLabel='Enabled'
-                    onChange={e => {
-                      setSettings(s => ({
-                        ...s,
-                        weekView: e.target.checked,
-                      }));
-                    }}
-                  />
-                </GridItem>
-                <GridItem col={4} s={12}>
-                  <ToggleInput
-                    label={'Day View'}
-                    checked={settings.dayView}
-                    offLabel='Disabled'
-                    onLabel='Enabled'
-                    onChange={e => {
-                      setSettings(s => ({
-                        ...s,
-                        dayView: e.target.checked,
-                      }));
-                    }}
-                  />
-                </GridItem>
-              </Grid>
+
+              <Stack spacing={3}>
+                <ToggleInput
+                  label={'Month View'}
+                  checked={settings.monthView}
+                  offLabel='Disabled'
+                  onLabel='Enabled'
+                  onChange={e => {
+                    setSettings(s => ({
+                      ...s,
+                      monthView: e.target.checked,
+                    }));
+                  }}
+                />
+                <ToggleInput
+                  label={'Week View'}
+                  checked={settings.weekView}
+                  offLabel='Disabled'
+                  onLabel='Enabled'
+                  onChange={e => {
+                    setSettings(s => ({
+                      ...s,
+                      weekView: e.target.checked,
+                    }));
+                  }}
+                />
+                <ToggleInput
+                  label={'Day View'}
+                  checked={settings.dayView}
+                  offLabel='Disabled'
+                  onLabel='Enabled'
+                  onChange={e => {
+                    setSettings(s => ({
+                      ...s,
+                      dayView: e.target.checked,
+                    }));
+                  }}
+                />
+              </Stack>
             </Stack>
           </Box>
         </ContentLayout>
