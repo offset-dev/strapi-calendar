@@ -1,8 +1,8 @@
-import { prefixPluginTranslations } from '@strapi/helper-plugin';
+import {prefixPluginTranslations} from '@strapi/helper-plugin';
 import pluginPkg from '../../package.json';
 import pluginId from './pluginId';
 import Initializer from './components/Initializer';
-import PluginIcon from './components/PluginIcon';
+import CalendarIcon from '@strapi/icons/Calendar';
 
 const name = pluginPkg.strapi.name;
 
@@ -10,7 +10,7 @@ export default {
   register(app) {
     app.addMenuLink({
       to: `/plugins/${pluginId}`,
-      icon: PluginIcon,
+      icon: CalendarIcon,
       intlLabel: {
         id: `${pluginId}.plugin.name`,
         defaultMessage: name,
@@ -28,6 +28,25 @@ export default {
         // },
       ],
     });
+    app.createSettingSection({
+      id: pluginId,
+      intlLabel: {
+        id: `${pluginId}.plugin.name`,
+        defaultMessage: `${pluginId} Settings`,
+      },
+    }, [
+      {
+        intlLabel: {
+          id: `${pluginId}.plugin.name`,
+          defaultMessage: 'Settings',
+        },
+        id: 'settings',
+        to: `/settings/${pluginId}`,
+        Component: async () => {
+          return import('./pages/settings');
+        },
+      },
+    ]);
     app.registerPlugin({
       id: pluginId,
       initializer: Initializer,
@@ -36,12 +55,13 @@ export default {
     });
   },
 
-  bootstrap(app) {},
-  async registerTrads({ locales }) {
+  bootstrap(app) {
+  },
+  async registerTrads({locales}) {
     const importedTrads = await Promise.all(
       locales.map(locale => {
         return import(`./translations/${locale}.json`)
-          .then(({ default: data }) => {
+          .then(({default: data}) => {
             return {
               data: prefixPluginTranslations(data, pluginId),
               locale,
