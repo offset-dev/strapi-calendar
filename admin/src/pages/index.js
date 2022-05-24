@@ -7,7 +7,6 @@
 import React, {memo, useState} from "react";
 
 import api from "../api";
-import "./style.css";
 
 import {EmptyStateLayout} from "@strapi/design-system/EmptyStateLayout";
 import {BaseHeaderLayout, ContentLayout} from "@strapi/design-system/Layout";
@@ -96,8 +95,21 @@ const HomePage = () => {
   const {monthView, weekView, dayView} = settings;
   const multipleViews = monthView && weekView || monthView && dayView || weekView && dayView;
 
+  const sty = `
+    #schedule .Cell-highlightedText {
+      color: #4945ff !important;
+      border-color: #4945ff !important;
+    }
+
+    #schedule a,
+    #schedule a > span {
+      width: 100%;
+      height: 100%;
+    }
+  `
   return (
     <>
+      <style>{sty}</style>
       <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2"/>
       <ContentLayout>
         {data.length === 0 && (
