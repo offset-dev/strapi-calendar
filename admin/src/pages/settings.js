@@ -42,7 +42,7 @@ const Settings = () => {
   }, []);
 
   useEffect(() => {
-    if (settings.collection && collections) {
+    if (settings.collection && collections.length) {
       const collection = collections.find(x => x.uid === settings.collection);
       const fields = Object.entries(collection.attributes).map(x => ({
         id: x[0],
