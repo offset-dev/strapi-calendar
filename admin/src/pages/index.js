@@ -132,11 +132,11 @@ const HomePage = () => {
             </Flex>
             <Box style={{textAlign: "center", marginBottom: 20}}>
               {state.view === "Month" &&
-                <Typography variant={"alpha"} textTransform={"uppercase"} style={{textAlign: "center"}}>{moment(state.date).format("MMMM")}</Typography>
+                <Typography variant={"alpha"} textTransform={"uppercase"} style={{textAlign: "center"}}>{moment(state.date, "ll").format("MMMM")}</Typography>
               }
             </Box>
             <Scheduler data={data}>
-              <ViewState onCurrentDateChange={load} currentDate={state.date} currentViewName={state.view}/>
+              <ViewState onCurrentDateChange={load} currentDate={moment(state.date, "ll").format()} currentViewName={state.view}/>
               <MonthView/>
               <WeekView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
               <DayView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
