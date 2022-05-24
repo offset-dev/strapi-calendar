@@ -97,8 +97,12 @@ const HomePage = () => {
 
   const sty = `
     #schedule .Cell-highlightedText {
-      color: #4945ff !important;
-      border-color: #4945ff !important;
+      color: ${settings.primaryColor} !important;
+      border-color: ${settings.primaryColor} !important;
+    }
+
+    .Cell-today {
+      background-color: ${settings.primaryColor} !important;
     }
 
     #schedule a,
@@ -160,7 +164,7 @@ const HomePage = () => {
                     {...restProps}
                     style={{
                       ...style,
-                      backgroundColor: "#4945ff",
+                      backgroundColor: settings.eventColor,
                       borderRadius: "8px",
                     }}
                   >
