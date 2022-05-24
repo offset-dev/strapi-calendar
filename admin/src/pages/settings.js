@@ -26,6 +26,7 @@ const Settings = () => {
     titleField: null,
     startHour: "0:00",
     endHour: "0:00",
+    defaultView: "Month",
     monthView: true,
     weekView: false,
     dayView: false,
@@ -62,6 +63,24 @@ const Settings = () => {
   }, []);
 
   const handleSubmit = async () => {
+    if (settings.defaultView === "Month" && !settings.monthView){
+      return toggleNotification({
+        type: 'warning',
+        message: 'Month view must be enabled',
+      })
+    }
+    if (settings.defaultView === "Week" && !settings.weekView){
+      return toggleNotification({
+        type: 'warning',
+        message: 'Week view must be enabled',
+      })
+    }
+    if (settings.defaultView === "Day" && !settings.dayView){
+      return toggleNotification({
+        type: 'warning',
+        message: 'Day view must be enabled',
+      })
+    }
     if (!settings.monthView && !settings.weekView && !settings.dayView) {
       return toggleNotification({
         type: 'warning',
@@ -152,6 +171,11 @@ const Settings = () => {
               </Grid>
 
               <Stack spacing={3}>
+                <Select label={'Default View'} onChange={e => setSettings(s => ({...s, defaultView: e}))} value={settings.defaultView}>
+                  <Option value={'Month'}>Month View</Option>
+                  <Option value={'Week'}>Week View</Option>
+                  <Option value={'Day'}>Day View</Option>
+                </Select>
                 <ToggleInput
                   label={'Month View'}
                   checked={settings.monthView}

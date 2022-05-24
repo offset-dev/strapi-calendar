@@ -104,7 +104,7 @@ const HomePage = () => {
         {data.length > 0 &&
           <Box id={"schedule"} background={"neutral0"} shadow="filterShadow" padding={[5, 8]} hasRadius>
             <Scheduler data={data}>
-              <ViewState onCurrentDateChange={load}/>
+              <ViewState onCurrentDateChange={load} defaultCurrentViewName={settings.defaultView}/>
               {monthView && <MonthView/>}
               {weekView &&
                 <WeekView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
