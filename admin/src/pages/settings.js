@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import api from '../api'
 
-import { LoadingIndicatorPage, useNotification } from '@strapi/helper-plugin';
+import {ChromePicker} from 'react-color';
+import {LoadingIndicatorPage, useNotification} from '@strapi/helper-plugin';
 
 import { Box } from '@strapi/design-system/Box';
 import { Stack } from '@strapi/design-system/Stack';
@@ -31,6 +32,8 @@ const Settings = () => {
     weekView: false,
     dayView: false,
     todayButton: true,
+    primaryColor: '#4945ff',
+    eventColor: '#4945ff',
   });
 
   const [isSaving, setIsSaving] = useState(false);
@@ -162,6 +165,18 @@ const Settings = () => {
             <Stack spacing={3} paddingBottom={8}>
               <Typography variant={'beta'}>Calendar settings</Typography>
               <Grid gap={2}>
+                <GridItem col={6} s={12}>
+                  <Typography variant={'pi'} fontWeight={'bold'}>Primary Color</Typography>
+                  <Box paddingTop={2} paddingBottom={3}>
+                    <ChromePicker color={settings.primaryColor} onChangeComplete={e => setSettings(s => ({...s, primaryColor: e.hex}))}/>
+                  </Box>
+                </GridItem>
+                <GridItem col={6} s={12}>
+                  <Typography variant={'pi'} fontWeight={'bold'}>Event Color</Typography>
+                  <Box paddingTop={2} paddingBottom={3}>
+                    <ChromePicker color={settings.eventColor} onChangeComplete={e => setSettings(s => ({...s, eventColor: e.hex}))}/>
+                  </Box>
+                </GridItem>
                 <GridItem col={6} s={12}>
                   <TimePicker clearLabel={"Clear Time"} label={'Start Hour'} step={30} value={settings.startHour} onChange={e => setSettings(s => ({...s, startHour: e}))}/>
                 </GridItem>
