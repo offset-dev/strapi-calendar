@@ -86,6 +86,9 @@ const HomePage = () => {
     </>;
   }
 
+  const {monthView, weekView, dayView} = settings;
+  const multipleViews = monthView && weekView || monthView && dayView || weekView && dayView;
+
   return (
     <>
       <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2"/>
@@ -102,11 +105,11 @@ const HomePage = () => {
           <Box id={"schedule"} background={"neutral0"} shadow="filterShadow" padding={[5, 8]} hasRadius>
             <Scheduler data={data}>
               <ViewState onCurrentDateChange={load}/>
-              {settings.monthView && <MonthView/>}
-              {settings.weekView &&
+              {monthView && <MonthView/>}
+              {weekView &&
                 <WeekView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
               }
-              {settings.dayView &&
+              {dayView &&
                 <DayView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
               }
 
@@ -128,7 +131,7 @@ const HomePage = () => {
 
               <Toolbar/>
               <DateNavigator/>
-              <ViewSwitcher/>
+              {multipleViews && <ViewSwitcher/> }
               <TodayButton/>
             </Scheduler>
           </Box>
