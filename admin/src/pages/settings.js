@@ -29,6 +29,7 @@ const Settings = () => {
     monthView: true,
     weekView: false,
     dayView: false,
+    todayButton: true,
   });
 
   const [isSaving, setIsSaving] = useState(false);
@@ -184,6 +185,18 @@ const Settings = () => {
                     setSettings(s => ({
                       ...s,
                       dayView: e.target.checked,
+                    }));
+                  }}
+                />
+                <ToggleInput
+                  label={'Today Button'}
+                  checked={settings.todayButton}
+                  offLabel='Disabled'
+                  onLabel='Enabled'
+                  onChange={e => {
+                    setSettings(s => ({
+                      ...s,
+                      todayButton: e.target.checked,
                     }));
                   }}
                 />

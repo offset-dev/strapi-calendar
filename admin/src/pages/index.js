@@ -132,7 +132,7 @@ const HomePage = () => {
               <Toolbar/>
               <DateNavigator/>
               {multipleViews && <ViewSwitcher/> }
-              <TodayButton/>
+              {settings.todayButton && <TodayButton/> }
             </Scheduler>
           </Box>
         }
