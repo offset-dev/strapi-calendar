@@ -16,23 +16,29 @@ import {Box} from "@strapi/design-system/Box";
 import {Loader} from "@strapi/design-system/Loader";
 import {Link} from "@strapi/design-system/Link";
 import {Icon} from "@strapi/design-system/Icon";
+import {Typography} from "@strapi/design-system/Typography";
+import {Flex} from "@strapi/design-system/Flex";
+import {Button} from "@strapi/design-system/Button";
+import {DatePicker} from "@strapi/design-system/DatePicker";
+import {Select, Option} from "@strapi/design-system/Select";
 import Calendar from "@strapi/icons/Calendar";
 import Cog from "@strapi/icons/Cog";
+import moment from "moment";
 
 import {
   Scheduler,
   DayView,
-  ViewSwitcher,
   WeekView,
   MonthView,
-  Toolbar,
-  DateNavigator,
   Appointments,
-  TodayButton,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import {ViewState} from "@devexpress/dx-react-scheduler";
 
 const HomePage = () => {
+  const [state, setState] = useState({
+    date: moment().format("ll"),
+    view: "Month",
+  });
   const [loading, setLoading] = useState(true);
   const [settings, setSettings] = useState(null);
   const [data, setData] = useState([]);
@@ -51,6 +57,7 @@ const HomePage = () => {
     });
     api.getSettings().then(r => {
       setSettings(r.data.body);
+      setState(s => ({...s, view: r.data.body.defaultView}));
       setLoading(false);
     });
   };
@@ -103,15 +110,36 @@ const HomePage = () => {
 
         {data.length > 0 &&
           <Box id={"schedule"} background={"neutral0"} shadow="filterShadow" padding={[5, 8]} hasRadius>
+            <Flex justifyContent={"space-between"} style={{marginBottom: 10}}>
+              <Flex>
+                <DatePicker selectedDateLabel={() => {
+                }} name={"date"} label={"Select Date"} value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
+                <Box paddingTop={5}>
+                  {settings.todayButton &&
+                    <Button variant={"secondary"} size={"L"} onClick={() => setState(s => ({...s, date: moment().format("ll")}))}>Today</Button>
+                  }
+                </Box>
+              </Flex>
+              <Box style={{width: 220}}>
+                {multipleViews &&
+                  <Select label={"Select View"} value={state.view} onChange={e => setState(s => ({...s, view: e}))}>
+                    {settings.monthView && <Option value={"Month"}>Month</Option>}
+                    {settings.weekView && <Option value={"Week"}>Week</Option>}
+                    {settings.dayView && <Option value={"Day"}>Day</Option>}
+                  </Select>
+                }
+              </Box>
+            </Flex>
+            <Box style={{textAlign: "center", marginBottom: 20}}>
+              {state.view === "Month" &&
+                <Typography variant={"alpha"} textTransform={"uppercase"} style={{textAlign: "center"}}>{moment(state.date).format("MMMM")}</Typography>
+              }
+            </Box>
             <Scheduler data={data}>
-              <ViewState onCurrentDateChange={load} defaultCurrentViewName={settings.defaultView}/>
-              {monthView && <MonthView/>}
-              {weekView &&
-                <WeekView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
-              }
-              {dayView &&
-                <DayView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
-              }
+              <ViewState onCurrentDateChange={load} currentDate={state.date} currentViewName={state.view}/>
+              <MonthView/>
+              <WeekView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
+              <DayView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
 
               <Appointments appointmentComponent={({children, style, ...restProps}) => {
                 const {id} = restProps.data;
@@ -128,11 +156,6 @@ const HomePage = () => {
                   </Appointments.Appointment>
                 </Link>;
               }}/>
-
-              <Toolbar/>
-              <DateNavigator/>
-              {multipleViews && <ViewSwitcher/> }
-              {settings.todayButton && <TodayButton/> }
             </Scheduler>
           </Box>
         }
