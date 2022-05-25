@@ -21,7 +21,7 @@ import {Button} from "@strapi/design-system/Button";
 import {DatePicker} from "@strapi/design-system/DatePicker";
 import {Select, Option} from "@strapi/design-system/Select";
 import Calendar from "@strapi/icons/Calendar";
-import Cog from "@strapi/icons/Cog";
+import {Cog, Plus} from "@strapi/icons";
 import moment from "moment";
 
 import {
@@ -94,6 +94,7 @@ const HomePage = () => {
 
   const {monthView, weekView, dayView} = settings;
   const multipleViews = monthView && weekView || monthView && dayView || weekView && dayView;
+  const primaryAction = settings.createButton ? <LinkButton startIcon={<Plus />} to={`/content-manager/collectionType/${settings.collection}/create`}>Create an entry</LinkButton> : <div/>;
 
   const sty = `
     #schedule .Cell-highlightedText {
@@ -114,7 +115,7 @@ const HomePage = () => {
   return (
     <>
       <style>{sty}</style>
-      <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2"/>
+      <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2" primaryAction={primaryAction} />
       <ContentLayout>
         {data.length === 0 && (
           <EmptyStateLayout icon={<Icon color={"primary700"} width={30} height={30} as={Calendar}/>} content={"There are no events loaded. \n\n Did you properly configure the plugin?"} action={

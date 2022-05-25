@@ -32,6 +32,7 @@ const Settings = () => {
     weekView: false,
     dayView: false,
     todayButton: true,
+    createButton: true,
     primaryColor: '#4945ff',
     eventColor: '#4945ff',
   });
@@ -236,6 +237,18 @@ const Settings = () => {
                     setSettings(s => ({
                       ...s,
                       todayButton: e.target.checked,
+                    }));
+                  }}
+                />
+                <ToggleInput
+                  label={'Create Button'}
+                  checked={settings.createButton}
+                  offLabel='Disabled'
+                  onLabel='Enabled'
+                  onChange={e => {
+                    setSettings(s => ({
+                      ...s,
+                      createButton: e.target.checked,
                     }));
                   }}
                 />
