@@ -25,6 +25,7 @@ const Settings = () => {
     startField: null,
     endField: null,
     titleField: null,
+    drafts: true,
     startHour: "0:00",
     endHour: "0:00",
     defaultView: "Month",
@@ -161,6 +162,18 @@ const Settings = () => {
                   </Select>
                 </GridItem>
               </Grid>
+              <ToggleInput
+                label={'Display Drafts'}
+                checked={settings.drafts}
+                offLabel='Disabled'
+                onLabel='Enabled'
+                onChange={e => {
+                  setSettings(s => ({
+                    ...s,
+                    drafts: e.target.checked,
+                  }));
+                }}
+              />
             </Stack>
 
             <Stack spacing={3} paddingBottom={8}>

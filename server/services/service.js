@@ -39,7 +39,12 @@ module.exports = () => ({
       filters,
     });
 
-    return data.map(x => ({
+    const dataFiltered = data.filter(x => {
+      if (config.body.drafts) return true;
+      return x.publishedAt;
+    })
+
+    return dataFiltered.map(x => ({
       id: x.id,
       title: config.body.titleField ? x[config.body.titleField] : config.body.startField,
       startDate: x[config.body.startField],
