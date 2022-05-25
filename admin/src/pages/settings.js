@@ -16,8 +16,32 @@ import { TimePicker } from '@strapi/design-system/TimePicker';
 import { Select, Option } from '@strapi/design-system/Select';
 
 import Check from '@strapi/icons/Check';
+import styled from 'styled-components';
+
+const ColorWindow = styled.div`
+  background-color: ${(props) => props.color};
+  border: ${(props) => props.color === '#FFFFFF' && '1px solid #5B5F65'};
+  width: 3rem;
+  height: 3rem;
+  border-radius: 10%;
+`;
+
+const PopOver = styled.div`
+  position: absolute;
+  margin-top: 10px;
+  z-index: 10;
+`;
+
+const Cover = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+`;
 
 const Settings = () => {
+  const [popOver, setPopOver] = useState(null);
   const [collections, setCollections] = useState([]);
   const [fields, setFields] = useState([]);
   const [settings, setSettings] = useState({
@@ -178,19 +202,33 @@ const Settings = () => {
 
             <Stack spacing={3} paddingBottom={8}>
               <Typography variant={'beta'}>Calendar settings</Typography>
-              <Grid gap={2}>
-                <GridItem col={6} s={12}>
+              <Stack horizontal spacing={6}>
+                <Box>
                   <Typography variant={'pi'} fontWeight={'bold'}>Primary Color</Typography>
-                  <Box paddingTop={2} paddingBottom={3}>
-                    <ChromePicker color={settings.primaryColor} onChangeComplete={e => setSettings(s => ({...s, primaryColor: e.hex}))}/>
+                  <Box paddingTop={1} paddingBottom={2}>
+                    <ColorWindow color={settings.primaryColor} onClick={() => setPopOver('primaryColor')} />
+                    {popOver === 'primaryColor' &&
+                      <PopOver>
+                        <Cover onClick={() => setPopOver(null)}/>
+                        <ChromePicker color={settings.primaryColor} onChangeComplete={e => setSettings(s => ({...s, primaryColor: e.hex})) }/>
+                      </PopOver>
+                    }
                   </Box>
-                </GridItem>
-                <GridItem col={6} s={12}>
+                </Box>
+                <Box>
                   <Typography variant={'pi'} fontWeight={'bold'}>Event Color</Typography>
-                  <Box paddingTop={2} paddingBottom={3}>
-                    <ChromePicker color={settings.eventColor} onChangeComplete={e => setSettings(s => ({...s, eventColor: e.hex}))}/>
+                  <Box paddingTop={1} paddingBottom={2}>
+                    <ColorWindow color={settings.eventColor} onClick={() => setPopOver('eventColor')} />
+                    {popOver === 'eventColor' &&
+                      <PopOver>
+                        <Cover onClick={() => setPopOver(null)}/>
+                        <ChromePicker color={settings.eventColor} onChangeComplete={e => setSettings(s => ({...s, eventColor: e.hex})) }/>
+                      </PopOver>
+                    }
                   </Box>
-                </GridItem>
+                </Box>
+              </Stack>
+              <Grid gap={2}>
                 <GridItem col={6} s={12}>
                   <TimePicker clearLabel={"Clear Time"} label={'Start Hour'} step={30} value={settings.startHour} onChange={e => setSettings(s => ({...s, startHour: e}))}/>
                 </GridItem>
