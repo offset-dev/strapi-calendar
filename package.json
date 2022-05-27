@@ -1,9 +1,10 @@
 {
-  "name": "calendar",
-  "version": "0.0.0",
+  "name": "@offset-dev/strapi-calendar",
+  "version": "0.0.2",
   "description": "Visual calendar for Strapi",
   "strapi": {
-    "name": "Calendar",
+    "name": "calendar",
+    "displayName": "Calendar",
     "description": "Visual calendar of events",
     "kind": "plugin"
   },
@@ -20,12 +21,18 @@
     "moment": "^2.29.3",
     "react-color": "^2.19.3"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/offset-dev/strapi-calendar"
+  },
   "author": {
-    "name": "A Strapi developer"
+    "name": "Luis Rodriguez",
+    "url" : "https://github.com/luisrodriguezld"
   },
   "maintainers": [
     {
-      "name": "A Strapi developer"
+      "name": "Luis Rodriguez",
+      "url" : "https://github.com/luisrodriguezld"
     }
   ],
   "engines": {
