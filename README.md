@@ -2,6 +2,8 @@
 
 > Visualize your content in a map with month, weekly and daily view
 
+![](./image.png)
+
 ## Demo
 <a href="https://www.loom.com/share/18712a97afa742ed8a7a57136d85c218">
     <p>Strapi Calendar Demo - Watch Video</p>
