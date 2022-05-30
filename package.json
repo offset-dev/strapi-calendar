@@ -8,6 +8,9 @@
     "description": "Visual calendar of events",
     "kind": "plugin"
   },
+  "peerDependencies": {
+    "@strapi/strapi": "^4.0.0"
+  },
   "dependencies": {
     "@devexpress/dx-react-core": "^3.0.3",
     "@devexpress/dx-react-scheduler": "^3.0.3",
