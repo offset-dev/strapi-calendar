@@ -18,9 +18,7 @@ const taskRequests = {
     return data;
   },
   setSettings: async data => {
-    return await axiosInstance.post(`/calendar/settings`, {
-      body: data,
-    });
+    return await axiosInstance.post(`/calendar/settings`, data);
   },
 };
 export default taskRequests;

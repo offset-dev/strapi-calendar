@@ -55,9 +55,9 @@ const HomePage = () => {
       setData(r.data);
     });
     api.getSettings().then(r => {
-      if (r.data.body) {
-        setSettings(r.data.body);
-        setState(s => ({...s, view: r.data.body.defaultView}));
+      if (r.data) {
+        setSettings(r.data);
+        setState(s => ({...s, view: r.data.defaultView}));
       }
       setLoading(false);
     });

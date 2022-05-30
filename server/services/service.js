@@ -24,7 +24,7 @@ module.exports = () => ({
     const filters = {
       $and: [
         {
-          [config.body.startField]: {
+          [config.startField]: {
             $gte: moment(date ?? moment()).startOf('month').subtract(1, 'month').format(),
             $lte: moment(date ?? moment()).endOf('month').add(1, 'month').format(),
           },
@@ -32,20 +32,20 @@ module.exports = () => ({
       ],
     };
 
-    const data = await strapi.entityService.findMany(config.body.collection, {
+    const data = await strapi.entityService.findMany(config.collection, {
       filters,
     });
 
     const dataFiltered = data.filter(x => {
-      if (config.body.drafts) return true;
+      if (config.drafts) return true;
       return x.publishedAt;
     })
 
     return dataFiltered.map(x => ({
       id: x.id,
-      title: config.body.titleField ? x[config.body.titleField] : config.body.startField,
-      startDate: x[config.body.startField],
-      endDate: config.body.endField ? x[config.body.endField] : moment(x[config.body.startField]).add(config.body.defaultDuration, "minutes"),
+      title: config.titleField ? x[config.titleField] : config.startField,
+      startDate: x[config.startField],
+      endDate: config.endField ? x[config.endField] : moment(x[config.startField]).add(config.defaultDuration, "minutes"),
     }));
   },
   async getCollections() {

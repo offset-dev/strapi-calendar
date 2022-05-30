@@ -87,7 +87,7 @@ const Settings = () => {
 
   useEffect(() => {
     api.getSettings().then(res => {
-      if (res.data.body) setSettings(res.data.body);
+      if (res.data) setSettings(res.data);
       setIsLoading(false);
     });
   }, []);
@@ -120,7 +120,7 @@ const Settings = () => {
 
     setIsSaving(true);
     const res = await api.setSettings(settings);
-    setSettings(res.data.body);
+    setSettings(res.data);
     setIsSaving(false);
     toggleNotification({
       type: 'success',
