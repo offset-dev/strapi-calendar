@@ -86,11 +86,13 @@ const HomePage = () => {
   if (!settings) {
     return <>
       <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2"/>
-      <EmptyStateLayout icon={<Icon color={"primary700"} width={30} height={30} as={Calendar}/>} content={"Please configure the settings before accessing the calendar"} action={
-        <LinkButton variant="secondary" to={"/settings/calendar"} startIcon={<Cog/>}>
-          Settings
-        </LinkButton>
-      }/>
+      <ContentLayout>
+        <EmptyStateLayout icon={<Icon color={"primary700"} width={30} height={30} as={Calendar}/>} content={"Please configure the settings before accessing the calendar"} action={
+          <LinkButton variant="secondary" to={"/settings/calendar"} startIcon={<Cog/>}>
+            Settings
+          </LinkButton>
+        }/>
+      </ContentLayout>
     </>;
   }
 
