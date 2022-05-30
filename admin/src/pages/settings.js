@@ -51,7 +51,7 @@ const Settings = () => {
     titleField: null,
     drafts: true,
     startHour: "0:00",
-    endHour: "0:00",
+    endHour: "23:59",
     defaultView: "Month",
     monthView: true,
     weekView: false,
