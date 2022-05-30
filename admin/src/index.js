@@ -4,7 +4,7 @@ import pluginId from './pluginId';
 import Initializer from './components/Initializer';
 import CalendarIcon from '@strapi/icons/Calendar';
 
-const name = pluginPkg.strapi.name;
+const name = pluginPkg.strapi.displayName;
 
 export default {
   register(app) {
