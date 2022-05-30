@@ -45,7 +45,7 @@ module.exports = () => ({
       id: x.id,
       title: config.body.titleField ? x[config.body.titleField] : config.body.startField,
       startDate: x[config.body.startField],
-      endDate: config.body.endField ? x[config.body.endField] : undefined,
+      endDate: config.body.endField ? x[config.body.endField] : moment(x[config.body.startField]).add(config.body.defaultDuration, "minutes"),
     }));
   },
   async getCollections() {

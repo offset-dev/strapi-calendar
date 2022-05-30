@@ -49,6 +49,7 @@ const Settings = () => {
     startField: null,
     endField: null,
     titleField: null,
+    defaultDuration: 30,
     drafts: true,
     startHour: "0:00",
     endHour: "23:59",
@@ -168,18 +169,26 @@ const Settings = () => {
                 {collections.map(x => <Option key={x.uid} value={x.uid}>{x.collectionName}</Option>)}
               </Select>
               <Grid gap={2}>
-                <GridItem col={4} s={12}>
+                <GridItem col={6} s={12}>
                   <Select label={'Choose your title field'} onChange={e => setSettings(s => ({...s, titleField: e}))} value={settings.titleField}>
                     <Option value={''}>[No title field]</Option>
                     {fields.filter(x => x.type === "string").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
-                <GridItem col={4} s={12}>
+                <GridItem col={6} s={12}>
+                  <Select label={'Choose your default event duration'} onChange={e => setSettings(s => ({...s, defaultDuration: e}))} value={settings.defaultDuration}>
+                    <Option value={30}>30 Minutes</Option>
+                    <Option value={60}>1 Hour</Option>
+                    <Option value={90}>1.5 Hours</Option>
+                    <Option value={120}>2 Hours</Option>
+                  </Select>
+                </GridItem>
+                <GridItem col={6} s={12}>
                   <Select label={'Choose your start field'} onChange={e => setSettings(s => ({...s, startField: e}))} value={settings.startField}>
                     {fields.filter(x => x.type === "datetime").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
-                <GridItem col={4} s={12}>
+                <GridItem col={6} s={12}>
                   <Select label={'Choose your end field'} onChange={e => setSettings(s => ({...s, endField: e}))} value={settings.endField}>
                     <Option value={''}>[No end field]</Option>
                     {fields.filter(x => x.type === "datetime").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
