@@ -55,8 +55,10 @@ const HomePage = () => {
       setData(r.data);
     });
     api.getSettings().then(r => {
-      setSettings(r.data.body);
-      setState(s => ({...s, view: r.data.body.defaultView}));
+      if (r.data.body) {
+        setSettings(r.data.body);
+        setState(s => ({...s, view: r.data.body.defaultView}));
+      }
       setLoading(false);
     });
   };

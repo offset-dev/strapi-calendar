@@ -11,10 +11,7 @@ function getPluginStore() {
 
 async function createDefaultConfig() {
   const pluginStore = getPluginStore();
-  const value = {
-    disabled: false,
-  };
-  await pluginStore.set({key: 'settings', value});
+  await pluginStore.set({key: 'settings', value: null});
   return pluginStore.get({key: 'settings'});
 }
 

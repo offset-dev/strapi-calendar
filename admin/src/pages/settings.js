@@ -86,7 +86,7 @@ const Settings = () => {
 
   useEffect(() => {
     api.getSettings().then(res => {
-      setSettings(res.data.body);
+      if (res.data.body) setSettings(res.data.body);
       setIsLoading(false);
     });
   }, []);
