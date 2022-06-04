@@ -18,6 +18,7 @@
     "url": "https://github.com/offset-dev/strapi-calendar"
   },
   "scripts": {
+    "prepublish": "yarn lint",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix"
   },

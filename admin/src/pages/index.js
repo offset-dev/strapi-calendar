@@ -135,10 +135,10 @@ return (
           <Box id="schedule" background="neutral0" shadow="filterShadow" padding={[5, 8]} hasRadius>
             <Flex justifyContent="space-between" style={{marginBottom: 10}}>
               <Flex>
-                <IconButton noBorder={true} onClick={() => setState(s => ({...s, date: moment(s.date).subtract(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronLeft />} />
+                <IconButton noBorder onClick={() => setState(s => ({...s, date: moment(s.date).subtract(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronLeft />} />
                 <DatePicker selectedDateLabel={() => {
                 }} name="date" aria-label="Select Date" value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
-                <IconButton noBorder={true} onClick={() => setState(s => ({...s, date: moment(s.date).add(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronRight />} />
+                <IconButton noBorder onClick={() => setState(s => ({...s, date: moment(s.date).add(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronRight />} />
                 <Box>
                   {settings.todayButton &&
                     <Button variant="secondary" size="L" onClick={() => setState(s => ({...s, date: moment().format("ll")}))}>Today</Button>
@@ -204,8 +204,12 @@ function Appointment({children, style, ...restProps}) {
 }
 
 Appointment.propTypes = {
-  children: propTypes.node,
+  children: propTypes.node.isRequired,
   style: propTypes.object,
+}
+
+Appointment.defaultProps = {
+  style: {}
 }
 
 export default memo(HomePage);
