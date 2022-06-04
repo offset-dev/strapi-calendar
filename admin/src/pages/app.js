@@ -11,7 +11,7 @@ import { NotFound } from '@strapi/helper-plugin';
 import pluginId from '../pluginId';
 import HomePage from './index';
 
-const App = () => {
+function App() {
   return (
     <div>
       <Switch>
@@ -20,6 +20,6 @@ const App = () => {
       </Switch>
     </div>
   );
-};
+}
 
 export default App;

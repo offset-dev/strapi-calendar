@@ -1,0 +1,6 @@
+{
+  "extends": "@strapi-community",
+  "globals": {
+    "process": true
+  }
+}

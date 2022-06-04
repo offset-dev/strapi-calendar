@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import api from '../api'
 
 import {ChromePicker} from 'react-color';
 import {LoadingIndicatorPage, useNotification} from '@strapi/helper-plugin';
@@ -17,6 +16,7 @@ import { Select, Option } from '@strapi/design-system/Select';
 
 import Check from '@strapi/icons/Check';
 import styled from 'styled-components';
+import api from '../api'
 
 const ColorWindow = styled.div`
   background-color: ${(props) => props.color};
@@ -40,7 +40,7 @@ const Cover = styled.div`
   left: 0;
 `;
 
-const Settings = () => {
+function Settings() {
   const [popOver, setPopOver] = useState(null);
   const [collections, setCollections] = useState([]);
   const [fields, setFields] = useState([]);
@@ -122,7 +122,8 @@ const Settings = () => {
     const res = await api.setSettings(settings);
     setSettings(res.data);
     setIsSaving(false);
-    toggleNotification({
+    
+return toggleNotification({
       type: 'success',
       message: 'Settings successfully updated',
     });
@@ -135,9 +136,7 @@ const Settings = () => {
         title='Calendar settings'
         subtitle='Configure the plugin to your needs'
         primaryAction={
-          isLoading ? (
-            <></>
-          ) : (
+          !isLoading &&
             <Button
               onClick={handleSubmit}
               startIcon={<Check />}
@@ -147,9 +146,8 @@ const Settings = () => {
             >
               Save
             </Button>
-          )
         }
-      ></HeaderLayout>
+       />
       {isLoading ? (
         <LoadingIndicatorPage />
       ) : (
@@ -164,19 +162,19 @@ const Settings = () => {
             paddingRight={6}
           >
             <Stack spacing={3} paddingBottom={8}>
-              <Typography variant={'beta'}>General settings</Typography>
-              <Select label={'Choose your collection'} onChange={e => setSettings(s => ({...s, collection: e}))} value={settings.collection}>
+              <Typography variant="beta">General settings</Typography>
+              <Select label="Choose your collection" onChange={e => setSettings(s => ({...s, collection: e}))} value={settings.collection}>
                 {collections.map(x => <Option key={x.uid} value={x.uid}>{x.collectionName}</Option>)}
               </Select>
               <Grid gap={2}>
                 <GridItem col={6} s={12}>
-                  <Select label={'Choose your title field'} onChange={e => setSettings(s => ({...s, titleField: e}))} value={settings.titleField}>
-                    <Option value={''}>[No title field]</Option>
+                  <Select label="Choose your title field" onChange={e => setSettings(s => ({...s, titleField: e}))} value={settings.titleField}>
+                    <Option value="">[No title field]</Option>
                     {fields.filter(x => x.type === "string").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
                 <GridItem col={6} s={12}>
-                  <Select label={'Choose your default event duration'} onChange={e => setSettings(s => ({...s, defaultDuration: e}))} value={settings.defaultDuration}>
+                  <Select label="Choose your default event duration" onChange={e => setSettings(s => ({...s, defaultDuration: e}))} value={settings.defaultDuration}>
                     <Option value={30}>30 Minutes</Option>
                     <Option value={60}>1 Hour</Option>
                     <Option value={90}>1.5 Hours</Option>
@@ -184,19 +182,19 @@ const Settings = () => {
                   </Select>
                 </GridItem>
                 <GridItem col={6} s={12}>
-                  <Select label={'Choose your start field'} onChange={e => setSettings(s => ({...s, startField: e}))} value={settings.startField}>
+                  <Select label="Choose your start field" onChange={e => setSettings(s => ({...s, startField: e}))} value={settings.startField}>
                     {fields.filter(x => x.type === "datetime").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
                 <GridItem col={6} s={12}>
-                  <Select label={'Choose your end field'} onChange={e => setSettings(s => ({...s, endField: e}))} value={settings.endField}>
-                    <Option value={''}>[No end field]</Option>
+                  <Select label="Choose your end field" onChange={e => setSettings(s => ({...s, endField: e}))} value={settings.endField}>
+                    <Option value="">[No end field]</Option>
                     {fields.filter(x => x.type === "datetime").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
               </Grid>
               <ToggleInput
-                label={'Display Drafts'}
+                label="Display Drafts"
                 checked={settings.drafts}
                 offLabel='Disabled'
                 onLabel='Enabled'
@@ -210,28 +208,30 @@ const Settings = () => {
             </Stack>
 
             <Stack spacing={3} paddingBottom={8}>
-              <Typography variant={'beta'}>Calendar settings</Typography>
+              <Typography variant="beta">Calendar settings</Typography>
               <Stack horizontal spacing={6}>
                 <Box>
-                  <Typography variant={'pi'} fontWeight={'bold'}>Primary Color</Typography>
+                  <Typography variant="pi" fontWeight="bold">Primary Color</Typography>
                   <Box paddingTop={1} paddingBottom={2}>
                     <ColorWindow color={settings.primaryColor} onClick={() => setPopOver('primaryColor')} />
                     {popOver === 'primaryColor' &&
                       <PopOver>
                         <Cover onClick={() => setPopOver(null)}/>
-                        <ChromePicker color={settings.primaryColor} onChangeComplete={e => setSettings(s => ({...s, primaryColor: e.hex})) }/>
+                        <ChromePicker color={settings.primaryColor}
+                                      onChangeComplete={e => setSettings(s => ({...s, primaryColor: e.hex})) }/>
                       </PopOver>
                     }
                   </Box>
                 </Box>
                 <Box>
-                  <Typography variant={'pi'} fontWeight={'bold'}>Event Color</Typography>
+                  <Typography variant="pi" fontWeight="bold">Event Color</Typography>
                   <Box paddingTop={1} paddingBottom={2}>
                     <ColorWindow color={settings.eventColor} onClick={() => setPopOver('eventColor')} />
                     {popOver === 'eventColor' &&
                       <PopOver>
                         <Cover onClick={() => setPopOver(null)}/>
-                        <ChromePicker color={settings.eventColor} onChangeComplete={e => setSettings(s => ({...s, eventColor: e.hex})) }/>
+                        <ChromePicker color={settings.eventColor}
+                                      onChangeComplete={e => setSettings(s => ({...s, eventColor: e.hex})) }/>
                       </PopOver>
                     }
                   </Box>
@@ -239,21 +239,21 @@ const Settings = () => {
               </Stack>
               <Grid gap={2}>
                 <GridItem col={6} s={12}>
-                  <TimePicker clearLabel={"Clear Time"} label={'Start Hour'} step={30} value={settings.startHour} onChange={e => setSettings(s => ({...s, startHour: e}))}/>
+                  <TimePicker clearLabel="Clear Time" label="Start Hour" step={30} value={settings.startHour} onChange={e => setSettings(s => ({...s, startHour: e}))}/>
                 </GridItem>
                 <GridItem col={6} s={12}>
-                  <TimePicker clearLabel={"Clear Time"} label={'End Hour'} step={30} value={settings.endHour} onChange={e => setSettings(s => ({...s, endHour: e}))}/>
+                  <TimePicker clearLabel="Clear Time" label="End Hour" step={30} value={settings.endHour} onChange={e => setSettings(s => ({...s, endHour: e}))}/>
                 </GridItem>
               </Grid>
 
               <Stack spacing={3}>
-                <Select label={'Default View'} onChange={e => setSettings(s => ({...s, defaultView: e}))} value={settings.defaultView}>
-                  <Option value={'Month'}>Month View</Option>
-                  <Option value={'Week'}>Week View</Option>
-                  <Option value={'Day'}>Day View</Option>
+                <Select label="Default View" onChange={e => setSettings(s => ({...s, defaultView: e}))} value={settings.defaultView}>
+                  <Option value="Month">Month View</Option>
+                  <Option value="Week">Week View</Option>
+                  <Option value="Day">Day View</Option>
                 </Select>
                 <ToggleInput
-                  label={'Month View'}
+                  label="Month View"
                   checked={settings.monthView}
                   offLabel='Disabled'
                   onLabel='Enabled'
@@ -265,7 +265,7 @@ const Settings = () => {
                   }}
                 />
                 <ToggleInput
-                  label={'Week View'}
+                  label="Week View"
                   checked={settings.weekView}
                   offLabel='Disabled'
                   onLabel='Enabled'
@@ -277,7 +277,7 @@ const Settings = () => {
                   }}
                 />
                 <ToggleInput
-                  label={'Day View'}
+                  label="Day View"
                   checked={settings.dayView}
                   offLabel='Disabled'
                   onLabel='Enabled'
@@ -289,7 +289,7 @@ const Settings = () => {
                   }}
                 />
                 <ToggleInput
-                  label={'Today Button'}
+                  label="Today Button"
                   checked={settings.todayButton}
                   offLabel='Disabled'
                   onLabel='Enabled'
@@ -301,7 +301,7 @@ const Settings = () => {
                   }}
                 />
                 <ToggleInput
-                  label={'Create Button'}
+                  label="Create Button"
                   checked={settings.createButton}
                   offLabel='Disabled'
                   onLabel='Enabled'
@@ -319,6 +319,6 @@ const Settings = () => {
       )}
     </>
   );
-};
+}
 
 export default Settings;

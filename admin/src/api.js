@@ -1,4 +1,4 @@
-import axiosInstance from '../src/utils/axiosInstance';
+import axiosInstance from "./utils/axiosInstance";
 
 const taskRequests = {
   getData: async (date) => {
@@ -7,18 +7,21 @@ const taskRequests = {
         date
       }
     });
-    return data;
+    
+return data;
   },
   getCollections: async () => {
     const data = await axiosInstance.get(`/calendar/settings/collections`);
-    return data;
+    
+return data;
   },
   getSettings: async () => {
     const data = await axiosInstance.get(`/calendar/settings`);
-    return data;
+    
+return data;
   },
   setSettings: async data => {
-    return await axiosInstance.post(`/calendar/settings`, data);
+    return axiosInstance.post(`/calendar/settings`, data);
   },
 };
 export default taskRequests;
