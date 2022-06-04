@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/offset-dev/strapi-calendar"
+    "url": "https://github.com/offset-dev/strapi-calendar/"
   },
   "scripts": {
     "prepublish": "yarn lint",
