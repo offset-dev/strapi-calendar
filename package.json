@@ -42,5 +42,8 @@
     "node": ">=12.x.x <=16.x.x",
     "npm": ">=6.0.0"
   },
-  "license": "MIT"
+  "devDependencies": {
+    "@strapi-community/eslint-config": "^0.4.3",
+    "eslint": "^8.16.0"
+  }
 }
