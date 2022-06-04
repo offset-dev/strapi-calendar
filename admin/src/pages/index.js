@@ -20,7 +20,8 @@ import {Button} from "@strapi/design-system/Button";
 import {DatePicker} from "@strapi/design-system/DatePicker";
 import {Select, Option} from "@strapi/design-system/Select";
 import Calendar from "@strapi/icons/Calendar";
-import {Cog, Plus} from "@strapi/icons";
+import {IconButton} from "@strapi/design-system/IconButton";
+import {Cog, Plus, ChevronLeft, ChevronRight} from "@strapi/icons";
 import moment from "moment";
 
 import {
@@ -116,7 +117,7 @@ function HomePage() {
       height: 100%;
     }
   `
-  
+
 return (
     <>
       <style>{sty}</style>
@@ -134,9 +135,11 @@ return (
           <Box id="schedule" background="neutral0" shadow="filterShadow" padding={[5, 8]} hasRadius>
             <Flex justifyContent="space-between" style={{marginBottom: 10}}>
               <Flex>
+                <IconButton noBorder={true} onClick={() => setState(s => ({...s, date: moment(s.date).subtract(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronLeft />} />
                 <DatePicker selectedDateLabel={() => {
-                }} name="date" label="Select Date" value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
-                <Box paddingTop={5}>
+                }} name="date" aria-label="Select Date" value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
+                <IconButton noBorder={true} onClick={() => setState(s => ({...s, date: moment(s.date).add(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronRight />} />
+                <Box>
                   {settings.todayButton &&
                     <Button variant="secondary" size="L" onClick={() => setState(s => ({...s, date: moment().format("ll")}))}>Today</Button>
                   }
@@ -144,7 +147,7 @@ return (
               </Flex>
               <Box style={{width: 220}}>
                 {multipleViews &&
-                  <Select label="Select View" value={state.view} onChange={e => setState(s => ({...s, view: e}))}>
+                  <Select aria-label="Select View" value={state.view} onChange={e => setState(s => ({...s, view: e}))}>
                     {settings.monthView && <Option value="Month">Month</Option>}
                     {settings.weekView && <Option value="Week">Week</Option>}
                     {settings.dayView && <Option value="Day">Day</Option>}
@@ -173,7 +176,7 @@ return (
 
 function Appointment({children, style, ...restProps}) {
   const [settings, setSettings] = useState(null);
-  
+
   useEffect(() => {
     api.getSettings().then(r => {
       if (r.data) {
@@ -181,11 +184,11 @@ function Appointment({children, style, ...restProps}) {
       }
     });
   }, []);
-  
+
   const {id} = restProps.data;
-  
+
   if (!settings) return null;
-  
+
   return <Link to={`/content-manager/collectionType/${settings.collection}/${id}`}>
     <Appointments.Appointment
         {...restProps}
@@ -201,8 +204,8 @@ function Appointment({children, style, ...restProps}) {
 }
 
 Appointment.propTypes = {
-  children: propTypes.node.isRequired,
-  style: propTypes.object.isRequired,
+  children: propTypes.node,
+  style: propTypes.object,
 }
 
 export default memo(HomePage);
