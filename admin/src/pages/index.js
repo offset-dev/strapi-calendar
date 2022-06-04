@@ -4,9 +4,8 @@
  *
  */
 
-import React, {memo, useState} from "react";
-
-import api from "../api";
+import React, {memo, useState, useEffect} from "react";
+import propTypes from "prop-types";
 
 import {EmptyStateLayout} from "@strapi/design-system/EmptyStateLayout";
 import {BaseHeaderLayout, ContentLayout} from "@strapi/design-system/Layout";
@@ -32,8 +31,9 @@ import {
   Appointments,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import {ViewState} from "@devexpress/dx-react-scheduler";
+import api from "../api";
 
-const HomePage = () => {
+function HomePage() {
   const [state, setState] = useState({
     date: moment().format("ll"),
     view: "Month",
@@ -63,7 +63,7 @@ const HomePage = () => {
     });
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     initialLoad();
   }, []);
 
@@ -87,8 +87,8 @@ const HomePage = () => {
     return <>
       <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2"/>
       <ContentLayout>
-        <EmptyStateLayout icon={<Icon color={"primary700"} width={30} height={30} as={Calendar}/>} content={"Please configure the settings before accessing the calendar"} action={
-          <LinkButton variant="secondary" to={"/settings/calendar"} startIcon={<Cog/>}>
+        <EmptyStateLayout icon={<Icon color="primary700" width={30} height={30} as={Calendar}/>} content="Please configure the settings before accessing the calendar" action={
+          <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog/>}>
             Settings
           </LinkButton>
         }/>
@@ -116,44 +116,45 @@ const HomePage = () => {
       height: 100%;
     }
   `
-  return (
+  
+return (
     <>
       <style>{sty}</style>
       <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2" primaryAction={primaryAction} />
       <ContentLayout>
         {data.length === 0 && (
-          <EmptyStateLayout icon={<Icon color={"primary700"} width={30} height={30} as={Calendar}/>} content={"There are no events loaded. \n\n Did you properly configure the plugin?"} action={
-            <LinkButton variant="secondary" to={"/settings/calendar"} startIcon={<Cog/>}>
+          <EmptyStateLayout icon={<Icon color="primary700" width={30} height={30} as={Calendar}/>} content={"There are no events loaded. \n\n Did you properly configure the plugin?"} action={
+            <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog/>}>
               Review Settings
             </LinkButton>
           }/>
         )}
 
         {data.length > 0 &&
-          <Box id={"schedule"} background={"neutral0"} shadow="filterShadow" padding={[5, 8]} hasRadius>
-            <Flex justifyContent={"space-between"} style={{marginBottom: 10}}>
+          <Box id="schedule" background="neutral0" shadow="filterShadow" padding={[5, 8]} hasRadius>
+            <Flex justifyContent="space-between" style={{marginBottom: 10}}>
               <Flex>
                 <DatePicker selectedDateLabel={() => {
-                }} name={"date"} label={"Select Date"} value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
+                }} name="date" label="Select Date" value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
                 <Box paddingTop={5}>
                   {settings.todayButton &&
-                    <Button variant={"secondary"} size={"L"} onClick={() => setState(s => ({...s, date: moment().format("ll")}))}>Today</Button>
+                    <Button variant="secondary" size="L" onClick={() => setState(s => ({...s, date: moment().format("ll")}))}>Today</Button>
                   }
                 </Box>
               </Flex>
               <Box style={{width: 220}}>
                 {multipleViews &&
-                  <Select label={"Select View"} value={state.view} onChange={e => setState(s => ({...s, view: e}))}>
-                    {settings.monthView && <Option value={"Month"}>Month</Option>}
-                    {settings.weekView && <Option value={"Week"}>Week</Option>}
-                    {settings.dayView && <Option value={"Day"}>Day</Option>}
+                  <Select label="Select View" value={state.view} onChange={e => setState(s => ({...s, view: e}))}>
+                    {settings.monthView && <Option value="Month">Month</Option>}
+                    {settings.weekView && <Option value="Week">Week</Option>}
+                    {settings.dayView && <Option value="Day">Day</Option>}
                   </Select>
                 }
               </Box>
             </Flex>
             <Box style={{textAlign: "center", marginBottom: 20}}>
               {state.view === "Month" &&
-                <Typography variant={"alpha"} textTransform={"uppercase"} style={{textAlign: "center"}}>{moment(state.date, "ll").format("MMMM")}</Typography>
+                <Typography variant="alpha" textTransform="uppercase" style={{textAlign: "center"}}>{moment(state.date, "ll").format("MMMM")}</Typography>
               }
             </Box>
             <Scheduler data={data}>
@@ -161,28 +162,47 @@ const HomePage = () => {
               <MonthView/>
               <WeekView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
               <DayView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
-
-              <Appointments appointmentComponent={({children, style, ...restProps}) => {
-                const {id} = restProps.data;
-                return <Link to={`/content-manager/collectionType/${settings.collection}/${id}`}>
-                  <Appointments.Appointment
-                    {...restProps}
-                    style={{
-                      ...style,
-                      backgroundColor: settings.eventColor,
-                      borderRadius: "8px",
-                    }}
-                  >
-                    {children}
-                  </Appointments.Appointment>
-                </Link>;
-              }}/>
+              <Appointments appointmentComponent={Appointment} />
             </Scheduler>
           </Box>
         }
       </ContentLayout>
     </>
   );
-};
+}
+
+function Appointment({children, style, ...restProps}) {
+  const [settings, setSettings] = useState(null);
+  
+  useEffect(() => {
+    api.getSettings().then(r => {
+      if (r.data) {
+        setSettings(r.data);
+      }
+    });
+  }, []);
+  
+  const {id} = restProps.data;
+  
+  if (!settings) return null;
+  
+  return <Link to={`/content-manager/collectionType/${settings.collection}/${id}`}>
+    <Appointments.Appointment
+        {...restProps}
+        style={{
+          ...style,
+          backgroundColor: settings.eventColor,
+          borderRadius: "8px",
+        }}
+    >
+      {children}
+    </Appointments.Appointment>
+  </Link>;
+}
+
+Appointment.propTypes = {
+  children: propTypes.node.isRequired,
+  style: propTypes.object.isRequired,
+}
 
 export default memo(HomePage);

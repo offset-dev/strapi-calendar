@@ -8,6 +8,19 @@
     "description": "Visual calendar of events",
     "kind": "plugin"
   },
+  "license": "MIT",
+  "author": {
+    "name": "Luis Rodriguez",
+    "url": "https://github.com/luisrodriguezld"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/offset-dev/strapi-calendar"
+  },
+  "scripts": {
+    "lint": "eslint ./",
+    "lint:fix": "eslint ./ --fix"
+  },
   "peerDependencies": {
     "@strapi/strapi": "^4.0.0"
   },
@@ -24,18 +37,10 @@
     "moment": "^2.29.3",
     "react-color": "^2.19.3"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/offset-dev/strapi-calendar"
-  },
-  "author": {
-    "name": "Luis Rodriguez",
-    "url" : "https://github.com/luisrodriguezld"
-  },
   "maintainers": [
     {
       "name": "Luis Rodriguez",
-      "url" : "https://github.com/luisrodriguezld"
+      "url": "https://github.com/luisrodriguezld"
     }
   ],
   "engines": {
