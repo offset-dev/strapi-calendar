@@ -98,7 +98,7 @@ function HomePage() {
 
   const {monthView, weekView, dayView} = settings;
   const multipleViews = monthView && weekView || monthView && dayView || weekView && dayView;
-  const primaryAction = settings.createButton ? <LinkButton startIcon={<Plus />} to={`/content-manager/collectionType/${settings.collection}/create`}>Create an entry</LinkButton> : <div/>;
+  const primaryAction = settings.createButton ? <LinkButton startIcon={<Plus />} to={`/content-manager/collectionType/${settings.collection}/create`}>Create new {settings.collection.split(".")[1]}</LinkButton> : <div/>;
 
   const sty = `
     #schedule .Cell-highlightedText {
@@ -135,8 +135,10 @@ return (
             <Flex justifyContent="space-between" style={{marginBottom: 10}}>
               <Flex>
                 <IconButton noBorder onClick={() => setState(s => ({...s, date: moment(s.date).subtract(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronLeft />} />
-                <DatePicker selectedDateLabel={() => {
-                }} name="date" aria-label="Select Date" value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
+                <Box paddingLeft={1} paddingRight={1}>
+                  <DatePicker selectedDateLabel={() => {
+                  }} name="date" aria-label="Select Date" value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
+                </Box>
                 <IconButton noBorder onClick={() => setState(s => ({...s, date: moment(s.date).add(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronRight />} />
                 <Box>
                   {settings.todayButton &&
@@ -194,7 +196,7 @@ function Appointment({children, style, ...restProps}) {
         style={{
           ...style,
           backgroundColor: settings.eventColor,
-          borderRadius: "8px",
+          borderRadius: "4px",
         }}
     >
       {children}
