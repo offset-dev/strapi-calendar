@@ -13,13 +13,11 @@ import {LinkButton} from "@strapi/design-system/LinkButton";
 import {Box} from "@strapi/design-system/Box";
 import {Loader} from "@strapi/design-system/Loader";
 import {Link} from "@strapi/design-system/Link";
-import {Icon} from "@strapi/design-system/Icon";
 import {Typography} from "@strapi/design-system/Typography";
 import {Flex} from "@strapi/design-system/Flex";
 import {Button} from "@strapi/design-system/Button";
 import {DatePicker} from "@strapi/design-system/DatePicker";
 import {Select, Option} from "@strapi/design-system/Select";
-import Calendar from "@strapi/icons/Calendar";
 import {IconButton} from "@strapi/design-system/IconButton";
 import {Cog, Plus, ChevronLeft, ChevronRight} from "@strapi/icons";
 import moment from "moment";
@@ -32,6 +30,7 @@ import {
   Appointments,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import {ViewState} from "@devexpress/dx-react-scheduler";
+import Illo from "../components/illo"
 import api from "../api";
 
 function HomePage() {
@@ -88,7 +87,7 @@ function HomePage() {
     return <>
       <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2"/>
       <ContentLayout>
-        <EmptyStateLayout icon={<Icon color="primary700" width={30} height={30} as={Calendar}/>} content="Please configure the settings before accessing the calendar" action={
+        <EmptyStateLayout icon={<Illo />} content="Please configure the settings before accessing the calendar" action={
           <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog/>}>
             Settings
           </LinkButton>
@@ -124,7 +123,7 @@ return (
       <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2" primaryAction={primaryAction} />
       <ContentLayout>
         {data.length === 0 && (
-          <EmptyStateLayout icon={<Icon color="primary700" width={30} height={30} as={Calendar}/>} content={"There are no events loaded. \n\n Did you properly configure the plugin?"} action={
+          <EmptyStateLayout icon={<Illo />} content={"There are no events loaded. \n\n Did you properly configure the plugin?"} action={
             <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog/>}>
               Review Settings
             </LinkButton>
