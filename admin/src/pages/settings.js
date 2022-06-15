@@ -24,6 +24,7 @@ const ColorWindow = styled.div`
   width: 3rem;
   height: 3rem;
   border-radius: 10%;
+  cursor: pointer;
 `;
 
 const PopOver = styled.div`
@@ -122,7 +123,7 @@ function Settings() {
     const res = await api.setSettings(settings);
     setSettings(res.data);
     setIsSaving(false);
-    
+
 return toggleNotification({
       type: 'success',
       message: 'Settings successfully updated',
@@ -166,7 +167,7 @@ return toggleNotification({
               <Select label="Choose your collection" onChange={e => setSettings(s => ({...s, collection: e}))} value={settings.collection}>
                 {collections.map(x => <Option key={x.uid} value={x.uid}>{x.collectionName}</Option>)}
               </Select>
-              <Grid gap={2}>
+              <Grid gap={4} paddingTop={3}>
                 <GridItem col={6} s={12}>
                   <Select label="Choose your title field" onChange={e => setSettings(s => ({...s, titleField: e}))} value={settings.titleField}>
                     <Option value="">[No title field]</Option>
@@ -181,6 +182,8 @@ return toggleNotification({
                     <Option value={120}>2 Hours</Option>
                   </Select>
                 </GridItem>
+              </Grid>
+              <Grid gap={4} paddingTop={3}>
                 <GridItem col={6} s={12}>
                   <Select label="Choose your start field" onChange={e => setSettings(s => ({...s, startField: e}))} value={settings.startField}>
                     {fields.filter(x => x.type === "datetime").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
@@ -193,21 +196,23 @@ return toggleNotification({
                   </Select>
                 </GridItem>
               </Grid>
-              <ToggleInput
-                label="Display Drafts"
-                checked={settings.drafts}
-                offLabel='Disabled'
-                onLabel='Enabled'
-                onChange={e => {
-                  setSettings(s => ({
-                    ...s,
-                    drafts: e.target.checked,
-                  }));
-                }}
-              />
+              <Box paddingTop={3}>
+                <ToggleInput
+                  label="Display Drafts"
+                  checked={settings.drafts}
+                  offLabel='Disabled'
+                  onLabel='Enabled'
+                  onChange={e => {
+                    setSettings(s => ({
+                      ...s,
+                      drafts: e.target.checked,
+                    }));
+                  }}
+                />
+              </Box>
             </Stack>
 
-            <Stack spacing={3} paddingBottom={8}>
+            <Stack spacing={3} paddingBottom={0}>
               <Typography variant="beta">Calendar settings</Typography>
               <Stack horizontal spacing={6}>
                 <Box>
@@ -237,7 +242,7 @@ return toggleNotification({
                   </Box>
                 </Box>
               </Stack>
-              <Grid gap={2}>
+              <Grid gap={4}>
                 <GridItem col={6} s={12}>
                   <TimePicker clearLabel="Clear Time" label="Start Hour" step={30} value={settings.startHour} onChange={e => setSettings(s => ({...s, startHour: e}))}/>
                 </GridItem>
@@ -246,72 +251,86 @@ return toggleNotification({
                 </GridItem>
               </Grid>
 
-              <Stack spacing={3}>
+              <Stack spacing={3} paddingTop={3}>
                 <Select label="Default View" onChange={e => setSettings(s => ({...s, defaultView: e}))} value={settings.defaultView}>
                   <Option value="Month">Month View</Option>
                   <Option value="Week">Week View</Option>
                   <Option value="Day">Day View</Option>
                 </Select>
-                <ToggleInput
-                  label="Month View"
-                  checked={settings.monthView}
-                  offLabel='Disabled'
-                  onLabel='Enabled'
-                  onChange={e => {
-                    setSettings(s => ({
-                      ...s,
-                      monthView: e.target.checked,
-                    }));
-                  }}
-                />
-                <ToggleInput
-                  label="Week View"
-                  checked={settings.weekView}
-                  offLabel='Disabled'
-                  onLabel='Enabled'
-                  onChange={e => {
-                    setSettings(s => ({
-                      ...s,
-                      weekView: e.target.checked,
-                    }));
-                  }}
-                />
-                <ToggleInput
-                  label="Day View"
-                  checked={settings.dayView}
-                  offLabel='Disabled'
-                  onLabel='Enabled'
-                  onChange={e => {
-                    setSettings(s => ({
-                      ...s,
-                      dayView: e.target.checked,
-                    }));
-                  }}
-                />
-                <ToggleInput
-                  label="Today Button"
-                  checked={settings.todayButton}
-                  offLabel='Disabled'
-                  onLabel='Enabled'
-                  onChange={e => {
-                    setSettings(s => ({
-                      ...s,
-                      todayButton: e.target.checked,
-                    }));
-                  }}
-                />
-                <ToggleInput
-                  label="Create Button"
-                  checked={settings.createButton}
-                  offLabel='Disabled'
-                  onLabel='Enabled'
-                  onChange={e => {
-                    setSettings(s => ({
-                      ...s,
-                      createButton: e.target.checked,
-                    }));
-                  }}
-                />
+                <Box paddingTop={3}>
+                  <ToggleInput
+                    label="Create Button"
+                    checked={settings.createButton}
+                    offLabel='Disabled'
+                    onLabel='Enabled'
+                    onChange={e => {
+                      setSettings(s => ({
+                        ...s,
+                        createButton: e.target.checked,
+                      }));
+                    }}
+                  />
+                </Box>
+                <Grid paddingTop={3}>
+                  <GridItem col={6} s={12}>
+                    <ToggleInput
+                      label="Today Button"
+                      checked={settings.todayButton}
+                      offLabel='Disabled'
+                      onLabel='Enabled'
+                      onChange={e => {
+                        setSettings(s => ({
+                          ...s,
+                          todayButton: e.target.checked,
+                        }));
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem col={6} s={12}>
+                    <ToggleInput
+                      label="Month View"
+                      checked={settings.monthView}
+                      offLabel='Disabled'
+                      onLabel='Enabled'
+                      onChange={e => {
+                        setSettings(s => ({
+                          ...s,
+                          monthView: e.target.checked,
+                        }));
+                      }}
+                    />
+                  </GridItem>
+                </Grid>
+                <Grid paddingTop={3}>
+                  <GridItem col={6} s={12}>
+                    <ToggleInput
+                      label="Week View"
+                      checked={settings.weekView}
+                      offLabel='Disabled'
+                      onLabel='Enabled'
+                      onChange={e => {
+                        setSettings(s => ({
+                          ...s,
+                          weekView: e.target.checked,
+                        }));
+                      }}
+                    />
+                  </GridItem>
+                  <GridItem col={6} s={12}>
+                    <ToggleInput
+                      label="Day View"
+                      checked={settings.dayView}
+                      offLabel='Disabled'
+                      onLabel='Enabled'
+                      onChange={e => {
+                        setSettings(s => ({
+                          ...s,
+                          dayView: e.target.checked,
+                        }));
+                      }}
+                    />
+                  </GridItem>
+                </Grid>
               </Stack>
             </Stack>
           </Box>

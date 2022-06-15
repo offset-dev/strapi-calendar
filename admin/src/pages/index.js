@@ -13,13 +13,11 @@ import {LinkButton} from "@strapi/design-system/LinkButton";
 import {Box} from "@strapi/design-system/Box";
 import {Loader} from "@strapi/design-system/Loader";
 import {Link} from "@strapi/design-system/Link";
-import {Icon} from "@strapi/design-system/Icon";
 import {Typography} from "@strapi/design-system/Typography";
 import {Flex} from "@strapi/design-system/Flex";
 import {Button} from "@strapi/design-system/Button";
 import {DatePicker} from "@strapi/design-system/DatePicker";
 import {Select, Option} from "@strapi/design-system/Select";
-import Calendar from "@strapi/icons/Calendar";
 import {IconButton} from "@strapi/design-system/IconButton";
 import {Cog, Plus, ChevronLeft, ChevronRight} from "@strapi/icons";
 import moment from "moment";
@@ -32,6 +30,7 @@ import {
   Appointments,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import {ViewState} from "@devexpress/dx-react-scheduler";
+import Illo from "../components/illo"
 import api from "../api";
 
 function HomePage() {
@@ -88,7 +87,7 @@ function HomePage() {
     return <>
       <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2"/>
       <ContentLayout>
-        <EmptyStateLayout icon={<Icon color="primary700" width={30} height={30} as={Calendar}/>} content="Please configure the settings before accessing the calendar" action={
+        <EmptyStateLayout icon={<Illo />} content="Please configure the settings before accessing the calendar" action={
           <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog/>}>
             Settings
           </LinkButton>
@@ -99,7 +98,7 @@ function HomePage() {
 
   const {monthView, weekView, dayView} = settings;
   const multipleViews = monthView && weekView || monthView && dayView || weekView && dayView;
-  const primaryAction = settings.createButton ? <LinkButton startIcon={<Plus />} to={`/content-manager/collectionType/${settings.collection}/create`}>Create an entry</LinkButton> : <div/>;
+  const primaryAction = settings.createButton ? <LinkButton startIcon={<Plus />} to={`/content-manager/collectionType/${settings.collection}/create`}>Create new {settings.collection.split(".")[1]}</LinkButton> : <div/>;
 
   const sty = `
     #schedule .Cell-highlightedText {
@@ -124,7 +123,7 @@ return (
       <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2" primaryAction={primaryAction} />
       <ContentLayout>
         {data.length === 0 && (
-          <EmptyStateLayout icon={<Icon color="primary700" width={30} height={30} as={Calendar}/>} content={"There are no events loaded. \n\n Did you properly configure the plugin?"} action={
+          <EmptyStateLayout icon={<Illo />} content={"There are no events loaded. \n\n Did you properly configure the plugin?"} action={
             <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog/>}>
               Review Settings
             </LinkButton>
@@ -136,8 +135,10 @@ return (
             <Flex justifyContent="space-between" style={{marginBottom: 10}}>
               <Flex>
                 <IconButton noBorder onClick={() => setState(s => ({...s, date: moment(s.date).subtract(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronLeft />} />
-                <DatePicker selectedDateLabel={() => {
-                }} name="date" aria-label="Select Date" value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
+                <Box paddingLeft={1} paddingRight={1}>
+                  <DatePicker selectedDateLabel={() => {
+                  }} name="date" aria-label="Select Date" value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
+                </Box>
                 <IconButton noBorder onClick={() => setState(s => ({...s, date: moment(s.date).add(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronRight />} />
                 <Box>
                   {settings.todayButton &&
@@ -195,7 +196,7 @@ function Appointment({children, style, ...restProps}) {
         style={{
           ...style,
           backgroundColor: settings.eventColor,
-          borderRadius: "8px",
+          borderRadius: "4px",
         }}
     >
       {children}
