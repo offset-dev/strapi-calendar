@@ -30,7 +30,7 @@ import {
   Appointments,
 } from "@devexpress/dx-react-scheduler-material-ui";
 import {ViewState} from "@devexpress/dx-react-scheduler";
-import Illo from "../components/illo"
+import Illo from "../components/illo";
 import api from "../api";
 
 function HomePage() {
@@ -43,7 +43,6 @@ function HomePage() {
   const [data, setData] = useState([]);
 
   const load = date => {
-    setLoading(true);
     api.getData(date).then(r => {
       setData(r.data);
       setLoading(false);
@@ -62,6 +61,10 @@ function HomePage() {
       setLoading(false);
     });
   };
+
+  React.useEffect(() => {
+    load(state.date)
+  },[state.date])
 
   useEffect(() => {
     initialLoad();
@@ -87,7 +90,7 @@ function HomePage() {
     return <>
       <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2"/>
       <ContentLayout>
-        <EmptyStateLayout icon={<Illo />} content="Please configure the settings before accessing the calendar" action={
+        <EmptyStateLayout icon={<Illo/>} content="Please configure the settings before accessing the calendar" action={
           <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog/>}>
             Settings
           </LinkButton>
@@ -98,7 +101,7 @@ function HomePage() {
 
   const {monthView, weekView, dayView} = settings;
   const multipleViews = monthView && weekView || monthView && dayView || weekView && dayView;
-  const primaryAction = settings.createButton ? <LinkButton startIcon={<Plus />} to={`/content-manager/collectionType/${settings.collection}/create`}>Create new {settings.collection.split(".")[1]}</LinkButton> : <div/>;
+  const primaryAction = settings.createButton ? <LinkButton startIcon={<Plus/>} to={`/content-manager/collectionType/${settings.collection}/create`}>Create new {settings.collection.split(".")[1]}</LinkButton> : <div/>;
 
   const sty = `
     #schedule .Cell-highlightedText {
@@ -115,61 +118,51 @@ function HomePage() {
       width: 100%;
       height: 100%;
     }
-  `
+  `;
 
-return (
+  return (
     <>
       <style>{sty}</style>
-      <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2" primaryAction={primaryAction} />
+      <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2" primaryAction={primaryAction}/>
       <ContentLayout>
-        {data.length === 0 && (
-          <EmptyStateLayout icon={<Illo />} content={"There are no events loaded. \n\n Did you properly configure the plugin?"} action={
-            <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog/>}>
-              Review Settings
-            </LinkButton>
-          }/>
-        )}
-
-        {data.length > 0 &&
-          <Box id="schedule" background="neutral0" shadow="filterShadow" padding={[5, 8]} hasRadius>
-            <Flex justifyContent="space-between" style={{marginBottom: 10}}>
-              <Flex>
-                <IconButton noBorder onClick={() => setState(s => ({...s, date: moment(s.date).subtract(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronLeft />} />
-                <Box paddingLeft={1} paddingRight={1}>
-                  <DatePicker selectedDateLabel={() => {
-                  }} name="date" aria-label="Select Date" value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
-                </Box>
-                <IconButton noBorder onClick={() => setState(s => ({...s, date: moment(s.date).add(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronRight />} />
-                <Box>
-                  {settings.todayButton &&
-                    <Button variant="secondary" size="L" onClick={() => setState(s => ({...s, date: moment().format("ll")}))}>Today</Button>
-                  }
-                </Box>
-              </Flex>
-              <Box style={{width: 220}}>
-                {multipleViews &&
-                  <Select aria-label="Select View" value={state.view} onChange={e => setState(s => ({...s, view: e}))}>
-                    {settings.monthView && <Option value="Month">Month</Option>}
-                    {settings.weekView && <Option value="Week">Week</Option>}
-                    {settings.dayView && <Option value="Day">Day</Option>}
-                  </Select>
+        <Box id="schedule" background="neutral0" shadow="filterShadow" padding={[5, 8]} hasRadius>
+          <Flex justifyContent="space-between" style={{marginBottom: 10}}>
+            <Flex>
+              <IconButton noBorder onClick={() => setState(s => ({...s, date: moment(s.date).subtract(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronLeft/>}/>
+              <Box paddingLeft={1} paddingRight={1}>
+                <DatePicker selectedDateLabel={() => {
+                }} name="date" aria-label="Select Date" value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
+              </Box>
+              <IconButton noBorder onClick={() => setState(s => ({...s, date: moment(s.date).add(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronRight/>}/>
+              <Box>
+                {settings.todayButton &&
+                  <Button variant="secondary" size="L" onClick={() => setState(s => ({...s, date: moment().format("ll")}))}>Today</Button>
                 }
               </Box>
             </Flex>
-            <Box style={{textAlign: "center", marginBottom: 20}}>
-              {state.view === "Month" &&
-                <Typography variant="alpha" textTransform="uppercase" style={{textAlign: "center"}}>{moment(state.date, "ll").format("MMMM")}</Typography>
+            <Box style={{width: 220}}>
+              {multipleViews &&
+                <Select aria-label="Select View" value={state.view} onChange={e => setState(s => ({...s, view: e}))}>
+                  {settings.monthView && <Option value="Month">Month</Option>}
+                  {settings.weekView && <Option value="Week">Week</Option>}
+                  {settings.dayView && <Option value="Day">Day</Option>}
+                </Select>
               }
             </Box>
-            <Scheduler data={data}>
-              <ViewState onCurrentDateChange={load} currentDate={moment(state.date, "ll").format()} currentViewName={state.view}/>
-              <MonthView/>
-              <WeekView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
-              <DayView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
-              <Appointments appointmentComponent={Appointment} />
-            </Scheduler>
+          </Flex>
+          <Box style={{textAlign: "center", marginBottom: 20}}>
+            {state.view === "Month" &&
+              <Typography variant="alpha" textTransform="uppercase" style={{textAlign: "center"}}>{moment(state.date, "ll").format("MMMM")}</Typography>
+            }
           </Box>
-        }
+          <Scheduler data={data}>
+            <ViewState onCurrentDateChange={load} currentDate={moment(state.date, "ll").format()} currentViewName={state.view}/>
+            <MonthView/>
+            <WeekView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
+            <DayView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
+            <Appointments appointmentComponent={Appointment}/>
+          </Scheduler>
+        </Box>
       </ContentLayout>
     </>
   );
@@ -188,16 +181,18 @@ function Appointment({children, style, ...restProps}) {
 
   const {id} = restProps.data;
 
-  if (!settings) return null;
+  if (!settings) {
+    return null;
+  }
 
   return <Link to={`/content-manager/collectionType/${settings.collection}/${id}`}>
     <Appointments.Appointment
-        {...restProps}
-        style={{
-          ...style,
-          backgroundColor: settings.eventColor,
-          borderRadius: "4px",
-        }}
+      {...restProps}
+      style={{
+        ...style,
+        backgroundColor: settings.eventColor,
+        borderRadius: "4px",
+      }}
     >
       {children}
     </Appointments.Appointment>
@@ -207,10 +202,10 @@ function Appointment({children, style, ...restProps}) {
 Appointment.propTypes = {
   children: propTypes.node.isRequired,
   style: propTypes.object,
-}
+};
 
 Appointment.defaultProps = {
-  style: {}
-}
+  style: {},
+};
 
 export default memo(HomePage);
