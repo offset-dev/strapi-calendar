@@ -1,1 +1,14 @@
-{}
+{
+    "plugin.name": "Calendar",
+    "plugin.tagline": "Visualize your events",
+    "view.calendar.state.empty.configure-settings.message": "Please configure the settings before accessing the calendar",
+    "view.calendar.state.empty.configure-settings.action": "Settings",
+    "view.calendar.action.create-entry": "Create new ${collection}",
+    "view.calendar.action.select-date": "Select date",
+    "view.calendar.action.today": "Today",
+    "view.calendar.action.month": "Month",
+    "view.calendar.action.week": "Week",
+    "view.calendar.action.day": "Day",
+    "view.calendar.locale": "en-US",
+    "view.calendar.first-day-of-week": "0"
+}
