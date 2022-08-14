@@ -105,7 +105,7 @@ function HomePage() {
 
   const {monthView, weekView, dayView} = settings;
   const multipleViews = monthView && weekView || monthView && dayView || weekView && dayView;
-  const primaryAction = settings.createButton ? <LinkButton startIcon={<Plus/>} to={`/content-manager/collectionType/${settings.collection}/create`}>Create new {settings.collection.split(".")[1]}</LinkButton> : <div/>;
+  const primaryAction = settings.createButton ? <LinkButton startIcon={<Plus/>} to={`/content-manager/collectionType/${settings.collection}/create`}>{formatMessage({ id: getTrad('view.calendar.action.create-entry') }, { collection: settings.collection.split(".")[1] })}</LinkButton> : <div/>;
 
   const sty = `
     #schedule .Cell-highlightedText {
