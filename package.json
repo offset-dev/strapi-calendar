@@ -35,6 +35,7 @@
     "@mui/lab": "^5.0.0-alpha.82",
     "@mui/material": "^5.8.0",
     "@mui/styles": "^5.8.0",
+    "@mui/x-date-pickers": "^5.0.0-beta.6",
     "moment": "^2.29.3",
     "react-color": "^2.19.3"
   },
