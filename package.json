@@ -1,6 +1,6 @@
 {
   "name": "@offset-dev/strapi-calendar",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Visual calendar for Strapi",
   "strapi": {
     "name": "calendar",
