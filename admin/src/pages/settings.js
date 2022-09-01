@@ -291,7 +291,7 @@ return toggleNotification({
                   </GridItem>
                   <GridItem col={6} s={12}>
                     <ToggleInput
-                      label={formatMessage({ id: getTrad('view.settings.section.calendar.view.month.label') })}
+                      label={formatMessage({ id: getTrad('view.settings.section.calendar.view.month') })}
                       checked={settings.monthView}
                       offLabel={formatMessage({ id: getTrad('view.settings.section.calendar.view.off') })}
                       onLabel={formatMessage({ id: getTrad('view.settings.section.calendar.view.on') })}
@@ -307,7 +307,7 @@ return toggleNotification({
                 <Grid paddingTop={3}>
                   <GridItem col={6} s={12}>
                     <ToggleInput
-                      label={formatMessage({ id: getTrad('view.settings.section.calendar.view.week.label') })}
+                      label={formatMessage({ id: getTrad('view.settings.section.calendar.view.week') })}
                       checked={settings.weekView}
                       offLabel={formatMessage({ id: getTrad('view.settings.section.calendar.view.off') })}
                       onLabel={formatMessage({ id: getTrad('view.settings.section.calendar.view.on') })}
@@ -321,7 +321,7 @@ return toggleNotification({
                   </GridItem>
                   <GridItem col={6} s={12}>
                     <ToggleInput
-                      label={formatMessage({ id: getTrad('view.settings.section.calendar.view.day.label') })}
+                      label={formatMessage({ id: getTrad('view.settings.section.calendar.view.day') })}
                       checked={settings.dayView}
                       offLabel={formatMessage({ id: getTrad('view.settings.section.calendar.view.off') })}
                       onLabel={formatMessage({ id: getTrad('view.settings.section.calendar.view.on') })}

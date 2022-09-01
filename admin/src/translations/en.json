@@ -42,7 +42,7 @@
     "view.settings.section.calendar.button.today.label": "Today Button",
     "view.settings.section.calendar.view.off": "Disabled",
     "view.settings.section.calendar.view.on": "Enabled",
-    "view.settings.section.calendar.view.month.label": "Month View",
-    "view.settings.section.calendar.view.week.label": "Week View",
-    "view.settings.section.calendar.view.day.label": "Day View"
+    "view.settings.section.calendar.view.month": "Month View",
+    "view.settings.section.calendar.view.week": "Week View",
+    "view.settings.section.calendar.view.day": "Day View"
 }

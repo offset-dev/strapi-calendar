@@ -36,13 +36,13 @@
     "view.settings.section.calendar.times.start.label": "Start-Uhrzeit",
     "view.settings.section.calendar.times.end.label": "Ende-Uhrzeit",
     "view.settings.section.calendar.default-view.label": "Standard-Ansicht",
-    "view.settings.section.calendar.view.month": "Monats-Ansicht",
-    "view.settings.section.calendar.view.week": "Wochen-Ansicht",
-    "view.settings.section.calendar.view.day": "Tages-Ansicht",
     "view.settings.section.calendar.button.off": "Deaktiviert",
     "view.settings.section.calendar.button.on": "Aktiviert",
     "view.settings.section.calendar.button.create.label": "Erstellen-Button",
     "view.settings.section.calendar.button.today.label": "Heute-Button",
     "view.settings.section.calendar.view.off": "Deaktiviert",
-    "view.settings.section.calendar.view.on": "Aktiviert"
+    "view.settings.section.calendar.view.on": "Aktiviert",
+    "view.settings.section.calendar.view.month": "Monats-Ansicht",
+    "view.settings.section.calendar.view.week": "Wochen-Ansicht",
+    "view.settings.section.calendar.view.day": "Tages-Ansicht"
 }
