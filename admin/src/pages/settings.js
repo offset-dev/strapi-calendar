@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import { useIntl } from 'react-intl';
 
 import {ChromePicker} from 'react-color';
 import {LoadingIndicatorPage, useNotification} from '@strapi/helper-plugin';
@@ -16,7 +16,8 @@ import { Select, Option } from '@strapi/design-system/Select';
 
 import Check from '@strapi/icons/Check';
 import styled from 'styled-components';
-import api from '../api'
+import api from '../api';
+import getTrad from "../utils/getTrad";
 
 const ColorWindow = styled.div`
   background-color: ${(props) => props.color};
@@ -42,6 +43,8 @@ const Cover = styled.div`
 `;
 
 function Settings() {
+  const { formatMessage, formatDate } = useIntl();
+
   const [popOver, setPopOver] = useState(null);
   const [collections, setCollections] = useState([]);
   const [fields, setFields] = useState([]);
@@ -134,8 +137,8 @@ return toggleNotification({
     <>
       <HeaderLayout
         id='title'
-        title='Calendar settings'
-        subtitle='Configure the plugin to your needs'
+        title={formatMessage({ id: getTrad('view.settings.title') })}
+        subtitle={formatMessage({ id: getTrad('view.settings.subtitle') })}
         primaryAction={
           !isLoading &&
             <Button
@@ -145,7 +148,7 @@ return toggleNotification({
               disabled={isSaving}
               loading={isSaving}
             >
-              Save
+              {formatMessage({ id: getTrad('view.settings.action.save') })}
             </Button>
         }
        />
@@ -163,45 +166,45 @@ return toggleNotification({
             paddingRight={6}
           >
             <Stack spacing={3} paddingBottom={8}>
-              <Typography variant="beta">General settings</Typography>
-              <Select label="Choose your collection" onChange={e => setSettings(s => ({...s, collection: e}))} value={settings.collection}>
+              <Typography variant="beta">{formatMessage({ id: getTrad('view.settings.section.general.title') })}</Typography>
+              <Select label={formatMessage({ id: getTrad('view.settings.section.general.collection.label') })} onChange={e => setSettings(s => ({...s, collection: e}))} value={settings.collection}>
                 {collections.map(x => <Option key={x.uid} value={x.uid}>{x.collectionName}</Option>)}
               </Select>
               <Grid gap={4} paddingTop={3}>
                 <GridItem col={6} s={12}>
-                  <Select label="Choose your title field" onChange={e => setSettings(s => ({...s, titleField: e}))} value={settings.titleField}>
-                    <Option value="">[No title field]</Option>
+                  <Select label={formatMessage({ id: getTrad('view.settings.section.general.title.label') })} onChange={e => setSettings(s => ({...s, titleField: e}))} value={settings.titleField}>
+                    <Option value="">[{formatMessage({ id: getTrad('view.settings.section.general.title.none') })}]</Option>
                     {fields.filter(x => x.type === "string").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
                 <GridItem col={6} s={12}>
-                  <Select label="Choose your default event duration" onChange={e => setSettings(s => ({...s, defaultDuration: e}))} value={settings.defaultDuration}>
-                    <Option value={30}>30 Minutes</Option>
-                    <Option value={60}>1 Hour</Option>
-                    <Option value={90}>1.5 Hours</Option>
-                    <Option value={120}>2 Hours</Option>
+                  <Select label={formatMessage({ id: getTrad('view.settings.section.general.default-duration.label') })} onChange={e => setSettings(s => ({...s, defaultDuration: e}))} value={settings.defaultDuration}>
+                    <Option value={30}>{formatMessage({ id: getTrad('view.settings.section.general.default-duration.30min') })}</Option>
+                    <Option value={60}>{formatMessage({ id: getTrad('view.settings.section.general.default-duration.1h') })}</Option>
+                    <Option value={90}>{formatMessage({ id: getTrad('view.settings.section.general.default-duration.1.5h') })}</Option>
+                    <Option value={120}>{formatMessage({ id: getTrad('view.settings.section.general.default-duration.2h') })}</Option>
                   </Select>
                 </GridItem>
               </Grid>
               <Grid gap={4} paddingTop={3}>
                 <GridItem col={6} s={12}>
-                  <Select label="Choose your start field" onChange={e => setSettings(s => ({...s, startField: e}))} value={settings.startField}>
+                  <Select label={formatMessage({ id: getTrad('view.settings.section.general.start.label') })} onChange={e => setSettings(s => ({...s, startField: e}))} value={settings.startField}>
                     {fields.filter(x => x.type === "datetime").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
                 <GridItem col={6} s={12}>
-                  <Select label="Choose your end field" onChange={e => setSettings(s => ({...s, endField: e}))} value={settings.endField}>
-                    <Option value="">[No end field]</Option>
+                  <Select label={formatMessage({ id: getTrad('view.settings.section.general.end.label') })} onChange={e => setSettings(s => ({...s, endField: e}))} value={settings.endField}>
+                    <Option value="">[{formatMessage({ id: getTrad('view.settings.section.general.end.none') })}]</Option>
                     {fields.filter(x => x.type === "datetime").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
               </Grid>
               <Box paddingTop={3}>
                 <ToggleInput
-                  label="Display Drafts"
+                  label={formatMessage({ id: getTrad('view.settings.section.general.display-drafts.label') })}
                   checked={settings.drafts}
-                  offLabel='Disabled'
-                  onLabel='Enabled'
+                  offLabel={formatMessage({ id: getTrad('view.settings.section.general.display-drafts.off') })}
+                  onLabel={formatMessage({ id: getTrad('view.settings.section.general.display-drafts.on') })}
                   onChange={e => {
                     setSettings(s => ({
                       ...s,
@@ -213,10 +216,10 @@ return toggleNotification({
             </Stack>
 
             <Stack spacing={3} paddingBottom={0}>
-              <Typography variant="beta">Calendar settings</Typography>
+              <Typography variant="beta">{formatMessage({ id: getTrad('view.settings.section.calendar.title') })}</Typography>
               <Stack horizontal spacing={6}>
                 <Box>
-                  <Typography variant="pi" fontWeight="bold">Primary Color</Typography>
+                  <Typography variant="pi" fontWeight="bold">{formatMessage({ id: getTrad('view.settings.section.calendar.primary-color.title') })}</Typography>
                   <Box paddingTop={1} paddingBottom={2}>
                     <ColorWindow color={settings.primaryColor} onClick={() => setPopOver('primaryColor')} />
                     {popOver === 'primaryColor' &&
@@ -229,7 +232,7 @@ return toggleNotification({
                   </Box>
                 </Box>
                 <Box>
-                  <Typography variant="pi" fontWeight="bold">Event Color</Typography>
+                  <Typography variant="pi" fontWeight="bold">{formatMessage({ id: getTrad('view.settings.section.calendar.event-color.title') })}</Typography>
                   <Box paddingTop={1} paddingBottom={2}>
                     <ColorWindow color={settings.eventColor} onClick={() => setPopOver('eventColor')} />
                     {popOver === 'eventColor' &&
@@ -244,25 +247,25 @@ return toggleNotification({
               </Stack>
               <Grid gap={4}>
                 <GridItem col={6} s={12}>
-                  <TimePicker clearLabel="Clear Time" label="Start Hour" step={30} value={settings.startHour} onChange={e => setSettings(s => ({...s, startHour: e}))}/>
+                  <TimePicker clearLabel={formatMessage({ id: getTrad('view.settings.section.calendar.times.clear') })} label={formatMessage({ id: getTrad('view.settings.section.calendar.times.start.label') })} step={30} value={settings.startHour} onChange={e => setSettings(s => ({...s, startHour: e}))}/>
                 </GridItem>
                 <GridItem col={6} s={12}>
-                  <TimePicker clearLabel="Clear Time" label="End Hour" step={30} value={settings.endHour} onChange={e => setSettings(s => ({...s, endHour: e}))}/>
+                  <TimePicker clearLabel={formatMessage({ id: getTrad('view.settings.section.calendar.times.clear') })} label={formatMessage({ id: getTrad('view.settings.section.calendar.times.end.label') })} step={30} value={settings.endHour} onChange={e => setSettings(s => ({...s, endHour: e}))}/>
                 </GridItem>
               </Grid>
 
               <Stack spacing={3} paddingTop={3}>
-                <Select label="Default View" onChange={e => setSettings(s => ({...s, defaultView: e}))} value={settings.defaultView}>
-                  <Option value="Month">Month View</Option>
-                  <Option value="Week">Week View</Option>
-                  <Option value="Day">Day View</Option>
+                <Select label={formatMessage({ id: getTrad('view.settings.section.calendar.default-view.label') })} onChange={e => setSettings(s => ({...s, defaultView: e}))} value={settings.defaultView}>
+                  <Option value="Month">{formatMessage({ id: getTrad('view.settings.section.calendar.default-view.month') })}</Option>
+                  <Option value="Week">{formatMessage({ id: getTrad('view.settings.section.calendar.default-view.week') })}</Option>
+                  <Option value="Day">{formatMessage({ id: getTrad('view.settings.section.calendar.default-view.day') })}</Option>
                 </Select>
                 <Box paddingTop={3}>
                   <ToggleInput
-                    label="Create Button"
+                    label={formatMessage({ id: getTrad('view.settings.section.calendar.button.create.label') })}
                     checked={settings.createButton}
-                    offLabel='Disabled'
-                    onLabel='Enabled'
+                    offLabel={formatMessage({ id: getTrad('view.settings.section.calendar.button.off') })}
+                    onLabel={formatMessage({ id: getTrad('view.settings.section.calendar.button.on') })}
                     onChange={e => {
                       setSettings(s => ({
                         ...s,
@@ -274,10 +277,10 @@ return toggleNotification({
                 <Grid paddingTop={3}>
                   <GridItem col={6} s={12}>
                     <ToggleInput
-                      label="Today Button"
+                      label={formatMessage({ id: getTrad('view.settings.section.calendar.button.today.label') })}
                       checked={settings.todayButton}
-                      offLabel='Disabled'
-                      onLabel='Enabled'
+                      offLabel={formatMessage({ id: getTrad('view.settings.section.calendar.button.off') })}
+                      onLabel={formatMessage({ id: getTrad('view.settings.section.calendar.button.on') })}
                       onChange={e => {
                         setSettings(s => ({
                           ...s,
@@ -288,10 +291,10 @@ return toggleNotification({
                   </GridItem>
                   <GridItem col={6} s={12}>
                     <ToggleInput
-                      label="Month View"
+                      label={formatMessage({ id: getTrad('view.settings.section.calendar.view.month.label') })}
                       checked={settings.monthView}
-                      offLabel='Disabled'
-                      onLabel='Enabled'
+                      offLabel={formatMessage({ id: getTrad('view.settings.section.calendar.view.off') })}
+                      onLabel={formatMessage({ id: getTrad('view.settings.section.calendar.view.on') })}
                       onChange={e => {
                         setSettings(s => ({
                           ...s,
@@ -304,10 +307,10 @@ return toggleNotification({
                 <Grid paddingTop={3}>
                   <GridItem col={6} s={12}>
                     <ToggleInput
-                      label="Week View"
+                      label={formatMessage({ id: getTrad('view.settings.section.calendar.view.week.label') })}
                       checked={settings.weekView}
-                      offLabel='Disabled'
-                      onLabel='Enabled'
+                      offLabel={formatMessage({ id: getTrad('view.settings.section.calendar.view.off') })}
+                      onLabel={formatMessage({ id: getTrad('view.settings.section.calendar.view.on') })}
                       onChange={e => {
                         setSettings(s => ({
                           ...s,
@@ -318,10 +321,10 @@ return toggleNotification({
                   </GridItem>
                   <GridItem col={6} s={12}>
                     <ToggleInput
-                      label="Day View"
+                      label={formatMessage({ id: getTrad('view.settings.section.calendar.view.day.label') })}
                       checked={settings.dayView}
-                      offLabel='Disabled'
-                      onLabel='Enabled'
+                      offLabel={formatMessage({ id: getTrad('view.settings.section.calendar.view.off') })}
+                      onLabel={formatMessage({ id: getTrad('view.settings.section.calendar.view.on') })}
                       onChange={e => {
                         setSettings(s => ({
                           ...s,
