@@ -40,8 +40,8 @@
     "view.settings.section.calendar.view.day": "Tages-Ansicht",
     "view.settings.section.calendar.button.off": "Deaktiviert",
     "view.settings.section.calendar.button.on": "Aktiviert",
-    "view.settings.section.calendar.button.create.label": "Create Button",
-    "view.settings.section.calendar.button.today.label": "Today Button",
+    "view.settings.section.calendar.button.create.label": "Erstellen-Button",
+    "view.settings.section.calendar.button.today.label": "Heute-Button",
     "view.settings.section.calendar.view.off": "Deaktiviert",
     "view.settings.section.calendar.view.on": "Aktiviert"
 }

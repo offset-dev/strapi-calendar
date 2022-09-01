@@ -256,9 +256,9 @@ return toggleNotification({
 
               <Stack spacing={3} paddingTop={3}>
                 <Select label={formatMessage({ id: getTrad('view.settings.section.calendar.default-view.label') })} onChange={e => setSettings(s => ({...s, defaultView: e}))} value={settings.defaultView}>
-                  <Option value="Month">{formatMessage({ id: getTrad('view.settings.section.calendar.default-view.month') })}</Option>
-                  <Option value="Week">{formatMessage({ id: getTrad('view.settings.section.calendar.default-view.week') })}</Option>
-                  <Option value="Day">{formatMessage({ id: getTrad('view.settings.section.calendar.default-view.day') })}</Option>
+                  <Option value="Month">{formatMessage({ id: getTrad('view.settings.section.calendar.view.month') })}</Option>
+                  <Option value="Week">{formatMessage({ id: getTrad('view.settings.section.calendar.view.week') })}</Option>
+                  <Option value="Day">{formatMessage({ id: getTrad('view.settings.section.calendar.view.day') })}</Option>
                 </Select>
                 <Box paddingTop={3}>
                   <ToggleInput
