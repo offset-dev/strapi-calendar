@@ -43,7 +43,7 @@ const Cover = styled.div`
 `;
 
 function Settings() {
-  const { formatMessage, formatDate } = useIntl();
+  const { formatMessage } = useIntl();
 
   const [popOver, setPopOver] = useState(null);
   const [collections, setCollections] = useState([]);
