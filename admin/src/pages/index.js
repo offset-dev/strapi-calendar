@@ -6,6 +6,7 @@
 
 import React, {memo, useState, useEffect} from "react";
 import propTypes from "prop-types";
+import { useIntl } from 'react-intl';
 
 import {EmptyStateLayout} from "@strapi/design-system/EmptyStateLayout";
 import {BaseHeaderLayout, ContentLayout} from "@strapi/design-system/Layout";
@@ -32,6 +33,7 @@ import {
 import {ViewState} from "@devexpress/dx-react-scheduler";
 import Illo from "../components/illo";
 import api from "../api";
+import getTrad from "../utils/getTrad";
 
 function HomePage() {
   const [state, setState] = useState({
@@ -41,6 +43,8 @@ function HomePage() {
   const [loading, setLoading] = useState(true);
   const [settings, setSettings] = useState(null);
   const [data, setData] = useState([]);
+
+  const { formatMessage, formatDate } = useIntl();
 
   const load = date => {
     api.getData(date).then(r => {
@@ -72,7 +76,7 @@ function HomePage() {
 
   if (loading) {
     return <>
-      <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2"/>
+      <BaseHeaderLayout title={formatMessage({ id: getTrad('plugin.name') })} subtitle={formatMessage({ id: getTrad('plugin.tagline') })} as="h2"/>
       <ContentLayout>
         <Box style={{
           display: "flex",
@@ -88,11 +92,11 @@ function HomePage() {
 
   if (!settings) {
     return <>
-      <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2"/>
+      <BaseHeaderLayout title={formatMessage({ id: getTrad('plugin.name') })} subtitle={formatMessage({ id: getTrad('plugin.tagline') })} as="h2"/>
       <ContentLayout>
-        <EmptyStateLayout icon={<Illo/>} content="Please configure the settings before accessing the calendar" action={
+        <EmptyStateLayout icon={<Illo/>} content={formatMessage({ id: getTrad('view.calendar.state.empty.configure-settings.message') })} action={
           <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog/>}>
-            Settings
+            {formatMessage({ id: getTrad('view.calendar.state.empty.configure-settings.action') })}
           </LinkButton>
         }/>
       </ContentLayout>
@@ -101,7 +105,7 @@ function HomePage() {
 
   const {monthView, weekView, dayView} = settings;
   const multipleViews = monthView && weekView || monthView && dayView || weekView && dayView;
-  const primaryAction = settings.createButton ? <LinkButton startIcon={<Plus/>} to={`/content-manager/collectionType/${settings.collection}/create`}>Create new {settings.collection.split(".")[1]}</LinkButton> : <div/>;
+  const primaryAction = settings.createButton ? <LinkButton startIcon={<Plus/>} to={`/content-manager/collectionType/${settings.collection}/create`}>{formatMessage({ id: getTrad('view.calendar.action.create-entry') }, { collection: settings.collection.split(".")[1] })}</LinkButton> : <div/>;
 
   const sty = `
     #schedule .Cell-highlightedText {
@@ -123,7 +127,7 @@ function HomePage() {
   return (
     <>
       <style>{sty}</style>
-      <BaseHeaderLayout title="Calendar" subtitle="Visualize your events" as="h2" primaryAction={primaryAction}/>
+      <BaseHeaderLayout title={formatMessage({ id: getTrad('plugin.name') })} subtitle={formatMessage({ id: getTrad('plugin.tagline') })} as="h2" primaryAction={primaryAction}/>
       <ContentLayout>
         <Box id="schedule" background="neutral0" shadow="filterShadow" padding={[5, 8]} hasRadius>
           <Flex justifyContent="space-between" style={{marginBottom: 10}}>
@@ -131,31 +135,31 @@ function HomePage() {
               <IconButton noBorder onClick={() => setState(s => ({...s, date: moment(s.date).subtract(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronLeft/>}/>
               <Box paddingLeft={1} paddingRight={1}>
                 <DatePicker selectedDateLabel={() => {
-                }} name="date" aria-label="Select Date" value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
+                }} name="date" aria-label={formatMessage({ id: getTrad('view.calendar.action.select-date') })} value={state.date} onChange={e => setState(s => ({...s, date: moment(e).format("ll")}))}/>
               </Box>
               <IconButton noBorder onClick={() => setState(s => ({...s, date: moment(s.date).add(1, s.view.toLowerCase()).format("ll")}))} icon={<ChevronRight/>}/>
               <Box>
                 {settings.todayButton &&
-                  <Button variant="secondary" size="L" onClick={() => setState(s => ({...s, date: moment().format("ll")}))}>Today</Button>
+                  <Button variant="secondary" size="L" onClick={() => setState(s => ({...s, date: moment().format("ll")}))}>{formatMessage({ id: getTrad('view.calendar.action.today') })}</Button>
                 }
               </Box>
             </Flex>
             <Box style={{width: 220}}>
               {multipleViews &&
                 <Select aria-label="Select View" value={state.view} onChange={e => setState(s => ({...s, view: e}))}>
-                  {settings.monthView && <Option value="Month">Month</Option>}
-                  {settings.weekView && <Option value="Week">Week</Option>}
-                  {settings.dayView && <Option value="Day">Day</Option>}
+                  {settings.monthView && <Option value="Month">{formatMessage({ id: getTrad('view.calendar.action.month') })}</Option>}
+                  {settings.weekView && <Option value="Week">{formatMessage({ id: getTrad('view.calendar.action.week') })}</Option>}
+                  {settings.dayView && <Option value="Day">{formatMessage({ id: getTrad('view.calendar.action.day') })}</Option>}
                 </Select>
               }
             </Box>
           </Flex>
           <Box style={{textAlign: "center", marginBottom: 20}}>
             {state.view === "Month" &&
-              <Typography variant="alpha" textTransform="uppercase" style={{textAlign: "center"}}>{moment(state.date, "ll").format("MMMM")}</Typography>
+              <Typography variant="alpha" textTransform="uppercase" style={{textAlign: "center"}}>{formatDate(state.date, { month: 'long'})}</Typography>
             }
           </Box>
-          <Scheduler data={data}>
+          <Scheduler data={data} locale={formatMessage({ id: getTrad('view.calendar.locale') })} firstDayOfWeek={formatMessage({ id: getTrad('view.calendar.first-day-of-week') }) || 0}>
             <ViewState onCurrentDateChange={load} currentDate={moment(state.date, "ll").format()} currentViewName={state.view}/>
             <MonthView/>
             <WeekView startDayHour={settings.startHour} endDayHour={settings.endHour}/>
