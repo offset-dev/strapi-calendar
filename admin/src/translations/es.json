@@ -25,7 +25,7 @@
     "view.settings.section.general.default-duration.2h": "2 horas",
     "view.settings.section.general.start.label": "Elija su campo de comienzo",
     "view.settings.section.general.end.label": "Elija su campo de finalización",
-    "view.settings.section.general.end.none": "Sin campo final",
+    "view.settings.section.general.end.none": "Sin campo de finalización",
     "view.settings.section.general.display-drafts.label": "Mostrar borradores",
     "view.settings.section.general.display-drafts.off": "Desactivado",
     "view.settings.section.general.display-drafts.on": "Activado",
