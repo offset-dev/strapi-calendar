@@ -7,18 +7,23 @@ const taskRequests = {
         date
       }
     });
-    
-return data;
+
+    return data;
   },
   getCollections: async () => {
     const data = await axiosInstance.get(`/calendar/settings/collections`);
-    
-return data;
+
+    return data;
+  },
+  getRelevantPlugins: async () => {
+    const data =  await axiosInstance.get(`/calendar/plugins`);
+
+    return data;
   },
   getSettings: async () => {
     const data = await axiosInstance.get(`/calendar/settings`);
     
-return data;
+    return data;
   },
   setSettings: async data => {
     return axiosInstance.post(`/calendar/settings`, data);
