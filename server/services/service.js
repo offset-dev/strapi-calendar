@@ -1,6 +1,5 @@
 'use strict';
 const moment = require('moment');
-const dateFormat = 'YYYY-MM-DD';
 
 function getPluginStore() {
   return strapi.store({
@@ -26,8 +25,8 @@ module.exports = () => ({
       $and: [
         {
           [config.startField]: {
-            $gte: moment(date, dateFormat).startOf('month').subtract(1, 'month').format(),
-            $lte: moment(date, dateFormat).endOf('month').add(1, 'month').format(),
+            $gte: moment(date).startOf('month').subtract(1, 'month').format(),
+            $lte: moment(date).endOf('month').add(1, 'month').format(),
           },
         },
       ],
@@ -52,8 +51,7 @@ module.exports = () => ({
   async getCollections() {
     const types = strapi.contentTypes;
     const typesArray = Object.values(types);
-    const collections = typesArray.filter(x => x.kind === 'collectionType' && x.apiName);
-    return collections;
+    return typesArray.filter(x => x.kind === 'collectionType' && x.apiName);
   },
   async getSettings() {
     const pluginStore = getPluginStore();
