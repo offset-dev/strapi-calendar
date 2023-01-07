@@ -18,6 +18,8 @@
     "view.settings.section.general.collection.label": "Elija su colección",
     "view.settings.section.general.title.label": "Elija su campo de título",
     "view.settings.section.general.title.none": "Sin campo de título",
+    "view.settings.section.general.color.label": "Elija su campo de color",
+    "view.settings.section.general.color.none": "Sin campo de color",
     "view.settings.section.general.default-duration.label": "Elija la duración predeterminada de su evento",
     "view.settings.section.general.default-duration.30min": "30 minutos",
     "view.settings.section.general.default-duration.1h": "1 hora",

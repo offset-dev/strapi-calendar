@@ -7,6 +7,7 @@
 import React, {memo, useState, useEffect} from "react";
 import propTypes from "prop-types";
 import { useIntl } from 'react-intl';
+import validateColor from 'validate-color';
 
 import {EmptyStateLayout} from "@strapi/design-system/EmptyStateLayout";
 import {BaseHeaderLayout, ContentLayout} from "@strapi/design-system/Layout";
@@ -47,7 +48,7 @@ function HomePage() {
   const { formatMessage, formatDate } = useIntl();
 
   const load = date => {
-    api.getData(date).then(r => {
+    api.getData(moment(date, 'll').toDate()).then(r => {
       setData(r.data);
       setLoading(false);
     });
@@ -183,7 +184,7 @@ function Appointment({children, style, ...restProps}) {
     });
   }, []);
 
-  const {id} = restProps.data;
+  const {id, color} = restProps.data;
 
   if (!settings) {
     return null;
@@ -194,7 +195,7 @@ function Appointment({children, style, ...restProps}) {
       {...restProps}
       style={{
         ...style,
-        backgroundColor: settings.eventColor,
+        backgroundColor: validateColor(color) ? color : settings.eventColor,
         borderRadius: "4px",
       }}
     >

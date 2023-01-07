@@ -18,6 +18,8 @@
     "view.settings.section.general.collection.label": "Choose your collection",
     "view.settings.section.general.title.label": "Choose your title field",
     "view.settings.section.general.title.none": "No title field",
+    "view.settings.section.general.color.label": "Choose your color field",
+    "view.settings.section.general.color.none": "No color field",
     "view.settings.section.general.default-duration.label": "Choose your default event duration",
     "view.settings.section.general.default-duration.30min": "30 Minutes",
     "view.settings.section.general.default-duration.1h": "1 Hour",

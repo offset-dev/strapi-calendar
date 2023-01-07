@@ -53,6 +53,7 @@ function Settings() {
     startField: null,
     endField: null,
     titleField: null,
+    colorField: null,
     defaultDuration: 30,
     drafts: true,
     startHour: "0:00",
@@ -196,6 +197,12 @@ return toggleNotification({
                   <Select label={formatMessage({ id: getTrad('view.settings.section.general.end.label') })} onChange={e => setSettings(s => ({...s, endField: e}))} value={settings.endField}>
                     <Option value="">[{formatMessage({ id: getTrad('view.settings.section.general.end.none') })}]</Option>
                     {fields.filter(x => x.type === "datetime").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
+                  </Select>
+                </GridItem>
+                <GridItem col={6} s={12}>
+                  <Select label={formatMessage({ id: getTrad('view.settings.section.general.color.label') })} onChange={e => setSettings(s => ({...s, colorField: e}))} value={settings.colorField}>
+                    <Option value="">[{formatMessage({ id: getTrad('view.settings.section.general.color.none') })}]</Option>
+                    {fields.filter(x => x.type === "string").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
                   </Select>
                 </GridItem>
               </Grid>

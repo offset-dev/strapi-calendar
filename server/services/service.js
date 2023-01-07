@@ -46,6 +46,7 @@ module.exports = () => ({
       title: config.titleField ? x[config.titleField] : config.startField,
       startDate: x[config.startField],
       endDate: config.endField ? x[config.endField] : moment(x[config.startField]).add(config.defaultDuration, "minutes"),
+      color: config.colorField ? x[config.colorField] : null,
     }));
   },
   async getCollections() {
