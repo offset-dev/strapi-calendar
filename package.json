@@ -1,6 +1,6 @@
 {
   "name": "@offset-dev/strapi-calendar",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Visual calendar for Strapi",
   "strapi": {
     "name": "calendar",
@@ -37,7 +37,8 @@
     "@mui/styles": "^5.8.0",
     "@mui/x-date-pickers": "^5.0.0-beta.6",
     "moment": "^2.29.3",
-    "react-color": "^2.19.3"
+    "react-color": "^2.19.3",
+    "validate-color": "^2.2.1"
   },
   "maintainers": [
     {
@@ -46,7 +47,7 @@
     }
   ],
   "engines": {
-    "node": ">=12.x.x <=16.x.x",
+    "node": ">=12.x.x",
     "npm": ">=6.0.0"
   },
   "devDependencies": {
