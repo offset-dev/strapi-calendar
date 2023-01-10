@@ -4,23 +4,23 @@ const taskRequests = {
   getData: async (date) => {
     const data = await axiosInstance.get(`/calendar`, {
       params: {
-        date
-      }
+        date,
+      },
     });
-    
-return data;
+
+    return data;
   },
   getCollections: async () => {
     const data = await axiosInstance.get(`/calendar/settings/collections`);
-    
-return data;
+
+    return data;
   },
   getSettings: async () => {
     const data = await axiosInstance.get(`/calendar/settings`);
-    
-return data;
+
+    return data;
   },
-  setSettings: async data => {
+  setSettings: async (data) => {
     return axiosInstance.post(`/calendar/settings`, data);
   },
 };
