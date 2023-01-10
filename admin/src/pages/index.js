@@ -38,7 +38,7 @@ import getTrad from "../utils/getTrad";
 
 function HomePage() {
   const [state, setState] = useState({
-    date: moment().toISOString(),
+    date: moment().format("ll"),
     view: "Month",
   });
   const [loading, setLoading] = useState(true);

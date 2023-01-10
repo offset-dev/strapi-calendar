@@ -74,13 +74,14 @@ module.exports = () => ({
     }
 
     // Fetch base fields
+    const keys = Object.keys(data);
     if (isStartFieldPlugin && config.titleField) {
       data = merge(
         data,
         (
           await strapi.entityService.findMany(config.collection, {
             fields: [config.titleField],
-            filters: { id: { $in: [...Object.keys(data)] } },
+            filters: { id: { $in: [...keys] } },
           })
         ).reduce((acc, el) => {
           acc[el.id] = el;
@@ -89,10 +90,7 @@ module.exports = () => ({
       );
     }
     if (endHandler) {
-      data = merge(
-        await endHandler(Object.keys(data), strapi.entityService, config),
-        data
-      );
+      data = merge(await endHandler(keys, strapi.entityService, config), data);
     }
 
     const dataFiltered = Object.values(data).filter((x) => {
