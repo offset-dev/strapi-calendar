@@ -14,10 +14,12 @@ import { ToggleInput } from "@strapi/design-system/ToggleInput";
 import { TimePicker } from "@strapi/design-system/TimePicker";
 import { Select, Option } from "@strapi/design-system/Select";
 
+
 import Check from "@strapi/icons/Check";
 import styled from "styled-components";
 import api from "../api";
 import getTrad from "../utils/getTrad";
+
 
 const ColorWindow = styled.div`
   background-color: ${(props) => props.color};
@@ -57,9 +59,9 @@ function Settings() {
     colorField: null,
     defaultDuration: 30,
     drafts: true,
-    startHour: "0:00",
-    endHour: "23:59",
-    defaultView: "Month",
+    startHour: '0:00',
+    endHour: '23:59',
+    defaultView: 'Month',
     monthView: true,
     weekView: false,
     dayView: false,
@@ -308,7 +310,31 @@ function Settings() {
                       ]
                     </Option>
                     {fields
-                      .filter((x) => x.type === "datetime")
+                      .filter((x) => x.type === 'datetime')
+                      .map((x) => (
+                        <Option key={x.id} value={x.id}>
+                          {x.id}
+                        </Option>
+                      ))}
+                  </Select>
+                </GridItem>
+                <GridItem col={6} s={12}>
+                  <Select
+                    label={formatMessage({
+                      id: getTrad('view.settings.section.general.color.label'),
+                    })}
+                    onChange={(e) => setSettings((s) => ({ ...s, colorField: e }))}
+                    value={settings.colorField}
+                  >
+                    <Option value="">
+                      [
+                      {formatMessage({
+                        id: getTrad('view.settings.section.general.color.none'),
+                      })}
+                      ]
+                    </Option>
+                    {fields
+                      .filter((x) => x.type === 'string')
                       .map((x) => (
                         <Option key={x.id} value={x.id}>
                           {x.id}

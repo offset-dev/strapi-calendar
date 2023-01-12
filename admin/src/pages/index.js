@@ -38,8 +38,8 @@ import getTrad from "../utils/getTrad";
 
 function HomePage() {
   const [state, setState] = useState({
-    date: moment().format("ll"),
-    view: "Month",
+    date: moment().format('ll'),
+    view: 'Month',
   });
   const [loading, setLoading] = useState(true);
   const [settings, setSettings] = useState(null);
@@ -61,7 +61,6 @@ function HomePage() {
     api.getSettings().then((r) => {
       if (r.data) {
         setSettings(r.data);
-        setState((s) => ({ ...s, view: r.data.defaultView }));
         setState((s) => ({ ...s, view: r.data.defaultView }));
       }
       setLoading(false);

@@ -1,8 +1,9 @@
-import { prefixPluginTranslations } from "@strapi/helper-plugin";
-import CalendarIcon from "@strapi/icons/Calendar";
-import pluginPkg from "../../package.json";
-import pluginId from "./pluginId";
-import Initializer from "./components/Initializer";
+import { prefixPluginTranslations } from '@strapi/helper-plugin';
+import CalendarIcon from '@strapi/icons/Calendar';
+import pluginPkg from '../../package.json';
+import pluginId from './pluginId';
+import Initializer from './components/Initializer';
+
 
 const name = pluginPkg.strapi.displayName;
 
