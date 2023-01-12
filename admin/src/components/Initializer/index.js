@@ -4,9 +4,9 @@
  *
  */
 
-import { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import pluginId from "../../pluginId";
+import { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import pluginId from '../../pluginId';
 
 function Initializer({ setPlugin }) {
   const ref = useRef();

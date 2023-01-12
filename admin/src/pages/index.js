@@ -4,26 +4,26 @@
  *
  */
 
-import React, { memo, useState, useEffect } from "react";
-import propTypes from "prop-types";
+import React, { memo, useState, useEffect } from 'react';
+import propTypes from 'prop-types';
 
-import { useIntl } from "react-intl";
-import validateColor from "validate-color";
+import { useIntl } from 'react-intl';
+import validateColor from 'validate-color';
 
-import { EmptyStateLayout } from "@strapi/design-system/EmptyStateLayout";
-import { BaseHeaderLayout, ContentLayout } from "@strapi/design-system/Layout";
-import { LinkButton } from "@strapi/design-system/LinkButton";
-import { Box } from "@strapi/design-system/Box";
-import { Loader } from "@strapi/design-system/Loader";
-import { Link } from "@strapi/design-system/Link";
-import { Typography } from "@strapi/design-system/Typography";
-import { Flex } from "@strapi/design-system/Flex";
-import { Button } from "@strapi/design-system/Button";
-import { DatePicker } from "@strapi/design-system/DatePicker";
-import { Select, Option } from "@strapi/design-system/Select";
-import { IconButton } from "@strapi/design-system/IconButton";
-import { Cog, Plus, ChevronLeft, ChevronRight } from "@strapi/icons";
-import moment from "moment";
+import { EmptyStateLayout } from '@strapi/design-system/EmptyStateLayout';
+import { BaseHeaderLayout, ContentLayout } from '@strapi/design-system/Layout';
+import { LinkButton } from '@strapi/design-system/LinkButton';
+import { Box } from '@strapi/design-system/Box';
+import { Loader } from '@strapi/design-system/Loader';
+import { Link } from '@strapi/design-system/Link';
+import { Typography } from '@strapi/design-system/Typography';
+import { Flex } from '@strapi/design-system/Flex';
+import { Button } from '@strapi/design-system/Button';
+import { DatePicker } from '@strapi/design-system/DatePicker';
+import { Select, Option } from '@strapi/design-system/Select';
+import { IconButton } from '@strapi/design-system/IconButton';
+import { Cog, Plus, ChevronLeft, ChevronRight } from '@strapi/icons';
+import moment from 'moment';
 
 import {
   Scheduler,
@@ -31,16 +31,16 @@ import {
   WeekView,
   MonthView,
   Appointments,
-} from "@devexpress/dx-react-scheduler-material-ui";
-import { ViewState } from "@devexpress/dx-react-scheduler";
-import Illo from "../components/illo";
-import api from "../api";
-import getTrad from "../utils/getTrad";
+} from '@devexpress/dx-react-scheduler-material-ui';
+import { ViewState } from '@devexpress/dx-react-scheduler';
+import Illo from '../components/illo';
+import api from '../api';
+import getTrad from '../utils/getTrad';
 
 function HomePage() {
   const [state, setState] = useState({
-    date: moment().format("ll"),
-    view: "Month",
+    date: moment().format('ll'),
+    view: 'Month',
   });
   const [loading, setLoading] = useState(true);
   const [settings, setSettings] = useState(null);
@@ -49,7 +49,7 @@ function HomePage() {
   const { formatMessage, formatDate } = useIntl();
 
   const load = (date) => {
-    api.getData(moment(date, "ll").toDate()).then((r) => {
+    api.getData(moment(date, 'll').toDate()).then((r) => {
       setData(r.data);
       setLoading(false);
     });
@@ -80,17 +80,17 @@ function HomePage() {
     return (
       <>
         <BaseHeaderLayout
-          title={formatMessage({ id: getTrad("plugin.name") })}
-          subtitle={formatMessage({ id: getTrad("plugin.tagline") })}
+          title={formatMessage({ id: getTrad('plugin.name') })}
+          subtitle={formatMessage({ id: getTrad('plugin.tagline') })}
           as="h2"
         />
         <ContentLayout>
           <Box
             style={{
-              display: "flex",
-              minHeight: "75vh",
-              justifyContent: "center",
-              alignItems: "center",
+              display: 'flex',
+              minHeight: '75vh',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
           >
             <Loader>Loading...</Loader>
@@ -104,20 +104,20 @@ function HomePage() {
     return (
       <>
         <BaseHeaderLayout
-          title={formatMessage({ id: getTrad("plugin.name") })}
-          subtitle={formatMessage({ id: getTrad("plugin.tagline") })}
+          title={formatMessage({ id: getTrad('plugin.name') })}
+          subtitle={formatMessage({ id: getTrad('plugin.tagline') })}
           as="h2"
         />
         <ContentLayout>
           <EmptyStateLayout
             icon={<Illo />}
             content={formatMessage({
-              id: getTrad("view.calendar.state.empty.configure-settings.message"),
+              id: getTrad('view.calendar.state.empty.configure-settings.message'),
             })}
             action={
               <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog />}>
                 {formatMessage({
-                  id: getTrad("view.calendar.state.empty.configure-settings.action"),
+                  id: getTrad('view.calendar.state.empty.configure-settings.action'),
                 })}
               </LinkButton>
             }
@@ -135,8 +135,8 @@ function HomePage() {
       to={`/content-manager/collectionType/${settings.collection}/create`}
     >
       {formatMessage(
-        { id: getTrad("view.calendar.action.create-entry") },
-        { collection: settings.collection.split(".")[1] }
+        { id: getTrad('view.calendar.action.create-entry') },
+        { collection: settings.collection.split('.')[1] }
       )}
     </LinkButton>
   ) : (
@@ -164,8 +164,8 @@ function HomePage() {
     <>
       <style>{sty}</style>
       <BaseHeaderLayout
-        title={formatMessage({ id: getTrad("plugin.name") })}
-        subtitle={formatMessage({ id: getTrad("plugin.tagline") })}
+        title={formatMessage({ id: getTrad('plugin.name') })}
+        subtitle={formatMessage({ id: getTrad('plugin.tagline') })}
         as="h2"
         primaryAction={primaryAction}
       />
@@ -178,7 +178,7 @@ function HomePage() {
                 onClick={() =>
                   setState((s) => ({
                     ...s,
-                    date: moment(s.date).subtract(1, s.view.toLowerCase()).format("ll"),
+                    date: moment(s.date).subtract(1, s.view.toLowerCase()).format('ll'),
                   }))
                 }
                 icon={<ChevronLeft />}
@@ -188,10 +188,10 @@ function HomePage() {
                   selectedDateLabel={() => {}}
                   name="date"
                   aria-label={formatMessage({
-                    id: getTrad("view.calendar.action.select-date"),
+                    id: getTrad('view.calendar.action.select-date'),
                   })}
                   value={state.date}
-                  onChange={(e) => setState((s) => ({ ...s, date: moment(e).format("ll") }))}
+                  onChange={(e) => setState((s) => ({ ...s, date: moment(e).format('ll') }))}
                 />
               </Box>
               <IconButton
@@ -199,7 +199,7 @@ function HomePage() {
                 onClick={() =>
                   setState((s) => ({
                     ...s,
-                    date: moment(s.date).add(1, s.view.toLowerCase()).format("ll"),
+                    date: moment(s.date).add(1, s.view.toLowerCase()).format('ll'),
                   }))
                 }
                 icon={<ChevronRight />}
@@ -209,10 +209,10 @@ function HomePage() {
                   <Button
                     variant="secondary"
                     size="L"
-                    onClick={() => setState((s) => ({ ...s, date: moment().format("ll") }))}
+                    onClick={() => setState((s) => ({ ...s, date: moment().format('ll') }))}
                   >
                     {formatMessage({
-                      id: getTrad("view.calendar.action.today"),
+                      id: getTrad('view.calendar.action.today'),
                     })}
                   </Button>
                 )}
@@ -228,21 +228,21 @@ function HomePage() {
                   {settings.monthView && (
                     <Option value="Month">
                       {formatMessage({
-                        id: getTrad("view.calendar.action.month"),
+                        id: getTrad('view.calendar.action.month'),
                       })}
                     </Option>
                   )}
                   {settings.weekView && (
                     <Option value="Week">
                       {formatMessage({
-                        id: getTrad("view.calendar.action.week"),
+                        id: getTrad('view.calendar.action.week'),
                       })}
                     </Option>
                   )}
                   {settings.dayView && (
                     <Option value="Day">
                       {formatMessage({
-                        id: getTrad("view.calendar.action.day"),
+                        id: getTrad('view.calendar.action.day'),
                       })}
                     </Option>
                   )}
@@ -250,25 +250,25 @@ function HomePage() {
               )}
             </Box>
           </Flex>
-          <Box style={{ textAlign: "center", marginBottom: 20 }}>
-            {state.view === "Month" && (
-              <Typography variant="alpha" textTransform="uppercase" style={{ textAlign: "center" }}>
-                {formatDate(state.date, { month: "long" })}
+          <Box style={{ textAlign: 'center', marginBottom: 20 }}>
+            {state.view === 'Month' && (
+              <Typography variant="alpha" textTransform="uppercase" style={{ textAlign: 'center' }}>
+                {formatDate(state.date, { month: 'long' })}
               </Typography>
             )}
           </Box>
           <Scheduler
             data={data}
-            locale={formatMessage({ id: getTrad("view.calendar.locale") })}
+            locale={formatMessage({ id: getTrad('view.calendar.locale') })}
             firstDayOfWeek={
               formatMessage({
-                id: getTrad("view.calendar.first-day-of-week"),
+                id: getTrad('view.calendar.first-day-of-week'),
               }) || 0
             }
           >
             <ViewState
               onCurrentDateChange={load}
-              currentDate={moment(state.date, "ll").format()}
+              currentDate={moment(state.date, 'll').format()}
               currentViewName={state.view}
             />
             <MonthView />
@@ -306,7 +306,7 @@ function Appointment({ children, style, ...restProps }) {
         style={{
           ...style,
           backgroundColor: validateColor(color) ? color : settings.eventColor,
-          borderRadius: "4px",
+          borderRadius: '4px',
         }}
       >
         {children}

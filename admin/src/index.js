@@ -1,8 +1,8 @@
-import { prefixPluginTranslations } from "@strapi/helper-plugin";
-import CalendarIcon from "@strapi/icons/Calendar";
-import pluginPkg from "../../package.json";
-import pluginId from "./pluginId";
-import Initializer from "./components/Initializer";
+import { prefixPluginTranslations } from '@strapi/helper-plugin';
+import CalendarIcon from '@strapi/icons/Calendar';
+import pluginPkg from '../../package.json';
+import pluginId from './pluginId';
+import Initializer from './components/Initializer';
 
 const name = pluginPkg.strapi.displayName;
 
@@ -16,7 +16,7 @@ export default {
         defaultMessage: name,
       },
       Component: async () => {
-        const component = await import(/* webpackChunkName: "[request]" */ "./pages/app.js");
+        const component = await import(/* webpackChunkName: "[request]" */ './pages/app.js');
 
         return component;
       },
@@ -40,12 +40,12 @@ export default {
         {
           intlLabel: {
             id: `${pluginId}.plugin.name`,
-            defaultMessage: "Settings",
+            defaultMessage: 'Settings',
           },
-          id: "settings",
+          id: 'settings',
           to: `/settings/${pluginId}`,
           Component: async () => {
-            return import("./pages/settings");
+            return import('./pages/settings');
           },
         },
       ]
