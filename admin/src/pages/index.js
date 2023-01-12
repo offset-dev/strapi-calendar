@@ -7,22 +7,22 @@
 import React, { memo, useState, useEffect } from "react";
 import propTypes from "prop-types";
 
-import { useIntl } from 'react-intl';
-import validateColor from 'validate-color';
+import { useIntl } from "react-intl";
+import validateColor from "validate-color";
 
-import {EmptyStateLayout} from "@strapi/design-system/EmptyStateLayout";
-import {BaseHeaderLayout, ContentLayout} from "@strapi/design-system/Layout";
-import {LinkButton} from "@strapi/design-system/LinkButton";
-import {Box} from "@strapi/design-system/Box";
-import {Loader} from "@strapi/design-system/Loader";
-import {Link} from "@strapi/design-system/Link";
-import {Typography} from "@strapi/design-system/Typography";
-import {Flex} from "@strapi/design-system/Flex";
-import {Button} from "@strapi/design-system/Button";
-import {DatePicker} from "@strapi/design-system/DatePicker";
-import {Select, Option} from "@strapi/design-system/Select";
-import {IconButton} from "@strapi/design-system/IconButton";
-import {Cog, Plus, ChevronLeft, ChevronRight} from "@strapi/icons";
+import { EmptyStateLayout } from "@strapi/design-system/EmptyStateLayout";
+import { BaseHeaderLayout, ContentLayout } from "@strapi/design-system/Layout";
+import { LinkButton } from "@strapi/design-system/LinkButton";
+import { Box } from "@strapi/design-system/Box";
+import { Loader } from "@strapi/design-system/Loader";
+import { Link } from "@strapi/design-system/Link";
+import { Typography } from "@strapi/design-system/Typography";
+import { Flex } from "@strapi/design-system/Flex";
+import { Button } from "@strapi/design-system/Button";
+import { DatePicker } from "@strapi/design-system/DatePicker";
+import { Select, Option } from "@strapi/design-system/Select";
+import { IconButton } from "@strapi/design-system/IconButton";
+import { Cog, Plus, ChevronLeft, ChevronRight } from "@strapi/icons";
 import moment from "moment";
 
 import {
@@ -48,9 +48,8 @@ function HomePage() {
 
   const { formatMessage, formatDate } = useIntl();
 
-
-  const load = date => {
-    api.getData(moment(date, 'll').toDate()).then(r => {
+  const load = (date) => {
+    api.getData(moment(date, "ll").toDate()).then((r) => {
       setData(r.data);
       setLoading(false);
     });
@@ -113,20 +112,12 @@ function HomePage() {
           <EmptyStateLayout
             icon={<Illo />}
             content={formatMessage({
-              id: getTrad(
-                "view.calendar.state.empty.configure-settings.message"
-              ),
+              id: getTrad("view.calendar.state.empty.configure-settings.message"),
             })}
             action={
-              <LinkButton
-                variant="secondary"
-                to="/settings/calendar"
-                startIcon={<Cog />}
-              >
+              <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog />}>
                 {formatMessage({
-                  id: getTrad(
-                    "view.calendar.state.empty.configure-settings.action"
-                  ),
+                  id: getTrad("view.calendar.state.empty.configure-settings.action"),
                 })}
               </LinkButton>
             }
@@ -137,8 +128,7 @@ function HomePage() {
   }
 
   const { monthView, weekView, dayView } = settings;
-  const multipleViews =
-    (monthView && weekView) || (monthView && dayView) || (weekView && dayView);
+  const multipleViews = (monthView && weekView) || (monthView && dayView) || (weekView && dayView);
   const primaryAction = settings.createButton ? (
     <LinkButton
       startIcon={<Plus />}
@@ -180,13 +170,7 @@ function HomePage() {
         primaryAction={primaryAction}
       />
       <ContentLayout>
-        <Box
-          id="schedule"
-          background="neutral0"
-          shadow="filterShadow"
-          padding={[5, 8]}
-          hasRadius
-        >
+        <Box id="schedule" background="neutral0" shadow="filterShadow" padding={[5, 8]} hasRadius>
           <Flex justifyContent="space-between" style={{ marginBottom: 10 }}>
             <Flex>
               <IconButton
@@ -194,9 +178,7 @@ function HomePage() {
                 onClick={() =>
                   setState((s) => ({
                     ...s,
-                    date: moment(s.date)
-                      .subtract(1, s.view.toLowerCase())
-                      .format("ll"),
+                    date: moment(s.date).subtract(1, s.view.toLowerCase()).format("ll"),
                   }))
                 }
                 icon={<ChevronLeft />}
@@ -209,9 +191,7 @@ function HomePage() {
                     id: getTrad("view.calendar.action.select-date"),
                   })}
                   value={state.date}
-                  onChange={(e) =>
-                    setState((s) => ({ ...s, date: moment(e).format("ll") }))
-                  }
+                  onChange={(e) => setState((s) => ({ ...s, date: moment(e).format("ll") }))}
                 />
               </Box>
               <IconButton
@@ -219,9 +199,7 @@ function HomePage() {
                 onClick={() =>
                   setState((s) => ({
                     ...s,
-                    date: moment(s.date)
-                      .add(1, s.view.toLowerCase())
-                      .format("ll"),
+                    date: moment(s.date).add(1, s.view.toLowerCase()).format("ll"),
                   }))
                 }
                 icon={<ChevronRight />}
@@ -231,9 +209,7 @@ function HomePage() {
                   <Button
                     variant="secondary"
                     size="L"
-                    onClick={() =>
-                      setState((s) => ({ ...s, date: moment().format("ll") }))
-                    }
+                    onClick={() => setState((s) => ({ ...s, date: moment().format("ll") }))}
                   >
                     {formatMessage({
                       id: getTrad("view.calendar.action.today"),
@@ -276,11 +252,7 @@ function HomePage() {
           </Flex>
           <Box style={{ textAlign: "center", marginBottom: 20 }}>
             {state.view === "Month" && (
-              <Typography
-                variant="alpha"
-                textTransform="uppercase"
-                style={{ textAlign: "center" }}
-              >
+              <Typography variant="alpha" textTransform="uppercase" style={{ textAlign: "center" }}>
                 {formatDate(state.date, { month: "long" })}
               </Typography>
             )}
@@ -300,14 +272,8 @@ function HomePage() {
               currentViewName={state.view}
             />
             <MonthView />
-            <WeekView
-              startDayHour={settings.startHour}
-              endDayHour={settings.endHour}
-            />
-            <DayView
-              startDayHour={settings.startHour}
-              endDayHour={settings.endHour}
-            />
+            <WeekView startDayHour={settings.startHour} endDayHour={settings.endHour} />
+            <DayView startDayHour={settings.startHour} endDayHour={settings.endHour} />
             <Appointments appointmentComponent={Appointment} />
           </Scheduler>
         </Box>
@@ -327,24 +293,26 @@ function Appointment({ children, style, ...restProps }) {
     });
   }, []);
 
-  const {id, color} = restProps.data;
+  const { id, color } = restProps.data;
 
   if (!settings) {
     return null;
   }
 
-  return <Link to={`/content-manager/collectionType/${settings.collection}/${id}`}>
-    <Appointments.Appointment
-      {...restProps}
-      style={{
-        ...style,
-        backgroundColor: validateColor(color) ? color : settings.eventColor,
-        borderRadius: "4px",
-      }}
-    >
-      {children}
-    </Appointments.Appointment>
-  </Link>;
+  return (
+    <Link to={`/content-manager/collectionType/${settings.collection}/${id}`}>
+      <Appointments.Appointment
+        {...restProps}
+        style={{
+          ...style,
+          backgroundColor: validateColor(color) ? color : settings.eventColor,
+          borderRadius: "4px",
+        }}
+      >
+        {children}
+      </Appointments.Appointment>
+    </Link>
+  );
 }
 
 Appointment.propTypes = {
