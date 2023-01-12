@@ -327,6 +327,12 @@ function Settings() {
                       ))}
                   </Select>
                 </GridItem>
+                <GridItem col={6} s={12}>
+                  <Select label={formatMessage({ id: getTrad('view.settings.section.general.color.label') })} onChange={e => setSettings(s => ({...s, colorField: e}))} value={settings.colorField}>
+                    <Option value="">[{formatMessage({ id: getTrad('view.settings.section.general.color.none') })}]</Option>
+                    {fields.filter(x => x.type === "string").map(x => <Option key={x.id} value={x.id}>{x.id}</Option>)}
+                  </Select>
+                </GridItem>
               </Grid>
               <Box paddingTop={3}>
                 <ToggleInput
