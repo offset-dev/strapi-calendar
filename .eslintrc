@@ -3,5 +3,9 @@
   "root": true,
   "globals": {
     "process": true
+  },
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error"
   }
 }
