@@ -80,8 +80,8 @@ module.exports = () => ({
         data,
         (
           await strapi.entityService.findMany(config.collection, {
-            fields: [config.titleField],
-            filters: { id: { $in: [...keys] } },
+            fields: ['id', config.titleField],
+              filters: { id: { $in: keys} },
           })
         ).reduce((acc, el) => {
           acc[el.id] = el;

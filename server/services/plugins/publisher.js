@@ -38,7 +38,7 @@ module.exports = {
         },
       })
     ).reduce((acc, el) => {
-      acc[el.id] = {
+      acc[el.entityId] = {
         [config.startField]: el.executeAt,
       };
 
@@ -56,7 +56,7 @@ module.exports = {
         },
       })
     ).reduce((acc, el) => {
-      acc[el.id] = {
+      acc[el.entityId] = {
         [config.endField]: el.executeAt,
       };
 
