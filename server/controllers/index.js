@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const controller = require("./controller");
+const controller = require('./controller');
 
 module.exports = {
   controller,

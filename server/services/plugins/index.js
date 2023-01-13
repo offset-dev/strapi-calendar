@@ -1,4 +1,4 @@
-const publisher = require("./publisher");
+const publisher = require('./publisher');
 module.exports = {
   publisher,
 };
