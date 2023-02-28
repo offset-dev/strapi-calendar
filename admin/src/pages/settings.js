@@ -47,7 +47,7 @@ function Settings() {
 
   const [popOver, setPopOver] = useState(null);
   const [collections, setCollections] = useState([]);
-  const [plugins, setPlugins] = useState([]);
+  const [extensions, setExtensions] = useState([]);
   const [fields, setFields] = useState([]);
   const [settings, setSettings] = useState({
     collection: null,
@@ -80,8 +80,8 @@ function Settings() {
   }, []);
 
   useEffect(() => {
-    api.getRelevantPlugins().then((res) => {
-      setPlugins(res.data);
+    api.getExtensions().then((res) => {
+      setExtensions(res.data);
     });
   }, []);
 
@@ -94,7 +94,7 @@ function Settings() {
           ...x[1],
         }))
         .concat(
-          plugins.reduce((acc, el) => {
+          extensions.reduce((acc, el) => {
             acc.push(...el.startFields, ...el.endFields);
 
             return acc;
@@ -102,7 +102,7 @@ function Settings() {
         );
       setFields(fields);
     }
-  }, [settings, collections, plugins]);
+  }, [settings, collections, extensions]);
 
   useEffect(() => {
     api.getSettings().then((res) => {
@@ -220,7 +220,7 @@ function Settings() {
                       .filter((x) => x.type === 'string')
                       .map((x) => (
                         <Option key={x.id} value={x.id}>
-                          {x.id}
+                          {x.displayName || x.id}
                         </Option>
                       ))}
                   </Select>
@@ -269,7 +269,7 @@ function Settings() {
                       .filter((x) => x.type === 'datetime')
                       .map((x) => (
                         <Option key={x.id} value={x.id}>
-                          {x.id}
+                          {x.displayName || x.id}
                         </Option>
                       ))}
                   </Select>
@@ -293,7 +293,7 @@ function Settings() {
                       .filter((x) => x.type === 'datetime')
                       .map((x) => (
                         <Option key={x.id} value={x.id}>
-                          {x.id}
+                          {x.displayName || x.id}
                         </Option>
                       ))}
                   </Select>
@@ -317,7 +317,7 @@ function Settings() {
                       .filter((x) => x.type === 'string')
                       .map((x) => (
                         <Option key={x.id} value={x.id}>
-                          {x.id}
+                          {x.displayName || x.id}
                         </Option>
                       ))}
                   </Select>
@@ -341,7 +341,7 @@ function Settings() {
                       .filter((x) => x.type === 'string')
                       .map((x) => (
                         <Option key={x.id} value={x.id}>
-                          {x.id}
+                          {x.displayName || x.id}
                         </Option>
                       ))}
                   </Select>

@@ -19,8 +19,8 @@ module.exports = [
   },
   {
     method: 'GET',
-    path: '/plugins',
-    handler: 'controller.getRelevantPlugins',
+    path: '/extensions',
+    handler: 'controller.getExtensions',
     config: {
       policies: [],
       auth: false,

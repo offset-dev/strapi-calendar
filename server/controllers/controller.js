@@ -22,9 +22,9 @@ module.exports = {
       ctx.throw(500, err);
     }
   },
-  async getRelevantPlugins(ctx) {
+  async getExtensions(ctx) {
     try {
-      ctx.body = await strapi.plugin('calendar').service('service').getRelevantPlugins();
+      ctx.body = await strapi.plugin('calendar').service('service').getExtensions();
     } catch (err) {
       ctx.throw(500, err);
     }

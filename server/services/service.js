@@ -1,7 +1,7 @@
 'use strict';
 const moment = require('moment');
 const merge = require('deepmerge');
-const plugins = require('./plugins');
+const extensionSystem = require('./extensions');
 
 function getPluginStore() {
   return strapi.store({
@@ -11,10 +11,8 @@ function getPluginStore() {
   });
 }
 
-function initPluginIntegration(start, end) {
-  let a;
-  let b;
-  // default handler (base)
+function initHandlers(start, end, extensions) {
+  // default handlers
   let startHandler = async (date, entityService, config) =>
     (
       await entityService.findMany(config.collection, {
@@ -33,19 +31,18 @@ function initPluginIntegration(start, end) {
       acc[el.id] = el;
       return acc;
     }, {});
-
   let endHandler;
-  Object.entries(plugins).map(([k, v]) => {
-    if (!a && v.base && start.startsWith(v.base)) {
-      a = true;
+
+  // Extension handling
+  Object.entries(extensions).map(([id, v]) => {
+    if (id && start.startsWith(id)) {
       startHandler = v.startHandler;
     }
-    if (!b && v.base && start.startsWith(v.base)) {
-      b = true;
+    if (id && end.startsWith(id)) {
       endHandler = v.endHandler;
     }
   });
-  return [a, b, startHandler, endHandler];
+  return [startHandler, endHandler];
 }
 
 async function createDefaultConfig() {
@@ -60,33 +57,17 @@ module.exports = () => ({
     let config = await pluginStore.get({ key: 'settings' });
     if (!config) return [];
 
-    const [isStartFieldPlugin, isEndFieldPlugin, startHandler, endHandler] = initPluginIntegration(
+    const [startHandler, endHandler] = initHandlers(
       config.startField,
-      config.endField
+      config.endField,
+      extensionSystem.getRegisteredExtensions()
     );
     let data = {};
     if (startHandler) {
-      data = merge(data, await startHandler(date, strapi.entityService, config));
-    }
-
-    // Fetch base fields
-    const keys = Object.keys(data);
-    if (isStartFieldPlugin && config.titleField) {
-      data = merge(
-        data,
-        (
-          await strapi.entityService.findMany(config.collection, {
-            fields: ['id', config.titleField],
-            filters: { id: { $in: keys } },
-          })
-        ).reduce((acc, el) => {
-          acc[el.id] = el;
-          return acc;
-        }, {})
-      );
+      data = await startHandler(date, strapi.entityService, config);
     }
     if (endHandler) {
-      data = merge(await endHandler(keys, strapi.entityService, config), data);
+      data = merge(await endHandler(strapi.entityService, config, data), data);
     }
 
     const dataFiltered = Object.values(data).filter((x) => {
@@ -109,16 +90,13 @@ module.exports = () => ({
     const typesArray = Object.values(types);
     return typesArray.filter((x) => x.kind === 'collectionType' && x.apiName);
   },
-  async getRelevantPlugins() {
-    const relevantPlugins = Object.entries(strapi.config.get('enabledPlugins') || {})
-      .filter(([k, v]) => v.enabled && Object.keys(plugins).includes(k))
-      .map(([k, v]) => ({
-        id: k,
-        name: v.info.displayName,
-        startFields: plugins[k].startFields,
-        endFields: plugins[k].endFields,
-      }));
-    return relevantPlugins;
+  async getExtensions() {
+    return Object.entries(extensionSystem.getRegisteredExtensions()).map(([k, el]) => ({
+      id: k,
+      name: el.name,
+      startFields: el.startFields,
+      endFields: el.endFields,
+    }));
   },
   async getSettings() {
     const pluginStore = getPluginStore();

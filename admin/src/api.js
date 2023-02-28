@@ -15,8 +15,8 @@ const taskRequests = {
 
     return data;
   },
-  getRelevantPlugins: async () => {
-    const data = await axiosInstance.get(`/calendar/plugins`);
+  getExtensions: async () => {
+    const data = await axiosInstance.get(`/calendar/extensions`);
 
     return data;
   },
