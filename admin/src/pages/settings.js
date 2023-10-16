@@ -47,6 +47,7 @@ function Settings() {
 
   const [popOver, setPopOver] = useState(null);
   const [collections, setCollections] = useState([]);
+  const [extensions, setExtensions] = useState([]);
   const [fields, setFields] = useState([]);
   const [settings, setSettings] = useState({
     collection: null,
@@ -79,15 +80,29 @@ function Settings() {
   }, []);
 
   useEffect(() => {
+    api.getExtensions().then((res) => {
+      setExtensions(res.data);
+    });
+  }, []);
+
+  useEffect(() => {
     if (settings.collection && collections.length) {
       const collection = collections.find((x) => x.uid === settings.collection);
-      const fields = Object.entries(collection.attributes).map((x) => ({
-        id: x[0],
-        ...x[1],
-      }));
+      const fields = Object.entries(collection.attributes)
+        .map((x) => ({
+          id: x[0],
+          ...x[1],
+        }))
+        .concat(
+          extensions.reduce((acc, el) => {
+            acc.push(...el.startFields, ...el.endFields);
+
+            return acc;
+          }, [])
+        );
       setFields(fields);
     }
-  }, [settings, collections]);
+  }, [settings, collections, extensions]);
 
   useEffect(() => {
     api.getSettings().then((res) => {
@@ -205,7 +220,7 @@ function Settings() {
                       .filter((x) => x.type === 'string')
                       .map((x) => (
                         <Option key={x.id} value={x.id}>
-                          {x.id}
+                          {x.displayName || x.id}
                         </Option>
                       ))}
                   </Select>
@@ -254,7 +269,7 @@ function Settings() {
                       .filter((x) => x.type === 'datetime')
                       .map((x) => (
                         <Option key={x.id} value={x.id}>
-                          {x.id}
+                          {x.displayName || x.id}
                         </Option>
                       ))}
                   </Select>
@@ -278,7 +293,7 @@ function Settings() {
                       .filter((x) => x.type === 'datetime')
                       .map((x) => (
                         <Option key={x.id} value={x.id}>
-                          {x.id}
+                          {x.displayName || x.id}
                         </Option>
                       ))}
                   </Select>
@@ -302,7 +317,7 @@ function Settings() {
                       .filter((x) => x.type === 'string')
                       .map((x) => (
                         <Option key={x.id} value={x.id}>
-                          {x.id}
+                          {x.displayName || x.id}
                         </Option>
                       ))}
                   </Select>
@@ -316,13 +331,17 @@ function Settings() {
                     value={settings.colorField}
                   >
                     <Option value="">
-                      [{formatMessage({ id: getTrad('view.settings.section.general.color.none') })}]
+                      [
+                      {formatMessage({
+                        id: getTrad('view.settings.section.general.color.none'),
+                      })}
+                      ]
                     </Option>
                     {fields
                       .filter((x) => x.type === 'string')
                       .map((x) => (
                         <Option key={x.id} value={x.id}>
-                          {x.id}
+                          {x.displayName || x.id}
                         </Option>
                       ))}
                   </Select>

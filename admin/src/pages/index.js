@@ -6,7 +6,6 @@
 
 import React, { memo, useState, useEffect } from 'react';
 import propTypes from 'prop-types';
-
 import { useIntl } from 'react-intl';
 import validateColor from 'validate-color';
 

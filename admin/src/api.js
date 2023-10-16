@@ -15,6 +15,11 @@ const taskRequests = {
 
     return data;
   },
+  getExtensions: async () => {
+    const data = await axiosInstance.get(`/calendar/extensions`);
+
+    return data;
+  },
   getSettings: async () => {
     const data = await axiosInstance.get(`/calendar/settings`);
 
