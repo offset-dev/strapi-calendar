@@ -84,16 +84,9 @@ function HomePage() {
           as="h2"
         />
         <ContentLayout>
-          <Box
-            style={{
-              display: 'flex',
-              minHeight: '75vh',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <Flex justifyContent="center" alignItems="center" minHeight="75vh">
             <Loader>Loading...</Loader>
-          </Box>
+          </Flex>
         </ContentLayout>
       </>
     );
@@ -170,7 +163,7 @@ function HomePage() {
       />
       <ContentLayout>
         <Box id="schedule" background="neutral0" shadow="filterShadow" padding={[5, 8]} hasRadius>
-          <Flex justifyContent="space-between" style={{ marginBottom: 10 }}>
+          <Flex justifyContent="space-between" marginBottom={10}>
             <Flex>
               <IconButton
                 noBorder
@@ -217,7 +210,7 @@ function HomePage() {
                 )}
               </Box>
             </Flex>
-            <Box style={{ width: 220 }}>
+            <Box width={220}>
               {multipleViews && (
                 <Select
                   aria-label="Select View"
@@ -249,9 +242,9 @@ function HomePage() {
               )}
             </Box>
           </Flex>
-          <Box style={{ textAlign: 'center', marginBottom: 20 }}>
+          <Box marginBottom={20}>
             {state.view === 'Month' && (
-              <Typography variant="alpha" textTransform="uppercase" style={{ textAlign: 'center' }}>
+              <Typography variant="alpha" textTransform="uppercase" textAlign="center">
                 {formatDate(state.date, { month: 'long' })}
               </Typography>
             )}
