@@ -4,15 +4,20 @@ import { useIntl } from 'react-intl';
 import { ChromePicker } from 'react-color';
 import { LoadingIndicatorPage, useNotification } from '@strapi/helper-plugin';
 
-import { Box } from '@strapi/design-system/Box';
-import { Stack } from '@strapi/design-system/Stack';
-import { Button } from '@strapi/design-system/Button';
-import { Grid, GridItem } from '@strapi/design-system/Grid';
-import { Typography } from '@strapi/design-system/Typography';
-import { HeaderLayout, ContentLayout } from '@strapi/design-system/Layout';
-import { ToggleInput } from '@strapi/design-system/ToggleInput';
-import { TimePicker } from '@strapi/design-system/TimePicker';
-import { Select, Option } from '@strapi/design-system/Select';
+import {
+  Box,
+  Stack,
+  Button,
+  Grid,
+  GridItem,
+  Typography,
+  HeaderLayout,
+  ContentLayout,
+  ToggleInput,
+  TimePicker,
+  Select,
+  Option,
+} from '@strapi/design-system';
 
 import Check from '@strapi/icons/Check';
 import styled from 'styled-components';

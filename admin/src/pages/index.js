@@ -9,18 +9,22 @@ import propTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 import validateColor from 'validate-color';
 
-import { EmptyStateLayout } from '@strapi/design-system/EmptyStateLayout';
-import { BaseHeaderLayout, ContentLayout } from '@strapi/design-system/Layout';
-import { LinkButton } from '@strapi/design-system/LinkButton';
-import { Box } from '@strapi/design-system/Box';
-import { Loader } from '@strapi/design-system/Loader';
-import { Link } from '@strapi/design-system/Link';
-import { Typography } from '@strapi/design-system/Typography';
-import { Flex } from '@strapi/design-system/Flex';
-import { Button } from '@strapi/design-system/Button';
-import { DatePicker } from '@strapi/design-system/DatePicker';
-import { Select, Option } from '@strapi/design-system/Select';
-import { IconButton } from '@strapi/design-system/IconButton';
+import {
+  EmptyStateLayout,
+  BaseHeaderLayout,
+  ContentLayout,
+  LinkButton,
+  Box,
+  Loader,
+  Link,
+  Typography,
+  Flex,
+  Button,
+  DatePicker,
+  Select,
+  Option,
+  IconButton,
+} from '@strapi/design-system';
 import { Cog, Plus, ChevronLeft, ChevronRight } from '@strapi/icons';
 import moment from 'moment';
 
