@@ -23,7 +23,10 @@
     "lint:fix": "eslint ./ --fix"
   },
   "peerDependencies": {
-    "@strapi/strapi": "^4.0.0"
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0",
+    "react-router-dom": "^5.3.4",
+    "styled-components": "^5.3.6"
   },
   "dependencies": {
     "@devexpress/dx-react-core": "^3.0.3",
@@ -36,6 +39,9 @@
     "@mui/material": "^5.8.0",
     "@mui/styles": "^5.8.0",
     "@mui/x-date-pickers": "^5.0.0-beta.6",
+    "@strapi/design-system": "^1.6.3",
+    "@strapi/helper-plugin": "^4.6.0",
+    "@strapi/icons": "^1.6.3",
     "deepmerge": "^4.2.2",
     "moment": "^2.29.3",
     "react-color": "^2.19.3",
@@ -48,13 +54,17 @@
     }
   ],
   "engines": {
-    "node": ">=12.x.x",
+    "node": ">=16.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   },
   "devDependencies": {
     "@strapi-community/eslint-config": "^0.4.3",
     "eslint": "^8.16.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.2"
+    "prettier": "^2.8.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^5.3.4",
+    "styled-components": "^5.3.6"
   }
 }
