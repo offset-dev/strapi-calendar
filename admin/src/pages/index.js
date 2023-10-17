@@ -83,8 +83,11 @@ function HomePage() {
     return (
       <>
         <BaseHeaderLayout
-          title={formatMessage({ id: getTrad('plugin.name') })}
-          subtitle={formatMessage({ id: getTrad('plugin.tagline') })}
+          title={formatMessage({ id: getTrad('plugin.name'), defaultMessage: 'Calendar' })}
+          subtitle={formatMessage({
+            id: getTrad('plugin.tagline'),
+            defaultMessage: 'Visualize your events',
+          })}
           as="h2"
         />
         <ContentLayout>
@@ -100,8 +103,11 @@ function HomePage() {
     return (
       <>
         <BaseHeaderLayout
-          title={formatMessage({ id: getTrad('plugin.name') })}
-          subtitle={formatMessage({ id: getTrad('plugin.tagline') })}
+          title={formatMessage({ id: getTrad('plugin.name'), defaultMessage: 'Calendar' })}
+          subtitle={formatMessage({
+            id: getTrad('plugin.tagline'),
+            defaultMessage: 'Visualize your events',
+          })}
           as="h2"
         />
         <ContentLayout>
@@ -109,11 +115,13 @@ function HomePage() {
             icon={<Illo />}
             content={formatMessage({
               id: getTrad('view.calendar.state.empty.configure-settings.message'),
+              defaultMessage: 'Please configure the settings before accessing the calendar',
             })}
             action={
               <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog />}>
                 {formatMessage({
                   id: getTrad('view.calendar.state.empty.configure-settings.action'),
+                  defaultMessage: 'Settings',
                 })}
               </LinkButton>
             }
@@ -131,7 +139,7 @@ function HomePage() {
       to={`/content-manager/collectionType/${settings.collection}/create`}
     >
       {formatMessage(
-        { id: getTrad('view.calendar.action.create-entry') },
+        { id: getTrad('view.calendar.action.create-entry'), defaultMessage: 'Create New' },
         { collection: settings.collection.split('.')[1] }
       )}
     </LinkButton>
@@ -160,8 +168,11 @@ function HomePage() {
     <>
       <style>{sty}</style>
       <BaseHeaderLayout
-        title={formatMessage({ id: getTrad('plugin.name') })}
-        subtitle={formatMessage({ id: getTrad('plugin.tagline') })}
+        title={formatMessage({ id: getTrad('plugin.name'), defaultMessage: 'Calendar' })}
+        subtitle={formatMessage({
+          id: getTrad('plugin.tagline'),
+          defaultMessage: 'Visualize your events',
+        })}
         as="h2"
         primaryAction={primaryAction}
       />
@@ -185,6 +196,7 @@ function HomePage() {
                   name="date"
                   aria-label={formatMessage({
                     id: getTrad('view.calendar.action.select-date'),
+                    defaultMessage: 'Select Date',
                   })}
                   value={state.date}
                   onChange={(e) => setState((s) => ({ ...s, date: moment(e).format('ll') }))}
@@ -209,6 +221,7 @@ function HomePage() {
                   >
                     {formatMessage({
                       id: getTrad('view.calendar.action.today'),
+                      defaultMessage: 'Today',
                     })}
                   </Button>
                 )}
@@ -225,6 +238,7 @@ function HomePage() {
                     <Option value="Month">
                       {formatMessage({
                         id: getTrad('view.calendar.action.month'),
+                        defaultMessage: 'Month',
                       })}
                     </Option>
                   )}
@@ -232,6 +246,7 @@ function HomePage() {
                     <Option value="Week">
                       {formatMessage({
                         id: getTrad('view.calendar.action.week'),
+                        defaultMessage: 'Week',
                       })}
                     </Option>
                   )}
@@ -239,6 +254,7 @@ function HomePage() {
                     <Option value="Day">
                       {formatMessage({
                         id: getTrad('view.calendar.action.day'),
+                        defaultMessage: 'Day',
                       })}
                     </Option>
                   )}
@@ -255,10 +271,11 @@ function HomePage() {
           </Box>
           <Scheduler
             data={data}
-            locale={formatMessage({ id: getTrad('view.calendar.locale') })}
+            locale={formatMessage({ id: getTrad('view.calendar.locale'), defaultMessage: 'en-US' })}
             firstDayOfWeek={
               formatMessage({
                 id: getTrad('view.calendar.first-day-of-week'),
+                defaultMessage: '0',
               }) || 0
             }
           >
