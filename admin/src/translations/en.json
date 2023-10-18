@@ -46,5 +46,10 @@
   "view.settings.section.calendar.view.on": "Enabled",
   "view.settings.section.calendar.view.month": "Month View",
   "view.settings.section.calendar.view.week": "Week View",
-  "view.settings.section.calendar.view.day": "Day View"
+  "view.settings.section.calendar.view.day": "Day View",
+  "warning.missing.month-view": "Month view must be enabled",
+  "warning.missing.week-view": "Week view must be enabled",
+  "warning.missing.day-view": "Day view must be enabled",
+  "warning.missing.view": "At least one view must be enabled",
+  "success.update": "Settings successfully updated"
 }

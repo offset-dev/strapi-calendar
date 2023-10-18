@@ -120,25 +120,37 @@ function Settings() {
     if (settings.defaultView === 'Month' && !settings.monthView) {
       return toggleNotification({
         type: 'warning',
-        message: 'Month view must be enabled',
+        message: formatMessage({
+          id: getTrad('warning.missing.view'),
+          defaultMessage: 'Month view must be enabled',
+        }),
       });
     }
     if (settings.defaultView === 'Week' && !settings.weekView) {
       return toggleNotification({
         type: 'warning',
-        message: 'Week view must be enabled',
+        message: formatMessage({
+          id: getTrad('warning.missing.view'),
+          defaultMessage: 'Week view must be enabled',
+        }),
       });
     }
     if (settings.defaultView === 'Day' && !settings.dayView) {
       return toggleNotification({
         type: 'warning',
-        message: 'Day view must be enabled',
+        message: formatMessage({
+          id: getTrad('warning.missing.view'),
+          defaultMessage: 'Day view must be enabled',
+        }),
       });
     }
     if (!settings.monthView && !settings.weekView && !settings.dayView) {
       return toggleNotification({
         type: 'warning',
-        message: 'At least one view must be enabled',
+        message: formatMessage({
+          id: getTrad('warning.missing.view'),
+          defaultMessage: 'At least one view must be enabled',
+        }),
       });
     }
 
@@ -149,7 +161,10 @@ function Settings() {
 
     return toggleNotification({
       type: 'success',
-      message: 'Settings successfully updated',
+      message: formatMessage({
+        id: getTrad('success.update'),
+        defaultMessage: 'Settings successfully updated',
+      }),
     });
   };
 

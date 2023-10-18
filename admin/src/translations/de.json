@@ -45,5 +45,10 @@
   "view.settings.section.calendar.view.on": "Aktiviert",
   "view.settings.section.calendar.view.month": "Monats-Ansicht",
   "view.settings.section.calendar.view.week": "Wochen-Ansicht",
-  "view.settings.section.calendar.view.day": "Tages-Ansicht"
+  "view.settings.section.calendar.view.day": "Tages-Ansicht",
+  "warning.missing.month-view": "Monatsansicht muss aktiviert sein",
+  "warning.missing.week-view": "Wochenansicht muss aktiviert sein",
+  "warning.missing.day-view": "Tagesansicht muss aktiviert sein",
+  "warning.missing.view": "Mindestens eine Ansicht muss aktiviert sein",
+  "success.update": "Einstellungen erfolgreich aktualisiert"
 }
