@@ -8,6 +8,7 @@
   "view.calendar.action.today": "Heute",
   "view.calendar.action.month": "Monat",
   "view.calendar.action.week": "Woche",
+  "view.calendar.action.work-week": "Arbeitswoche",
   "view.calendar.action.day": "Tag",
   "view.calendar.locale": "de-DE",
   "view.calendar.first-day-of-week": "1",
@@ -46,9 +47,11 @@
   "view.settings.section.calendar.view.month": "Monats-Ansicht",
   "view.settings.section.calendar.view.week": "Wochen-Ansicht",
   "view.settings.section.calendar.view.day": "Tages-Ansicht",
+  "view.settings.section.calendar.view.work-week": "Arbeitswochenansicht",
   "warning.missing.month-view": "Monatsansicht muss aktiviert sein",
   "warning.missing.week-view": "Wochenansicht muss aktiviert sein",
   "warning.missing.day-view": "Tagesansicht muss aktiviert sein",
+  "warning.missing.work-week-view": "Arbeitswochenansicht muss aktiviert sein",
   "warning.missing.view": "Mindestens eine Ansicht muss aktiviert sein",
   "success.update": "Einstellungen erfolgreich aktualisiert"
 }

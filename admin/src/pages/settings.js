@@ -67,6 +67,7 @@ function Settings() {
     defaultView: 'Month',
     monthView: true,
     weekView: false,
+    workWeekView: false,
     dayView: false,
     todayButton: true,
     createButton: true,
@@ -135,6 +136,15 @@ function Settings() {
         }),
       });
     }
+    if (settings.defaultView === 'Work-Week' && !settings.workWeekView) {
+      return toggleNotification({
+        type: 'warning',
+        message: formatMessage({
+          id: getTrad('warning.missing.work-week-view'),
+          defaultMessage: 'Work Week view must be enabled',
+        }),
+      });
+    }
     if (settings.defaultView === 'Day' && !settings.dayView) {
       return toggleNotification({
         type: 'warning',
@@ -144,7 +154,7 @@ function Settings() {
         }),
       });
     }
-    if (!settings.monthView && !settings.weekView && !settings.dayView) {
+    if (!settings.monthView && !settings.weekView && !settings.workWeekView && !settings.dayView) {
       return toggleNotification({
         type: 'warning',
         message: formatMessage({
@@ -501,6 +511,12 @@ function Settings() {
                       defaultMessage: 'Week View',
                     })}
                   </Option>
+                  <Option value="Work-Week">
+                    {formatMessage({
+                      id: getTrad('view.settings.section.calendar.view.work-week'),
+                      defaultMessage: 'Work Week View',
+                    })}
+                  </Option>
                   <Option value="Day">
                     {formatMessage({
                       id: getTrad('view.settings.section.calendar.view.day'),
@@ -508,30 +524,30 @@ function Settings() {
                     })}
                   </Option>
                 </Select>
-                <Box paddingTop={3}>
-                  <ToggleInput
-                    label={formatMessage({
-                      id: getTrad('view.settings.section.calendar.button.create.label'),
-                      defaultMessage: 'Create Button',
-                    })}
-                    checked={settings.createButton}
-                    offLabel={formatMessage({
-                      id: getTrad('view.settings.section.calendar.button.off'),
-                      defaultMessage: 'Disabled',
-                    })}
-                    onLabel={formatMessage({
-                      id: getTrad('view.settings.section.calendar.button.on'),
-                      defaultMessage: 'Enabled',
-                    })}
-                    onChange={(e) => {
-                      setSettings((s) => ({
-                        ...s,
-                        createButton: e.target.checked,
-                      }));
-                    }}
-                  />
-                </Box>
                 <Grid paddingTop={3}>
+                  <GridItem col={6} s={12}>
+                    <ToggleInput
+                      label={formatMessage({
+                        id: getTrad('view.settings.section.calendar.button.create.label'),
+                        defaultMessage: 'Create Button',
+                      })}
+                      checked={settings.createButton}
+                      offLabel={formatMessage({
+                        id: getTrad('view.settings.section.calendar.button.off'),
+                        defaultMessage: 'Disabled',
+                      })}
+                      onLabel={formatMessage({
+                        id: getTrad('view.settings.section.calendar.button.on'),
+                        defaultMessage: 'Enabled',
+                      })}
+                      onChange={(e) => {
+                        setSettings((s) => ({
+                          ...s,
+                          createButton: e.target.checked,
+                        }));
+                      }}
+                    />
+                  </GridItem>
                   <GridItem col={6} s={12}>
                     <ToggleInput
                       label={formatMessage({
@@ -555,6 +571,8 @@ function Settings() {
                       }}
                     />
                   </GridItem>
+                </Grid>
+                <Grid paddingTop={3}>
                   <GridItem col={6} s={12}>
                     <ToggleInput
                       label={formatMessage({
@@ -578,8 +596,6 @@ function Settings() {
                       }}
                     />
                   </GridItem>
-                </Grid>
-                <Grid paddingTop={3}>
                   <GridItem col={6} s={12}>
                     <ToggleInput
                       label={formatMessage({
@@ -599,6 +615,31 @@ function Settings() {
                         setSettings((s) => ({
                           ...s,
                           weekView: e.target.checked,
+                        }));
+                      }}
+                    />
+                  </GridItem>
+                </Grid>
+                <Grid paddingTop={3}>
+                  <GridItem col={6} s={12}>
+                    <ToggleInput
+                      label={formatMessage({
+                        id: getTrad('view.settings.section.calendar.view.work-week'),
+                        defaultMessage: 'Work Week',
+                      })}
+                      checked={settings.workWeekView}
+                      offLabel={formatMessage({
+                        id: getTrad('view.settings.section.calendar.view.off'),
+                        defaultMessage: 'Disabled',
+                      })}
+                      onLabel={formatMessage({
+                        id: getTrad('view.settings.section.calendar.view.on'),
+                        defaultMessage: 'Enabled',
+                      })}
+                      onChange={(e) => {
+                        setSettings((s) => ({
+                          ...s,
+                          workWeekView: e.target.checked,
                         }));
                       }}
                     />

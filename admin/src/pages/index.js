@@ -131,8 +131,9 @@ function HomePage() {
     );
   }
 
-  const { monthView, weekView, dayView } = settings;
-  const multipleViews = (monthView && weekView) || (monthView && dayView) || (weekView && dayView);
+  const { monthView, weekView, workWeekView, dayView } = settings;
+  const viewCount = +monthView + +weekView + +dayView + +workWeekView;
+  const multipleViews = viewCount >= 2;
   const primaryAction = settings.createButton ? (
     <LinkButton
       startIcon={<Plus />}
@@ -250,6 +251,14 @@ function HomePage() {
                       })}
                     </Option>
                   )}
+                  {settings.workWeekView && (
+                    <Option value="Work-Week">
+                      {formatMessage({
+                        id: getTrad('view.calendar.action.work-week'),
+                        defaultMessage: 'Work Week',
+                      })}
+                    </Option>
+                  )}
                   {settings.dayView && (
                     <Option value="Day">
                       {formatMessage({
@@ -286,6 +295,7 @@ function HomePage() {
             />
             <MonthView />
             <WeekView startDayHour={settings.startHour} endDayHour={settings.endHour} />
+            <WeekView name={'Work-Week'} excludedDays={[0,6]} startDayHour={settings.startHour} endDayHour={settings.endHour} />
             <DayView startDayHour={settings.startHour} endDayHour={settings.endHour} />
             <Appointments appointmentComponent={Appointment} />
           </Scheduler>
