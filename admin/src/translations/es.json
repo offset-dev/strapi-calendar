@@ -46,5 +46,10 @@
   "view.settings.section.calendar.view.on": "Activado",
   "view.settings.section.calendar.view.month": "Vista de mes",
   "view.settings.section.calendar.view.week": "Vista de semana",
-  "view.settings.section.calendar.view.day": "Vista de día"
+  "view.settings.section.calendar.view.day": "Vista de día",
+  "warning.missing.month-view": "Vista mensual debe estar activada",
+  "warning.missing.week-view": "Vista semanal debe estar activada",
+  "warning.missing.day-view": "Vista diaria debe estar activada",
+  "warning.missing.view": "Al menos una vista debe estar activada",
+  "success.update": "Configuración actualizada"
 }

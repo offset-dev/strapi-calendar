@@ -9,18 +9,22 @@ import propTypes from 'prop-types';
 import { useIntl } from 'react-intl';
 import validateColor from 'validate-color';
 
-import { EmptyStateLayout } from '@strapi/design-system/EmptyStateLayout';
-import { BaseHeaderLayout, ContentLayout } from '@strapi/design-system/Layout';
-import { LinkButton } from '@strapi/design-system/LinkButton';
-import { Box } from '@strapi/design-system/Box';
-import { Loader } from '@strapi/design-system/Loader';
-import { Link } from '@strapi/design-system/Link';
-import { Typography } from '@strapi/design-system/Typography';
-import { Flex } from '@strapi/design-system/Flex';
-import { Button } from '@strapi/design-system/Button';
-import { DatePicker } from '@strapi/design-system/DatePicker';
-import { Select, Option } from '@strapi/design-system/Select';
-import { IconButton } from '@strapi/design-system/IconButton';
+import {
+  EmptyStateLayout,
+  BaseHeaderLayout,
+  ContentLayout,
+  LinkButton,
+  Box,
+  Loader,
+  Link,
+  Typography,
+  Flex,
+  Button,
+  DatePicker,
+  Select,
+  Option,
+  IconButton,
+} from '@strapi/design-system';
 import { Cog, Plus, ChevronLeft, ChevronRight } from '@strapi/icons';
 import moment from 'moment';
 
@@ -79,21 +83,17 @@ function HomePage() {
     return (
       <>
         <BaseHeaderLayout
-          title={formatMessage({ id: getTrad('plugin.name') })}
-          subtitle={formatMessage({ id: getTrad('plugin.tagline') })}
+          title={formatMessage({ id: getTrad('plugin.name'), defaultMessage: 'Calendar' })}
+          subtitle={formatMessage({
+            id: getTrad('plugin.tagline'),
+            defaultMessage: 'Visualize your events',
+          })}
           as="h2"
         />
         <ContentLayout>
-          <Box
-            style={{
-              display: 'flex',
-              minHeight: '75vh',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
+          <Flex justifyContent="center" alignItems="center" minHeight="75vh">
             <Loader>Loading...</Loader>
-          </Box>
+          </Flex>
         </ContentLayout>
       </>
     );
@@ -103,8 +103,11 @@ function HomePage() {
     return (
       <>
         <BaseHeaderLayout
-          title={formatMessage({ id: getTrad('plugin.name') })}
-          subtitle={formatMessage({ id: getTrad('plugin.tagline') })}
+          title={formatMessage({ id: getTrad('plugin.name'), defaultMessage: 'Calendar' })}
+          subtitle={formatMessage({
+            id: getTrad('plugin.tagline'),
+            defaultMessage: 'Visualize your events',
+          })}
           as="h2"
         />
         <ContentLayout>
@@ -112,11 +115,13 @@ function HomePage() {
             icon={<Illo />}
             content={formatMessage({
               id: getTrad('view.calendar.state.empty.configure-settings.message'),
+              defaultMessage: 'Please configure the settings before accessing the calendar',
             })}
             action={
               <LinkButton variant="secondary" to="/settings/calendar" startIcon={<Cog />}>
                 {formatMessage({
                   id: getTrad('view.calendar.state.empty.configure-settings.action'),
+                  defaultMessage: 'Settings',
                 })}
               </LinkButton>
             }
@@ -134,7 +139,7 @@ function HomePage() {
       to={`/content-manager/collectionType/${settings.collection}/create`}
     >
       {formatMessage(
-        { id: getTrad('view.calendar.action.create-entry') },
+        { id: getTrad('view.calendar.action.create-entry'), defaultMessage: 'Create New' },
         { collection: settings.collection.split('.')[1] }
       )}
     </LinkButton>
@@ -163,14 +168,17 @@ function HomePage() {
     <>
       <style>{sty}</style>
       <BaseHeaderLayout
-        title={formatMessage({ id: getTrad('plugin.name') })}
-        subtitle={formatMessage({ id: getTrad('plugin.tagline') })}
+        title={formatMessage({ id: getTrad('plugin.name'), defaultMessage: 'Calendar' })}
+        subtitle={formatMessage({
+          id: getTrad('plugin.tagline'),
+          defaultMessage: 'Visualize your events',
+        })}
         as="h2"
         primaryAction={primaryAction}
       />
       <ContentLayout>
         <Box id="schedule" background="neutral0" shadow="filterShadow" padding={[5, 8]} hasRadius>
-          <Flex justifyContent="space-between" style={{ marginBottom: 10 }}>
+          <Flex justifyContent="space-between" marginBottom={10}>
             <Flex>
               <IconButton
                 noBorder
@@ -188,6 +196,7 @@ function HomePage() {
                   name="date"
                   aria-label={formatMessage({
                     id: getTrad('view.calendar.action.select-date'),
+                    defaultMessage: 'Select Date',
                   })}
                   value={state.date}
                   onChange={(e) => setState((s) => ({ ...s, date: moment(e).format('ll') }))}
@@ -212,12 +221,13 @@ function HomePage() {
                   >
                     {formatMessage({
                       id: getTrad('view.calendar.action.today'),
+                      defaultMessage: 'Today',
                     })}
                   </Button>
                 )}
               </Box>
             </Flex>
-            <Box style={{ width: 220 }}>
+            <Box width={220}>
               {multipleViews && (
                 <Select
                   aria-label="Select View"
@@ -228,6 +238,7 @@ function HomePage() {
                     <Option value="Month">
                       {formatMessage({
                         id: getTrad('view.calendar.action.month'),
+                        defaultMessage: 'Month',
                       })}
                     </Option>
                   )}
@@ -235,6 +246,7 @@ function HomePage() {
                     <Option value="Week">
                       {formatMessage({
                         id: getTrad('view.calendar.action.week'),
+                        defaultMessage: 'Week',
                       })}
                     </Option>
                   )}
@@ -242,6 +254,7 @@ function HomePage() {
                     <Option value="Day">
                       {formatMessage({
                         id: getTrad('view.calendar.action.day'),
+                        defaultMessage: 'Day',
                       })}
                     </Option>
                   )}
@@ -249,19 +262,20 @@ function HomePage() {
               )}
             </Box>
           </Flex>
-          <Box style={{ textAlign: 'center', marginBottom: 20 }}>
+          <Box marginBottom={20}>
             {state.view === 'Month' && (
-              <Typography variant="alpha" textTransform="uppercase" style={{ textAlign: 'center' }}>
+              <Typography variant="alpha" textTransform="uppercase" textAlign="center">
                 {formatDate(state.date, { month: 'long' })}
               </Typography>
             )}
           </Box>
           <Scheduler
             data={data}
-            locale={formatMessage({ id: getTrad('view.calendar.locale') })}
+            locale={formatMessage({ id: getTrad('view.calendar.locale'), defaultMessage: 'en-US' })}
             firstDayOfWeek={
               formatMessage({
                 id: getTrad('view.calendar.first-day-of-week'),
+                defaultMessage: '0',
               }) || 0
             }
           >

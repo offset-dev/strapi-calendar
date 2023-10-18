@@ -4,15 +4,20 @@ import { useIntl } from 'react-intl';
 import { ChromePicker } from 'react-color';
 import { LoadingIndicatorPage, useNotification } from '@strapi/helper-plugin';
 
-import { Box } from '@strapi/design-system/Box';
-import { Stack } from '@strapi/design-system/Stack';
-import { Button } from '@strapi/design-system/Button';
-import { Grid, GridItem } from '@strapi/design-system/Grid';
-import { Typography } from '@strapi/design-system/Typography';
-import { HeaderLayout, ContentLayout } from '@strapi/design-system/Layout';
-import { ToggleInput } from '@strapi/design-system/ToggleInput';
-import { TimePicker } from '@strapi/design-system/TimePicker';
-import { Select, Option } from '@strapi/design-system/Select';
+import {
+  Box,
+  Stack,
+  Button,
+  Grid,
+  GridItem,
+  Typography,
+  HeaderLayout,
+  ContentLayout,
+  ToggleInput,
+  TimePicker,
+  Select,
+  Option,
+} from '@strapi/design-system';
 
 import Check from '@strapi/icons/Check';
 import styled from 'styled-components';
@@ -115,25 +120,37 @@ function Settings() {
     if (settings.defaultView === 'Month' && !settings.monthView) {
       return toggleNotification({
         type: 'warning',
-        message: 'Month view must be enabled',
+        message: formatMessage({
+          id: getTrad('warning.missing.view'),
+          defaultMessage: 'Month view must be enabled',
+        }),
       });
     }
     if (settings.defaultView === 'Week' && !settings.weekView) {
       return toggleNotification({
         type: 'warning',
-        message: 'Week view must be enabled',
+        message: formatMessage({
+          id: getTrad('warning.missing.view'),
+          defaultMessage: 'Week view must be enabled',
+        }),
       });
     }
     if (settings.defaultView === 'Day' && !settings.dayView) {
       return toggleNotification({
         type: 'warning',
-        message: 'Day view must be enabled',
+        message: formatMessage({
+          id: getTrad('warning.missing.view'),
+          defaultMessage: 'Day view must be enabled',
+        }),
       });
     }
     if (!settings.monthView && !settings.weekView && !settings.dayView) {
       return toggleNotification({
         type: 'warning',
-        message: 'At least one view must be enabled',
+        message: formatMessage({
+          id: getTrad('warning.missing.view'),
+          defaultMessage: 'At least one view must be enabled',
+        }),
       });
     }
 
@@ -144,7 +161,10 @@ function Settings() {
 
     return toggleNotification({
       type: 'success',
-      message: 'Settings successfully updated',
+      message: formatMessage({
+        id: getTrad('success.update'),
+        defaultMessage: 'Settings successfully updated',
+      }),
     });
   };
 
@@ -152,8 +172,14 @@ function Settings() {
     <>
       <HeaderLayout
         id="title"
-        title={formatMessage({ id: getTrad('view.settings.title') })}
-        subtitle={formatMessage({ id: getTrad('view.settings.subtitle') })}
+        title={formatMessage({
+          id: getTrad('view.settings.title'),
+          defaultMessage: 'Calendar settings',
+        })}
+        subtitle={formatMessage({
+          id: getTrad('view.settings.subtitle'),
+          defaultMessage: 'Configure the plugin to your needs',
+        })}
         primaryAction={
           !isLoading && (
             <Button
@@ -163,7 +189,7 @@ function Settings() {
               disabled={isSaving}
               loading={isSaving}
             >
-              {formatMessage({ id: getTrad('view.settings.action.save') })}
+              {formatMessage({ id: getTrad('view.settings.action.save'), defaultMessage: 'Save' })}
             </Button>
           )
         }
@@ -185,11 +211,13 @@ function Settings() {
               <Typography variant="beta">
                 {formatMessage({
                   id: getTrad('view.settings.section.general.title'),
+                  defaultMessage: 'General settings',
                 })}
               </Typography>
               <Select
                 label={formatMessage({
                   id: getTrad('view.settings.section.general.collection.label'),
+                  defaultMessage: 'Choose your collection',
                 })}
                 onChange={(e) => setSettings((s) => ({ ...s, collection: e }))}
                 value={settings.collection}
@@ -205,6 +233,7 @@ function Settings() {
                   <Select
                     label={formatMessage({
                       id: getTrad('view.settings.section.general.title.label'),
+                      defaultMessage: 'Choose your title field',
                     })}
                     onChange={(e) => setSettings((s) => ({ ...s, titleField: e }))}
                     value={settings.titleField}
@@ -213,6 +242,7 @@ function Settings() {
                       [
                       {formatMessage({
                         id: getTrad('view.settings.section.general.title.none'),
+                        defaultMessage: 'No title field',
                       })}
                       ]
                     </Option>
@@ -229,6 +259,7 @@ function Settings() {
                   <Select
                     label={formatMessage({
                       id: getTrad('view.settings.section.general.default-duration.label'),
+                      defaultMessage: 'Choose your default duration',
                     })}
                     onChange={(e) => setSettings((s) => ({ ...s, defaultDuration: e }))}
                     value={settings.defaultDuration}
@@ -236,21 +267,25 @@ function Settings() {
                     <Option value={30}>
                       {formatMessage({
                         id: getTrad('view.settings.section.general.default-duration.30min'),
+                        defaultMessage: '30 Minutes',
                       })}
                     </Option>
                     <Option value={60}>
                       {formatMessage({
                         id: getTrad('view.settings.section.general.default-duration.1h'),
+                        defaultMessage: '1 Hour',
                       })}
                     </Option>
                     <Option value={90}>
                       {formatMessage({
                         id: getTrad('view.settings.section.general.default-duration.1.5h'),
+                        defaultMessage: '1.5 Hours',
                       })}
                     </Option>
                     <Option value={120}>
                       {formatMessage({
                         id: getTrad('view.settings.section.general.default-duration.2h'),
+                        defaultMessage: '2 Hours',
                       })}
                     </Option>
                   </Select>
@@ -261,6 +296,7 @@ function Settings() {
                   <Select
                     label={formatMessage({
                       id: getTrad('view.settings.section.general.start.label'),
+                      defaultMessage: 'Choose your start field',
                     })}
                     onChange={(e) => setSettings((s) => ({ ...s, startField: e }))}
                     value={settings.startField}
@@ -278,6 +314,7 @@ function Settings() {
                   <Select
                     label={formatMessage({
                       id: getTrad('view.settings.section.general.end.label'),
+                      defaultMessage: 'Choose your end field',
                     })}
                     onChange={(e) => setSettings((s) => ({ ...s, endField: e }))}
                     value={settings.endField}
@@ -286,6 +323,7 @@ function Settings() {
                       [
                       {formatMessage({
                         id: getTrad('view.settings.section.general.end.none'),
+                        defaultMessage: 'No end field',
                       })}
                       ]
                     </Option>
@@ -302,6 +340,7 @@ function Settings() {
                   <Select
                     label={formatMessage({
                       id: getTrad('view.settings.section.general.color.label'),
+                      defaultMessage: 'Choose your color field',
                     })}
                     onChange={(e) => setSettings((s) => ({ ...s, colorField: e }))}
                     value={settings.colorField}
@@ -310,30 +349,7 @@ function Settings() {
                       [
                       {formatMessage({
                         id: getTrad('view.settings.section.general.color.none'),
-                      })}
-                      ]
-                    </Option>
-                    {fields
-                      .filter((x) => x.type === 'string')
-                      .map((x) => (
-                        <Option key={x.id} value={x.id}>
-                          {x.displayName || x.id}
-                        </Option>
-                      ))}
-                  </Select>
-                </GridItem>
-                <GridItem col={6} s={12}>
-                  <Select
-                    label={formatMessage({
-                      id: getTrad('view.settings.section.general.color.label'),
-                    })}
-                    onChange={(e) => setSettings((s) => ({ ...s, colorField: e }))}
-                    value={settings.colorField}
-                  >
-                    <Option value="">
-                      [
-                      {formatMessage({
-                        id: getTrad('view.settings.section.general.color.none'),
+                        defaultMessage: 'No color field',
                       })}
                       ]
                     </Option>
@@ -351,13 +367,16 @@ function Settings() {
                 <ToggleInput
                   label={formatMessage({
                     id: getTrad('view.settings.section.general.display-drafts.label'),
+                    defaultMessage: 'Display Drafts',
                   })}
                   checked={settings.drafts}
                   offLabel={formatMessage({
                     id: getTrad('view.settings.section.general.display-drafts.off'),
+                    defaultMessage: 'Disabled',
                   })}
                   onLabel={formatMessage({
                     id: getTrad('view.settings.section.general.display-drafts.on'),
+                    defaultMessage: 'Enabled',
                   })}
                   onChange={(e) => {
                     setSettings((s) => ({
@@ -373,6 +392,7 @@ function Settings() {
               <Typography variant="beta">
                 {formatMessage({
                   id: getTrad('view.settings.section.calendar.title'),
+                  defaultMessage: 'Calendar settings',
                 })}
               </Typography>
               <Stack horizontal spacing={6}>
@@ -380,6 +400,7 @@ function Settings() {
                   <Typography variant="pi" fontWeight="bold">
                     {formatMessage({
                       id: getTrad('view.settings.section.calendar.primary-color.title'),
+                      defaultMessage: 'Primary Color',
                     })}
                   </Typography>
                   <Box paddingTop={1} paddingBottom={2}>
@@ -404,6 +425,7 @@ function Settings() {
                   <Typography variant="pi" fontWeight="bold">
                     {formatMessage({
                       id: getTrad('view.settings.section.calendar.event-color.title'),
+                      defaultMessage: 'Event Color',
                     })}
                   </Typography>
                   <Box paddingTop={1} paddingBottom={2}>
@@ -430,9 +452,11 @@ function Settings() {
                   <TimePicker
                     clearLabel={formatMessage({
                       id: getTrad('view.settings.section.calendar.times.clear'),
+                      defaultMessage: 'Clear Time',
                     })}
                     label={formatMessage({
                       id: getTrad('view.settings.section.calendar.times.start.label'),
+                      defaultMessage: 'Start Hour',
                     })}
                     step={30}
                     value={settings.startHour}
@@ -443,9 +467,11 @@ function Settings() {
                   <TimePicker
                     clearLabel={formatMessage({
                       id: getTrad('view.settings.section.calendar.times.clear'),
+                      defaultMessage: 'Clear Time',
                     })}
                     label={formatMessage({
                       id: getTrad('view.settings.section.calendar.times.end.label'),
+                      defaultMessage: 'End Hour',
                     })}
                     step={30}
                     value={settings.endHour}
@@ -458,6 +484,7 @@ function Settings() {
                 <Select
                   label={formatMessage({
                     id: getTrad('view.settings.section.calendar.default-view.label'),
+                    defaultMessage: 'Default View',
                   })}
                   onChange={(e) => setSettings((s) => ({ ...s, defaultView: e }))}
                   value={settings.defaultView}
@@ -465,16 +492,19 @@ function Settings() {
                   <Option value="Month">
                     {formatMessage({
                       id: getTrad('view.settings.section.calendar.view.month'),
+                      defaultMessage: 'Month View',
                     })}
                   </Option>
                   <Option value="Week">
                     {formatMessage({
                       id: getTrad('view.settings.section.calendar.view.week'),
+                      defaultMessage: 'Week View',
                     })}
                   </Option>
                   <Option value="Day">
                     {formatMessage({
                       id: getTrad('view.settings.section.calendar.view.day'),
+                      defaultMessage: 'Day View',
                     })}
                   </Option>
                 </Select>
@@ -482,13 +512,16 @@ function Settings() {
                   <ToggleInput
                     label={formatMessage({
                       id: getTrad('view.settings.section.calendar.button.create.label'),
+                      defaultMessage: 'Create Button',
                     })}
                     checked={settings.createButton}
                     offLabel={formatMessage({
                       id: getTrad('view.settings.section.calendar.button.off'),
+                      defaultMessage: 'Disabled',
                     })}
                     onLabel={formatMessage({
                       id: getTrad('view.settings.section.calendar.button.on'),
+                      defaultMessage: 'Enabled',
                     })}
                     onChange={(e) => {
                       setSettings((s) => ({
@@ -503,13 +536,16 @@ function Settings() {
                     <ToggleInput
                       label={formatMessage({
                         id: getTrad('view.settings.section.calendar.button.today.label'),
+                        defaultMessage: 'Today Button',
                       })}
                       checked={settings.todayButton}
                       offLabel={formatMessage({
                         id: getTrad('view.settings.section.calendar.button.off'),
+                        defaultMessage: 'Disabled',
                       })}
                       onLabel={formatMessage({
                         id: getTrad('view.settings.section.calendar.button.on'),
+                        defaultMessage: 'Enabled',
                       })}
                       onChange={(e) => {
                         setSettings((s) => ({
@@ -523,13 +559,16 @@ function Settings() {
                     <ToggleInput
                       label={formatMessage({
                         id: getTrad('view.settings.section.calendar.view.month'),
+                        defaultMessage: 'Month View',
                       })}
                       checked={settings.monthView}
                       offLabel={formatMessage({
                         id: getTrad('view.settings.section.calendar.view.off'),
+                        defaultMessage: 'Disabled',
                       })}
                       onLabel={formatMessage({
                         id: getTrad('view.settings.section.calendar.view.on'),
+                        defaultMessage: 'Enabled',
                       })}
                       onChange={(e) => {
                         setSettings((s) => ({
@@ -545,13 +584,16 @@ function Settings() {
                     <ToggleInput
                       label={formatMessage({
                         id: getTrad('view.settings.section.calendar.view.week'),
+                        defaultMessage: 'Week View',
                       })}
                       checked={settings.weekView}
                       offLabel={formatMessage({
                         id: getTrad('view.settings.section.calendar.view.off'),
+                        defaultMessage: 'Disabled',
                       })}
                       onLabel={formatMessage({
                         id: getTrad('view.settings.section.calendar.view.on'),
+                        defaultMessage: 'Enabled',
                       })}
                       onChange={(e) => {
                         setSettings((s) => ({
@@ -565,13 +607,16 @@ function Settings() {
                     <ToggleInput
                       label={formatMessage({
                         id: getTrad('view.settings.section.calendar.view.day'),
+                        defaultMessage: 'Day View',
                       })}
                       checked={settings.dayView}
                       offLabel={formatMessage({
                         id: getTrad('view.settings.section.calendar.view.off'),
+                        defaultMessage: 'Disabled',
                       })}
                       onLabel={formatMessage({
                         id: getTrad('view.settings.section.calendar.view.on'),
+                        defaultMessage: 'Enabled',
                       })}
                       onChange={(e) => {
                         setSettings((s) => ({
