@@ -295,7 +295,12 @@ function HomePage() {
             />
             <MonthView />
             <WeekView startDayHour={settings.startHour} endDayHour={settings.endHour} />
-            <WeekView name={'Work-Week'} excludedDays={[0,6]} startDayHour={settings.startHour} endDayHour={settings.endHour} />
+            <WeekView
+              name="Work-Week"
+              excludedDays={[0, 6]}
+              startDayHour={settings.startHour}
+              endDayHour={settings.endHour}
+            />
             <DayView startDayHour={settings.startHour} endDayHour={settings.endHour} />
             <Appointments appointmentComponent={Appointment} />
           </Scheduler>
