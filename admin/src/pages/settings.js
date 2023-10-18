@@ -121,7 +121,7 @@ function Settings() {
       return toggleNotification({
         type: 'warning',
         message: formatMessage({
-          id: getTrad('warning.missing.view'),
+          id: getTrad('warning.missing.month-view'),
           defaultMessage: 'Month view must be enabled',
         }),
       });
@@ -130,7 +130,7 @@ function Settings() {
       return toggleNotification({
         type: 'warning',
         message: formatMessage({
-          id: getTrad('warning.missing.view'),
+          id: getTrad('warning.missing.week-view'),
           defaultMessage: 'Week view must be enabled',
         }),
       });
@@ -139,7 +139,7 @@ function Settings() {
       return toggleNotification({
         type: 'warning',
         message: formatMessage({
-          id: getTrad('warning.missing.view'),
+          id: getTrad('warning.missing.day-view'),
           defaultMessage: 'Day view must be enabled',
         }),
       });
