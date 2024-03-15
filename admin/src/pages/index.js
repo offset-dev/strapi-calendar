@@ -137,7 +137,7 @@ function HomePage() {
   const primaryAction = settings.createButton ? (
     <LinkButton
       startIcon={<Plus />}
-      to={`/content-manager/collectionType/${settings.collection}/create`}
+      to={`/content-manager/collection-types/${settings.collection}/create`}
     >
       {formatMessage(
         { id: getTrad('view.calendar.action.create-entry'), defaultMessage: 'Create New' },
@@ -328,7 +328,7 @@ function Appointment({ children, style, ...restProps }) {
   }
 
   return (
-    <Link to={`/content-manager/collectionType/${settings.collection}/${id}`}>
+    <Link to={`/content-manager/collection-types/${settings.collection}/${id}`}>
       <Appointments.Appointment
         {...restProps}
         style={{
