@@ -30,6 +30,7 @@ import moment from 'moment';
 
 import {
   Scheduler,
+  AllDayPanel,
   DayView,
   WeekView,
   MonthView,
@@ -302,6 +303,7 @@ function HomePage() {
               endDayHour={settings.endHour}
             />
             <DayView startDayHour={settings.startHour} endDayHour={settings.endHour} />
+            <AllDayPanel />
             <Appointments appointmentComponent={Appointment} />
           </Scheduler>
         </Box>
