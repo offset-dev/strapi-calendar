@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.png" width="200" alt="Logo" />
+  <img src="./assets/logo.png" width="200" alt="Logo" />
 </p>
 <h1 align="center">Strapi Plugin Calendar</h1>
 <p align="center">
@@ -16,7 +16,7 @@
 > Visualize your content in a map with month, weekly and daily view.
 > [View on Strapi Marketplace](https://market.strapi.io/plugins/@offset-dev-strapi-calendar)
   
-![](./image.png)
+![](./assets/image.png)
 </p>
 
 ## Demo
@@ -35,7 +35,7 @@ yarn add @offset-dev/strapi-calendar
 
 Open the settings page and select the calendar settings.
 
-![](./image2.png)
+![](./assets/image2.png)
 
 Here you can select which collection and fields to use.
 You can also customize the calendar style and options.
