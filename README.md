@@ -15,8 +15,9 @@
 
 > Visualize your content in a map with month, weekly and daily view.
 > [View on Strapi Marketplace](https://market.strapi.io/plugins/@offset-dev-strapi-calendar)
-  
+
 ![](./assets/image.png)
+
 </p>
 
 ## Demo
@@ -28,7 +29,7 @@
 Copy the following code and run from your terminal
 
 ```
-yarn add @offset-dev/strapi-calendar
+npm i @offset-dev/strapi-calendar
 ```
 
 ## How to Use
