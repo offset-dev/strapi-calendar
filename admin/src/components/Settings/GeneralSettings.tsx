@@ -7,13 +7,14 @@ import { Struct } from '@strapi/types';
 import api from '../../api';
 import { getTranslation } from '../../utils/getTranslation';
 import { useSettings } from '../../context/Settings';
+import { ExtensionType } from '../../../../types';
 
 const GeneralSettings = () => {
   const { formatMessage } = useIntl();
   const { updateField, settings } = useSettings();
 
   const [collections, setCollections] = useState<Array<Struct.BaseSchema>>([]);
-  const [extensions, setExtensions] = useState<Array<Struct.BaseSchema>>([]);
+  const [extensions, setExtensions] = useState<Array<ExtensionType>>([]);
   const [fields, setFields] = useState<Array<{ id: string; type: string }>>([]);
 
   useEffect(() => {
