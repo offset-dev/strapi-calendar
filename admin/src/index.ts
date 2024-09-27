@@ -19,6 +19,29 @@ export default {
       },
     });
 
+    app.createSettingSection(
+      {
+        id: PLUGIN_ID,
+        intlLabel: {
+          id: `${PLUGIN_ID}.plugin.name`,
+          defaultMessage: `${PLUGIN_ID} Settings`,
+        },
+      },
+      [
+        {
+          intlLabel: {
+            id: `${PLUGIN_ID}.plugin.name`,
+            defaultMessage: 'Settings',
+          },
+          id: 'settings',
+          to: `/settings/${PLUGIN_ID}`,
+          Component: async () => {
+            return import('./pages/SettingsPage');
+          },
+        },
+      ]
+    );
+
     app.registerPlugin({
       id: PLUGIN_ID,
       initializer: Initializer,
@@ -35,7 +58,7 @@ export default {
         return import(`./translations/${locale}.json`)
           .then(({ default: data }) => {
             return {
-              data: getTranslation(data),
+              data: prefixPluginTranslations(data, PLUGIN_ID),
               locale,
             };
           })
@@ -50,4 +73,15 @@ export default {
 
     return importedTranslations;
   },
+};
+
+type TradOptions = Record<string, string>;
+const prefixPluginTranslations = (trad: TradOptions, pluginId: string): TradOptions => {
+  if (!pluginId) {
+    throw new TypeError("pluginId can't be empty");
+  }
+  return Object.keys(trad).reduce((acc, current) => {
+    acc[`${pluginId}.${current}`] = trad[current];
+    return acc;
+  }, {} as TradOptions);
 };
