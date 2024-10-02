@@ -2,7 +2,7 @@ import React from 'react';
 import { Layouts } from '@strapi/admin/strapi-admin';
 import { Cog, Plus } from '@strapi/icons';
 import tinyColor from 'tinycolor2';
-import { EmptyStateLayout, LinkButton, Box } from '@strapi/design-system';
+import { EmptyStateLayout, LinkButton, Box, Loader } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
 
 import FullCalendar from '@fullcalendar/react';
@@ -19,10 +19,11 @@ import { useSettings } from '../context/Settings';
 const CalendarPage = () => {
   const theme = useTheme();
 
-  const { settings } = useSettings();
+  const { settings, loading } = useSettings();
   const { formatMessage } = useIntl();
 
-  if (!settings) {
+  if (loading) return <Loader />;
+  if (!settings.collection) {
     return (
       <>
         <Layouts.Header
@@ -71,12 +72,14 @@ const CalendarPage = () => {
   let left = 'prev,next' + (todayButton ? ' today' : '');
 
   // Define initial view
-  const initialView = () => {
-    if (defaultView === 'Month') return 'dayGridMonth';
-    if (defaultView === 'Week') return 'timeGridWeek';
-    if (defaultView === 'WorkWeek') return 'workWeek';
-    return 'dayGridMonth';
-  };
+  const initialView =
+    defaultView === 'Month'
+      ? 'dayGridMonth'
+      : defaultView === 'Week'
+        ? 'timeGridWeek'
+        : defaultView === 'Work-Week'
+          ? 'workWeek'
+          : 'dayGridMonth';
 
   const primaryAction = settings.createButton ? (
     <LinkButton
@@ -168,7 +171,7 @@ const CalendarPage = () => {
           <FullCalendar
             events={`/${PLUGIN_ID}/`}
             plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
-            initialView={initialView()}
+            initialView={initialView}
             slotMinTime={settings.startHour}
             slotMaxTime={settings.endHour}
             views={{
