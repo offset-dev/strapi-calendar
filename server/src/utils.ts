@@ -42,11 +42,11 @@ export const initHandlers = (
   let startHandler: Function = async (
     startDate: string,
     endDate: string,
-    entityService: any,
+    strapi: any,
     config: SettingsType
   ) =>
     (
-      await entityService.findMany(config.collection, {
+      await strapi.documents(config.collection).findMany({
         filters: {
           $and: [
             {

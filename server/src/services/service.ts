@@ -20,10 +20,10 @@ const service = ({ strapi }: { strapi: Core.Strapi }) => ({
 
     let data: Record<string, any> = {};
     if (startHandler) {
-      data = await startHandler(start, end, strapi.entityService, config);
+      data = await startHandler(start, end, strapi, config);
     }
     if (endHandler) {
-      data = merge(await endHandler(strapi.entityService, config, data), data);
+      data = merge(await endHandler(strapi, config, data), data);
     }
 
     // Filter out drafts if not configured to show them
