@@ -3,7 +3,7 @@ import { PLUGIN_ID } from './pluginId';
 
 const api = {
   getCollections: async () => {
-    return await axios.get(`/${PLUGIN_ID}/settings/collections`);
+    return await axios.get(`/${PLUGIN_ID}/collections`);
   },
   getExtensions: async () => {
     return await axios.get(`/${PLUGIN_ID}/extensions`);

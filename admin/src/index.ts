@@ -11,10 +11,8 @@ export default {
         id: `${PLUGIN_ID}.plugin.name`,
         defaultMessage: PLUGIN_ID,
       },
-      Component: async () => {
-        const { App } = await import('./pages/App');
-
-        return App;
+      Component: () => {
+        return import('./pages/App');
       },
     });
 
@@ -33,8 +31,8 @@ export default {
             defaultMessage: 'Settings',
           },
           id: 'settings',
-          to: `/settings/${PLUGIN_ID}`,
-          Component: async () => {
+          to: `${PLUGIN_ID}`,
+          Component: () => {
             return import('./pages/SettingsPage');
           },
         },

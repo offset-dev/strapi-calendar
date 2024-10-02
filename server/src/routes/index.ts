@@ -10,7 +10,7 @@ export default [
   },
   {
     method: 'GET',
-    path: '/settings/collections',
+    path: '/collections',
     handler: 'controller.getCollections',
     config: {
       policies: [],
