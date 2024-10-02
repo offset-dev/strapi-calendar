@@ -81,7 +81,9 @@ module.exports = () => ({
       startDate: x[config.startField],
       endDate: config.endField
         ? x[config.endField]
-        : moment(x[config.startField]).add(config.defaultDuration, 'minutes'),
+        : config.defaultDuration === 'fullDay' 
+ 			? moment(x[config.startField]).endOf('day')         
+        	: moment(x[config.startField]).add(config.defaultDuration, 'minutes'),
       color: config.colorField ? x[config.colorField] : null,
     }));
   },

@@ -26,6 +26,7 @@
   "view.settings.section.general.default-duration.1h": "1 Hour",
   "view.settings.section.general.default-duration.1.5h": "1.5 Hours",
   "view.settings.section.general.default-duration.2h": "2 Hours",
+  "view.settings.section.general.default-duration.fullDay": "Full Day",
   "view.settings.section.general.start.label": "Choose your start field",
   "view.settings.section.general.end.label": "Choose your end field",
   "view.settings.section.general.end.none": "No end field",
