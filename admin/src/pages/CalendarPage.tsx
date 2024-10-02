@@ -59,13 +59,14 @@ const CalendarPage = () => {
     );
   }
 
-  const { monthView, weekView, workWeekView, defaultView, todayButton } = settings;
+  const { monthView, weekView, workWeekView, dayView, defaultView, todayButton } = settings;
 
   // Define the views to be displayed
   let views = '';
   if (monthView) views += 'dayGridMonth,';
   if (weekView) views += 'timeGridWeek,';
   if (workWeekView) views += 'workWeek,';
+  if (dayView) views += 'dayView,';
   views = views.slice(0, -1);
 
   // Define the buttons to be displayed
@@ -79,7 +80,9 @@ const CalendarPage = () => {
         ? 'timeGridWeek'
         : defaultView === 'Work-Week'
           ? 'workWeek'
-          : 'dayGridMonth';
+          : defaultView === 'Day'
+            ? 'dayView'
+            : 'dayGridMonth';
 
   const primaryAction = settings.createButton ? (
     <LinkButton
@@ -182,6 +185,14 @@ const CalendarPage = () => {
                 buttonText: formatMessage({
                   id: getTranslation('view.calendar.view.work-week'),
                   defaultMessage: 'Work Week',
+                }),
+              },
+              dayView: {
+                type: 'timeGrid',
+                duration: { days: 1 },
+                buttonText: formatMessage({
+                  id: getTranslation('view.calendar.view.day'),
+                  defaultMessage: 'Day View',
                 }),
               },
             }}
