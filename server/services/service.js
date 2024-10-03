@@ -74,18 +74,25 @@ module.exports = () => ({
       if (config.drafts) return true;
       return x.publishedAt;
     });
+		return dataFiltered.map((x) => {
+			const startDate = x[config.startField].split('T')[0];
+			const endDate = config.endField ? x[config.endField].split('T')[0] : null; 
 
-    return dataFiltered.map((x) => ({
-      id: x.id,
-      title: config.titleField ? x[config.titleField] : config.startField,
-      startDate: x[config.startField],
-      endDate: config.endField
-        ? x[config.endField]
-        : config.defaultDuration === 'fullDay' 
- 			? moment(x[config.startField]).endOf('day')         
-        	: moment(x[config.startField]).add(config.defaultDuration, 'minutes'),
-      color: config.colorField ? x[config.colorField] : null,
-    }));
+			const isMultiDay = endDate && moment(endDate).isAfter(startDate); 
+			const startDateTime = `${startDate}T00:00:00`; 
+			const endDateTime = isMultiDay ? `${endDate}T00:00:00` : moment(startDateTime).add(config.defaultDuration, 'minutes').format(); 
+
+			return {
+			    id: x.id,
+			    title: config.titleField ? x[config.titleField] : x[config.startField],
+			    startDate: startDateTime,
+			    endDate: endDateTime,
+			    color: config.colorField ? x[config.colorField] : null,
+			    allDay: isMultiDay, 
+			};
+
+		});
+
   },
   async getCollections() {
     const types = strapi.contentTypes;

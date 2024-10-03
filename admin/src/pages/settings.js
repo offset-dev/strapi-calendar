@@ -61,6 +61,7 @@ function Settings() {
     titleField: null,
     colorField: null,
     defaultDuration: 30,
+    defaultStartTime: '12:00',    
     drafts: true,
     startHour: '0:00',
     endHour: '23:59',
@@ -298,12 +299,12 @@ function Settings() {
                         defaultMessage: '2 Hours',
                       })}
                     </Option>
-					<Option value={1440}>
-					  {formatMessage({
-					    id: getTrad('view.settings.section.general.default-duration.fullday'),
-					    defaultMessage: 'Full Day',
-					  })}
-					</Option>                    
+                    <Option value={1440}>
+					  					{formatMessage({
+					    					id: getTrad('view.settings.section.general.default-duration.fullday'),
+					    					defaultMessage: 'Full Day',
+					  					})}
+										</Option>                    
                   </Select>
                 </GridItem>
               </Grid>
@@ -378,7 +379,7 @@ function Settings() {
                       ))}
                   </Select>
                 </GridItem>
-              </Grid>
+              </Grid>              
               <Box paddingTop={3}>
                 <ToggleInput
                   label={formatMessage({
