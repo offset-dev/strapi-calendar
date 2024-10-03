@@ -300,11 +300,11 @@ function Settings() {
                       })}
                     </Option>
                     <Option value={1440}>
-					  					{formatMessage({
-					    					id: getTrad('view.settings.section.general.default-duration.fullday'),
-					    					defaultMessage: 'Full Day',
-					  					})}
-										</Option>                    
+                      {formatMessage({
+                    	   id: getTrad('view.settings.section.general.default-duration.fullday'),
+                    	   defaultMessage: 'Full Day',
+                      })}
+                    </Option>                   
                   </Select>
                 </GridItem>
               </Grid>
