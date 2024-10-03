@@ -1,6 +1,6 @@
 {
   "name": "strapi-calendar",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "description": "Visualize your Strapi content in month, week or daily view",
   "keywords": [],
   "homepage": "https://github.com/offset-dev/strapi-calendar#readme",

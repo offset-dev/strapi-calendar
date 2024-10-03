@@ -20,9 +20,18 @@
 
 </p>
 
+## V1 Features
+- New Calendar Library (Now using [FullCalendar](https://fullcalendar.io))
+- New Reset Settings endpoint (/strapi-calendar/clear-settings)
+- Fully compatible with Strapi 5
+- Now using Document Service API
+- Now using Strapi Plugin SDK
+- Typescript ♥️
+- Eslint & Prettier Config
+
 ## Demo
 
-[![](https://cdn.loom.com/sessions/thumbnails/18712a97afa742ed8a7a57136d85c218-with-play.gif)](https://www.loom.com/share/18712a97afa742ed8a7a57136d85c218)
+[![](https://cdn.loom.com/sessions/thumbnails/53e30106697044fdb365490a8b48df25-630b2ac775ea1ef6-full-play.gif)](https://www.loom.com/share/53e30106697044fdb365490a8b48df25)
 
 ## How to Install
 
@@ -40,3 +49,8 @@ Open the settings page and select the calendar settings.
 
 Here you can select which collection and fields to use.
 You can also customize the calendar style and options.
+
+## Coffee Support
+Absolutely no pressure, but if you found this plugin helpful and want to buy me a coffee, you can do it [here](https://donate.stripe.com/9AQcPq8MnerG39C8wx)
+
+![Alt Text](https://i.giphy.com/LG1ZZP1Go0D8j7YsWy.webp)
