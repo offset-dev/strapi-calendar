@@ -43,9 +43,9 @@ const CalendarPage = () => {
             })}
             action={
               <LinkButton
-                variant="secondary"
+                variant="primary"
                 href={`/admin/settings/${PLUGIN_ID}`}
-                startIcon={<Cog />}
+                startIcon={<Cog color={'white'} />}
               >
                 {formatMessage({
                   id: getTranslation('view.calendar.state.empty.configure-settings.action'),
@@ -133,7 +133,7 @@ const CalendarPage = () => {
     }
 
     .fc-timegrid-slots tr {
-      height: 4em;
+      height: 3.5em;
     }
 
     .fc-daygrid-day-frame {
@@ -177,6 +177,7 @@ const CalendarPage = () => {
             initialView={initialView}
             slotMinTime={settings.startHour}
             slotMaxTime={settings.endHour}
+            allDaySlot={false}
             views={{
               workWeek: {
                 type: 'timeGrid',
