@@ -75,18 +75,20 @@ module.exports = () => ({
       return x.publishedAt;
     });
     return dataFiltered.map((x) => {
-      const startDate = x[config.startField].split('T')[0];
-      const endDate = config.endField ? x[config.endField].split('T')[0] : null; 
-      const isMultiDay = endDate && moment(endDate).isAfter(startDate); 
-      const startDateTime = `${startDate}T00:00:00`; 
-      const endDateTime = isMultiDay ? `${endDate}T00:00:00` : moment(startDateTime).add(config.defaultDuration, 'minutes').format(); 
+      const startDate = moment(x[config.startField]).startOf('day').format(); 
+      const endDate = config.endField ? moment(x[config.endField]).startOf('day').format() : null; 
+      const isMultiDay = endDate && moment(endDate).isAfter(startDate);
+      const startDateTime = startDate;
+      const endDateTime = isMultiDay 
+        ? moment(endDate).endOf('day').format() 
+        : moment(startDate).add(config.defaultDuration, 'minutes').format();
       return {
-         id: x.id,
-         title: config.titleField ? x[config.titleField] : x[config.startField],
-         startDate: startDateTime,
-         endDate: endDateTime,
-         color: config.colorField ? x[config.colorField] : null,
-         allDay: isMultiDay, 
+        id: x.id,
+        title: config.titleField ? x[config.titleField] : x[config.startField],
+        startDate: startDateTime,
+        endDate: endDateTime,
+        color: config.colorField ? x[config.colorField] : null,
+        allDay: isMultiDay, 
       };
     });
   },
