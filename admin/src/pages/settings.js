@@ -303,7 +303,7 @@ function Settings() {
                         id: getTrad('view.settings.section.general.default-duration.fullday'),
                         defaultMessage: 'Full Day',
                       })}
-                    </Option>                     
+                    </Option>
                   </Select>
                 </GridItem>
               </Grid>

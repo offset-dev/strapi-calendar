@@ -59,7 +59,7 @@
   },
   "devDependencies": {
     "@strapi-community/eslint-config": "^0.4.3",
-    "eslint": "^8.16.0",
+    "eslint": "^8.50.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.2",
     "react": "^18.2.0",

@@ -93,7 +93,7 @@ module.exports = () => ({
         startDate: startDate,
         endDate: endDate,
         color: config.colorField ? x[config.colorField] : null,
-        allDay: allDay, 
+        allDay: allDay,
       };
     });
   },
