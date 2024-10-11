@@ -1,70 +1,70 @@
 {
-  "name": "@offset-dev/strapi-calendar",
-  "version": "0.1.2",
-  "description": "Visual calendar for Strapi",
-  "strapi": {
-    "name": "calendar",
-    "displayName": "Calendar",
-    "description": "Visual calendar of events",
-    "kind": "plugin"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "Luis Rodriguez",
-    "url": "https://github.com/luisrodriguezld"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/offset-dev/strapi-calendar"
-  },
-  "scripts": {
-    "prepublish": "yarn lint",
-    "lint": "eslint ./",
-    "lint:fix": "eslint ./ --fix"
-  },
-  "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0",
-    "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.3"
-  },
-  "dependencies": {
-    "@devexpress/dx-react-core": "^3.0.3",
-    "@devexpress/dx-react-scheduler": "^3.0.3",
-    "@devexpress/dx-react-scheduler-material-ui": "^3.0.3",
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.8.0",
-    "@mui/lab": "^5.0.0-alpha.82",
-    "@mui/material": "^5.8.0",
-    "@mui/styles": "^5.8.0",
-    "@mui/x-date-pickers": "^5.0.0-beta.6",
-    "@strapi/design-system": "^1.6.3",
-    "@strapi/helper-plugin": "^4.6.0",
-    "@strapi/icons": "^1.6.3",
-    "deepmerge": "^4.2.2",
-    "moment": "^2.29.3",
-    "react-color": "^2.19.3",
-    "validate-color": "^2.2.1"
-  },
-  "maintainers": [
-    {
-      "name": "Luis Rodriguez",
-      "url": "https://github.com/luisrodriguezld"
-    }
-  ],
-  "engines": {
-    "node": ">=16.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
-  },
-  "devDependencies": {
-    "@strapi-community/eslint-config": "^0.4.3",
-    "eslint": "^8.50.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.6"
-  }
+	"name": "@offset-dev/strapi-calendar",
+	"version": "0.1.2",
+	"description": "Visual calendar for Strapi",
+	"strapi": {
+		"name": "calendar",
+		"displayName": "Calendar",
+		"description": "Visual calendar of events",
+		"kind": "plugin"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "Luis Rodriguez",
+		"url": "https://github.com/luisrodriguezld"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/offset-dev/strapi-calendar"
+	},
+	"scripts": {
+		"prepublish": "yarn lint",
+		"lint": "eslint ./",
+		"lint:fix": "eslint ./ --fix"
+	},
+	"peerDependencies": {
+		"react": "^17.0.0 || ^18.0.0",
+		"react-dom": "^17.0.0 || ^18.0.0",
+		"react-router-dom": "^5.3.4",
+		"styled-components": "^5.3.3"
+	},
+	"dependencies": {
+		"@devexpress/dx-react-core": "^3.0.3",
+		"@devexpress/dx-react-scheduler": "^3.0.3",
+		"@devexpress/dx-react-scheduler-material-ui": "^3.0.3",
+		"@emotion/react": "^11.9.0",
+		"@emotion/styled": "^11.8.1",
+		"@mui/icons-material": "^5.8.0",
+		"@mui/lab": "^5.0.0-alpha.82",
+		"@mui/material": "^5.8.0",
+		"@mui/styles": "^5.8.0",
+		"@mui/x-date-pickers": "^5.0.0-beta.6",
+		"@strapi/design-system": "^1.6.3",
+		"@strapi/helper-plugin": "^4.6.0",
+		"@strapi/icons": "^1.6.3",
+		"deepmerge": "^4.2.2",
+		"moment": "^2.29.3",
+		"react-color": "^2.19.3",
+		"validate-color": "^2.2.1"
+	},
+	"maintainers": [
+		{
+			"name": "Luis Rodriguez",
+			"url": "https://github.com/luisrodriguezld"
+		}
+	],
+	"engines": {
+		"node": ">=16.0.0 <=20.x.x",
+		"npm": ">=6.0.0"
+	},
+	"devDependencies": {
+		"@strapi-community/eslint-config": "^0.4.3",
+		"eslint": "^8.16.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"prettier": "^2.8.2",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^5.3.4",
+		"styled-components": "^5.3.6"
+	}
 }

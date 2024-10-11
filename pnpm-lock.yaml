@@ -64,7 +64,7 @@ importers:
         specifier: ^0.4.3
         version: 0.4.3(@babel/plugin-syntax-flow@7.25.7(@babel/core@7.25.8))(@babel/plugin-transform-react-jsx@7.25.7(@babel/core@7.25.8))(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.6.3))(eslint@8.57.1)(typescript@5.6.3)(webpack@5.95.0)
       eslint:
-        specifier: ^8.50.0
+        specifier: ^8.16.0
         version: 8.57.1
       eslint-plugin-prettier:
         specifier: ^4.2.1
