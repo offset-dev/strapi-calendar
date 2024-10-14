@@ -74,16 +74,28 @@ module.exports = () => ({
       if (config.drafts) return true;
       return x.publishedAt;
     });
-
-    return dataFiltered.map((x) => ({
-      id: x.id,
-      title: config.titleField ? x[config.titleField] : config.startField,
-      startDate: x[config.startField],
-      endDate: config.endField
+    return dataFiltered.map((x) => {
+      let startDate = x[config.startField];
+      let endDate = config.endField
         ? x[config.endField]
-        : moment(x[config.startField]).add(config.defaultDuration, 'minutes'),
-      color: config.colorField ? x[config.colorField] : null,
-    }));
+        : moment(x[config.startField]).add(config.defaultDuration, 'minutes').format();
+
+      const allDay = config.defaultDuration === 1440;
+
+      if (allDay) {
+        startDate = moment(startDate).startOf('day').format();
+        endDate = moment(endDate).endOf('day').format();
+      }
+
+      return {
+        id: x.id,
+        title: config.titleField ? x[config.titleField] : x[config.startField],
+        startDate: startDate,
+        endDate: endDate,
+        color: config.colorField ? x[config.colorField] : null,
+        allDay: allDay,
+      };
+    });
   },
   async getCollections() {
     const types = strapi.contentTypes;
