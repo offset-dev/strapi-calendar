@@ -1,70 +1,89 @@
 {
   "name": "@offset-dev/strapi-calendar",
-  "version": "0.1.2",
-  "description": "Visual calendar for Strapi",
-  "strapi": {
-    "name": "calendar",
-    "displayName": "Calendar",
-    "description": "Visual calendar of events",
-    "kind": "plugin"
-  },
-  "license": "MIT",
-  "author": {
-    "name": "Luis Rodriguez",
-    "url": "https://github.com/luisrodriguezld"
+  "version": "1.0.0",
+  "description": "Visualize your Strapi content in month, week or daily view",
+  "keywords": [],
+  "homepage": "https://github.com/offset-dev/strapi-calendar#readme",
+  "bugs": {
+    "url": "https://github.com/offset-dev/strapi-calendar/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/offset-dev/strapi-calendar"
+    "url": "git+ssh://git@github.com/offset-dev/strapi-calendar.git"
   },
+  "license": "MIT",
+  "author": "Luis Rodriguez",
+  "type": "commonjs",
+  "exports": {
+    "./package.json": "./package.json",
+    "./strapi-admin": {
+      "types": "./dist/admin/src/index.d.ts",
+      "source": "./admin/src/index.ts",
+      "import": "./dist/admin/index.mjs",
+      "require": "./dist/admin/index.js",
+      "default": "./dist/admin/index.js"
+    },
+    "./strapi-server": {
+      "types": "./dist/server/src/index.d.ts",
+      "source": "./server/src/index.ts",
+      "import": "./dist/server/index.mjs",
+      "require": "./dist/server/index.js",
+      "default": "./dist/server/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "prepublish": "yarn lint",
-    "lint": "eslint ./",
-    "lint:fix": "eslint ./ --fix"
-  },
-  "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0",
-    "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.3"
+    "prettier": "prettier --check ./",
+    "build": "strapi-plugin build",
+    "test:ts:back": "run -T tsc -p server/tsconfig.json",
+    "test:ts:front": "run -T tsc -p admin/tsconfig.json",
+    "verify": "strapi-plugin verify",
+    "watch": "strapi-plugin watch",
+    "watch:link": "strapi-plugin watch:link"
   },
   "dependencies": {
-    "@devexpress/dx-react-core": "^3.0.3",
-    "@devexpress/dx-react-scheduler": "^3.0.3",
-    "@devexpress/dx-react-scheduler-material-ui": "^3.0.3",
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.8.0",
-    "@mui/lab": "^5.0.0-alpha.82",
-    "@mui/material": "^5.8.0",
-    "@mui/styles": "^5.8.0",
-    "@mui/x-date-pickers": "^5.0.0-beta.6",
-    "@strapi/design-system": "^1.6.3",
-    "@strapi/helper-plugin": "^4.6.0",
-    "@strapi/icons": "^1.6.3",
-    "deepmerge": "^4.2.2",
-    "moment": "^2.29.3",
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/list": "^6.1.15",
+    "@fullcalendar/react": "^6.1.15",
+    "@fullcalendar/timegrid": "^6.1.15",
+    "@strapi/design-system": "^2.0.0-rc.11",
+    "@strapi/icons": "^2.0.0-rc.11",
+    "moment": "^2.30.1",
     "react-color": "^2.19.3",
+    "react-intl": "^6.6.8",
+    "tinycolor2": "^1.6.0",
     "validate-color": "^2.2.1"
   },
-  "maintainers": [
-    {
-      "name": "Luis Rodriguez",
-      "url": "https://github.com/luisrodriguezld"
-    }
-  ],
-  "engines": {
-    "node": ">=16.0.0 <=20.x.x",
-    "npm": ">=6.0.0"
-  },
   "devDependencies": {
-    "@strapi-community/eslint-config": "^0.4.3",
-    "eslint": "^8.16.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^5.3.4",
-    "styled-components": "^5.3.6"
+    "@strapi/sdk-plugin": "^5.2.6",
+    "@strapi/strapi": "^5.0.0",
+    "@strapi/typescript-utils": "^5.0.0",
+    "@types/react": "^18.3.8",
+    "@types/react-color": "^3.0.12",
+    "@types/react-dom": "^18.3.0",
+    "@types/tinycolor2": "^1.4.6",
+    "prettier": "^3.3.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "styled-components": "^6.1.13",
+    "typescript": "^5.6.2"
+  },
+  "peerDependencies": {
+    "@strapi/sdk-plugin": "^5.2.6",
+    "@strapi/strapi": "^5.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
+    "styled-components": "^6.1.13"
+  },
+  "strapi": {
+    "kind": "plugin",
+    "name": "strapi-calendar",
+    "displayName": "Strapi Calendar",
+    "description": "Visualize your Strapi content in month, week or daily view"
   }
 }

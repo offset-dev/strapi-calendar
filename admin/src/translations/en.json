@@ -28,6 +28,7 @@
   "view.settings.section.general.default-duration.2h": "2 Hours",
   "view.settings.section.general.default-duration.fullDay": "Full Day",
   "view.settings.section.general.start.label": "Choose your start field",
+  "view.settings.section.general.start.none": "No start field",
   "view.settings.section.general.end.label": "Choose your end field",
   "view.settings.section.general.end.none": "No end field",
   "view.settings.section.general.display-drafts.label": "Display Drafts",

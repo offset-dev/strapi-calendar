@@ -1,11 +1,9 @@
-name: publish
+name: verify
 on:
-  push:
-    branches:
-      - master
+  - pull_request
 
 jobs:
-  publish:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -21,7 +19,3 @@ jobs:
         run: npm run build
       - name: verify
         run: npm run verify
-
-      - uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
