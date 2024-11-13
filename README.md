@@ -21,6 +21,7 @@
 </p>
 
 ## V1 Features
+
 - New Calendar Library (Now using [FullCalendar](https://fullcalendar.io))
 - New Reset Settings endpoint (/strapi-calendar/clear-settings)
 - Fully compatible with Strapi 5
@@ -51,6 +52,7 @@ Here you can select which collection and fields to use.
 You can also customize the calendar style and options.
 
 ## Coffee Support
+
 Absolutely no pressure, but if you found this plugin helpful and want to buy me a coffee, you can do it [here](https://donate.stripe.com/9AQcPq8MnerG39C8wx)
 
 ![Alt Text](https://i.giphy.com/LG1ZZP1Go0D8j7YsWy.webp)
