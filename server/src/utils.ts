@@ -47,6 +47,7 @@ export const initHandlers = (
   ) =>
     (
       await strapi.documents(config.collection).findMany({
+        status: config.drafts ? 'all' : 'published',
         filters: {
           $and: [
             {

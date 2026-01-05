@@ -26,14 +26,8 @@ const service = ({ strapi }: { strapi: Core.Strapi }) => ({
       data = merge(await endHandler(strapi, config, data), data);
     }
 
-    // Filter out drafts if not configured to show them
-    const dataFiltered = Object.values(data).filter((x) => {
-      if (config.drafts) return true;
-      return x.publishedAt;
-    });
-
     // Map data into the required format
-    return dataFiltered.map((x) => ({
+    return Object.values(data).map((x) => ({
       id: x.documentId,
       title: config.titleField ? x[config.titleField] : config.startField,
       start: x[config.startField],
