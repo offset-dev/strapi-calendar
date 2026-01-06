@@ -6,6 +6,7 @@ export type SettingsType = {
   titleField: null | string;
   colorField: null | string;
   defaultDuration: number;
+  contentManager: boolean;
   drafts: boolean;
   startHour: string;
   endHour: string;

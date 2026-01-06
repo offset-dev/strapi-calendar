@@ -7,6 +7,7 @@ const defaultSettings: SettingsType = {
   titleField: null,
   colorField: null,
   defaultDuration: 30,
+  contentManager: true,
   drafts: true,
   startHour: '9:00',
   endHour: '18:00',
