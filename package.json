@@ -85,5 +85,8 @@
     "name": "strapi-calendar",
     "displayName": "Strapi Calendar",
     "description": "Visualize your Strapi content in month, week or daily view"
+  },
+  "volta": {
+    "node": "20.19.6"
   }
 }
