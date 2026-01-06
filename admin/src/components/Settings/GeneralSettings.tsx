@@ -270,6 +270,40 @@ const GeneralSettings = () => {
           />
         </Field.Root>
       </Grid.Item>
+
+      <Grid.Item s={12}>
+        <Field.Root
+          style={{ minWidth: 300 }}
+          hint={formatMessage({
+            id: getTranslation('view.settings.section.general.use-content-manager.description'),
+            defaultMessage: 'Ensures content on the calendar matches your Permissions',
+          })}
+        >
+          <Field.Label>
+            {formatMessage({
+              id: getTranslation('view.settings.section.general.use-content-manager.label'),
+              defaultMessage: 'Use Content Manager Plugin',
+            })}
+          </Field.Label>
+          <Toggle
+            checked={settings.contentManager}
+            offLabel={formatMessage({
+              id: getTranslation('view.settings.section.general.use-content-manager.off'),
+              defaultMessage: 'Disabled',
+            })}
+            onLabel={formatMessage({
+              id: getTranslation('view.settings.section.general.use-content-manager.on'),
+              defaultMessage: 'Enabled',
+            })}
+            onChange={(e: any) => {
+              updateField({
+                contentManager: e.target.checked,
+              });
+            }}
+          />
+          <Field.Hint />
+        </Field.Root>
+      </Grid.Item>
     </Grid.Root>
   );
 };
