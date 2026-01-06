@@ -1,5 +1,6 @@
 import React from 'react';
 import { Layouts } from '@strapi/admin/strapi-admin';
+import { Page } from '@strapi/strapi/admin';
 import { Cog, Plus } from '@strapi/icons';
 import tinyColor from 'tinycolor2';
 import { EmptyStateLayout, LinkButton, Box, Loader } from '@strapi/design-system';
@@ -15,6 +16,7 @@ import { PLUGIN_ID } from '../pluginId';
 import { getTranslation } from '../utils/getTranslation';
 import Illo from '../components/Calendar/Illo';
 import { useSettings } from '../context/Settings';
+import pluginPermissions from '../permissions';
 
 const CalendarPage = () => {
   const theme = useTheme();
@@ -149,7 +151,7 @@ const CalendarPage = () => {
   `;
 
   return (
-    <>
+    <Page.Protect permissions={pluginPermissions.accessCalendar}>
       <Layouts.Header
         title={formatMessage({ id: getTranslation('plugin.name'), defaultMessage: 'Calendar' })}
         subtitle={formatMessage({
@@ -210,7 +212,7 @@ const CalendarPage = () => {
           />
         </Box>
       </Layouts.Content>
-    </>
+    </Page.Protect>
   );
 };
 

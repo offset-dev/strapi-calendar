@@ -1,6 +1,7 @@
 import { PLUGIN_ID } from './pluginId';
 import { Initializer } from './components/Initializer';
 import { PluginIcon } from './components/PluginIcon';
+import pluginPermissions from './permissions';
 
 export default {
   register(app: any) {
@@ -14,6 +15,7 @@ export default {
       Component: () => {
         return import('./pages/App');
       },
+      permissions: [pluginPermissions.accessCalendar[0]],
     });
 
     app.createSettingSection(
@@ -35,6 +37,7 @@ export default {
           Component: () => {
             return import('./pages/SettingsPage');
           },
+          permissions: [pluginPermissions.accessCalendarSettings[0]],
         },
       ]
     );
