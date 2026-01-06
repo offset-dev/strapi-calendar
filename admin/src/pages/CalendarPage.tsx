@@ -1,8 +1,9 @@
 import React from 'react';
-import { Layouts } from '@strapi/admin/strapi-admin';
+import { Layouts, useFetchClient } from '@strapi/admin/strapi-admin';
 import { Page } from '@strapi/strapi/admin';
 import { Cog, Plus } from '@strapi/icons';
 import tinyColor from 'tinycolor2';
+import moment from 'moment/moment';
 import { EmptyStateLayout, LinkButton, Box, Loader } from '@strapi/design-system';
 import { useIntl } from 'react-intl';
 
@@ -17,9 +18,11 @@ import { getTranslation } from '../utils/getTranslation';
 import Illo from '../components/Calendar/Illo';
 import { useSettings } from '../context/Settings';
 import pluginPermissions from '../permissions';
+import getToken from '../utils/getToken';
 
 const CalendarPage = () => {
   const theme = useTheme();
+  const { get } = useFetchClient();
 
   const { settings, loading } = useSettings();
   const { formatMessage } = useIntl();
@@ -150,6 +153,58 @@ const CalendarPage = () => {
     }
   `;
 
+  const fetchEvents = async (fetchInfo: any) => {
+    /**
+     * By using Content Manager, events are fetched directly from the content manager plugin,
+     * ensuring that only content visible to the user is displayed on the calendar.
+     */
+    if (settings.contentManager) {
+      const token = getToken();
+      const startFilter = `filters[$and][0][${settings.startField}][$gte]`;
+      const endFilter = `filters[$and][1][${settings.endField}][$lte]`;
+
+      const data = await get(`/content-manager/collection-types/${settings.collection}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          page: 1,
+          pageSize: 10_000,
+          status: settings.drafts ? undefined : 'published',
+          [startFilter]: fetchInfo.startStr,
+          [endFilter]: fetchInfo.endStr,
+        },
+      });
+
+      return data.data.results.map((x: any) => ({
+        id: x.documentId,
+        title: settings.titleField ? x[settings.titleField] : settings.startField,
+        start: x[settings.startField!],
+        end: settings.endField
+          ? x[settings.endField]
+          : moment(x[settings.startField!]).add(settings.defaultDuration, 'minutes'),
+        backgroundColor:
+          settings.colorField && x[settings.colorField]
+            ? x[settings.colorField]
+            : settings.eventColor,
+        borderColor:
+          settings.colorField && x[settings.colorField]
+            ? x[settings.colorField]
+            : settings.eventColor,
+        url: `/admin/content-manager/collection-types/${settings.collection}/${x.documentId}`,
+      }));
+    }
+
+    // Else, fetch bypassing RBAC permissions
+    const { data } = await get(`/${PLUGIN_ID}/`, {
+      params: {
+        start: fetchInfo.startStr,
+        end: fetchInfo.endStr,
+      },
+    });
+    return data;
+  };
+
   return (
     <Page.Protect permissions={pluginPermissions.accessCalendar}>
       <Layouts.Header
@@ -174,7 +229,7 @@ const CalendarPage = () => {
         >
           <style>{sty}</style>
           <FullCalendar
-            events={`/${PLUGIN_ID}/`}
+            events={fetchEvents}
             plugins={[dayGridPlugin, timeGridPlugin, listPlugin]}
             initialView={initialView}
             slotMinTime={settings.startHour}
