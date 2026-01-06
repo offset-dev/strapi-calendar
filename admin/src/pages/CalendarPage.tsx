@@ -18,7 +18,6 @@ import { getTranslation } from '../utils/getTranslation';
 import Illo from '../components/Calendar/Illo';
 import { useSettings } from '../context/Settings';
 import pluginPermissions from '../permissions';
-import getToken from '../utils/getToken';
 
 const CalendarPage = () => {
   const theme = useTheme();
@@ -159,14 +158,10 @@ const CalendarPage = () => {
      * ensuring that only content visible to the user is displayed on the calendar.
      */
     if (settings.contentManager) {
-      const token = getToken();
       const startFilter = `filters[$and][0][${settings.startField}][$gte]`;
       const endFilter = `filters[$and][1][${settings.endField}][$lte]`;
 
       const data = await get(`/content-manager/collection-types/${settings.collection}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
         params: {
           page: 1,
           pageSize: 10_000,
